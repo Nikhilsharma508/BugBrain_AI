@@ -1,0 +1,54 @@
+# ============================================================
+# Severity Policy — P1 to P4 Thresholds
+# ============================================================
+# This file defines the rules the AI uses to assign severity levels.
+# Product Managers can edit this file without touching Python code.
+# The TriageAgent loads these rules and includes them in the LLM prompt.
+# ============================================================
+
+severity_levels:
+  P1_Critical:
+    label: "P1 (Critical)"
+    description: "System down, revenue impacting, or blocks core functionality for many users"
+    conditions:
+      - "Prevents user login or authentication"
+      - "Blocks checkout or payment processing"
+      - "Causes data loss or corruption"
+      - "Affects more than 100 users"
+      - "Complete application crash or system outage"
+    response_time: "Immediate — within 1 hour"
+
+  P2_High:
+    label: "P2 (High)"
+    description: "Major feature broken but workaround exists"
+    conditions:
+      - "Core feature broken with a known workaround"
+      - "Affects 10-100 users"
+      - "Performance degradation exceeding 5x normal"
+      - "Intermittent crashes in key workflows"
+    response_time: "Within 4 hours"
+
+  P3_Medium:
+    label: "P3 (Medium)"
+    description: "Non-core feature issue with limited user impact"
+    conditions:
+      - "Non-core feature is broken"
+      - "Affects 1-10 users"
+      - "Functionality available through alternative path"
+      - "Minor data inconsistency with no loss"
+    response_time: "Within 24 hours"
+
+  P4_Low:
+    label: "P4 (Low)"
+    description: "Cosmetic, trivial, or enhancement request"
+    conditions:
+      - "Typo or visual glitch"
+      - "Affects 1 user with easy workaround"
+      - "Enhancement request or nice-to-have"
+      - "Documentation issue"
+    response_time: "Next sprint"
+
+# ============================================================
+# Default: If no conditions match, assign P3 as a safe default.
+# ============================================================
+default_severity: "P3_Medium"

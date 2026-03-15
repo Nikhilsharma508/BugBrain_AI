@@ -1,0 +1,10 @@
+[project]
+name = "uc20-bug-report-summarizer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "langchain>=1.2.12",
+    "pandas>=3.0.1",
+]

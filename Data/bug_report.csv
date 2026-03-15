@@ -1,0 +1,1487 @@
+Id,Bug Details
+1,"ts
+(Initializer.java:52)
+""	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod""
+(TypeDeclaration.java:695)
+""	at org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies""
+(Compiler.java:256)
+""	at org.eclipse.jdt.internal.compiler.Compiler.process(Compiler.java:363)""
+""	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:202)""
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.AbstractImageBuilder.compile
+(AbstractImageBuilder.java:90)
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDe
+lta(IncrementalImageBuilder.java:264)
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.incrementalBuild
+(JavaBuilder.java:210)
+""	at org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.build""
+(JavaBuilder.java:54)
+""	at org.eclipse.core.internal.events.BuildManager$1.run""
+(BuildManager.java:93)
+""	at org.eclipse.core.internal.runtime.InternalPlatform.run""
+(InternalPlatform.java:761)
+""	at org.eclipse.core.runtime.Platform.run(Platform.java:393)""
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:114)
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:73)
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:41)
+""	at org.eclipse.core.internal.events.BuildManager$2.run""
+(BuildManager.java:140)
+""	at org.eclipse.core.internal.runtime.InternalPlatform.run""
+(InternalPlatform.java:761)
+""	at org.eclipse.core.runtime.Platform.run(Platform.java:393)""
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:154)
+""	at org.eclipse.core.internal.events.BuildManager.build""
+(BuildManager.java:174)
+""	at org.eclipse.core.internal.resources.Workspace.endOperation""
+(Workspace.java:663)
+""	at org.eclipse.core.internal.resources.Workspace.run""
+(Workspace.java:1202)
+""	at org.eclipse.ui.actions.WorkspaceModifyOperation.run""
+(WorkspaceModifyOperation.java:78)
+""	at org.eclipse.ui.texteditor.AbstractTextEditor.performSaveOperation""
+(AbstractTextEditor.java:1484)
+""	at ""
+com.ibm.etools.ejb.ui.java.copies.OveridableCompilationUnitEditor.doSave
+(OveridableCompilationUnitEditor.java:208)
+""	at org.eclipse.ui.internal.EditorManager$9.run(EditorManager.java:712)""
+""	at org.eclipse.jface.operation.ModalContext.runInCurrentThread""
+(ModalContext.java:296)
+""	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:249)""
+""	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run""
+(ProgressMonitorDialog.java:335)
+""	at org.eclipse.ui.internal.EditorManager.runProgressMonitorOperation""
+(EditorManager.java:570)
+""	at org.eclipse.ui.internal.EditorManager.saveEditor""
+(EditorManager.java:717)
+""	at org.eclipse.ui.internal.WorkbenchPage.saveEditor""
+(WorkbenchPage.java:1225)
+""	at org.eclipse.ui.internal.SaveAction.run(SaveAction.java:31)""
+""	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection""
+(ActionContributionItem.java:407)
+""	at org.eclipse.jface.action.ActionContributionItem.handleWidgetEvent""
+(ActionContributionItem.java:361)
+""	at org.eclipse.jface.action.ActionContributionItem.access$0""
+(ActionContributionItem.java:352)
+""	at ""
+org.eclipse.jface.action.ActionContributionItem$ActionListener.handleEvent
+(ActionContributionItem.java:47)
+""	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java(Compiled ""
+Code))
+""	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java(Compiled ""
+Code))
+""	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java""
+(Compiled Code))
+""	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java""
+(Compiled Code))
+""	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java""
+(Compiled Code))
+""	at org.eclipse.ui.internal.Workbench.run(Workbench.java:656)""
+""	at org.eclipse.core.internal.boot.InternalBootLoader.run""
+(InternalBootLoader.java:815)
+""	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:285)""
+""	at java.lang.reflect.Method.invoke(Native Method)""
+""	at org.eclipse.core.launcher.Main.basicRun(Main.java:151)""
+""	at org.eclipse.core.launcher.Main.run(Main.java:451)""
+""	at org.eclipse.core.launcher.Main.main(Main.java:324)""
+Log: Fri May 10 11:46:52 GMT+03:00 2002
+2 org.eclipse.core.resources 2 Problems occurred when invoking code from plug-
+in: org.eclipse.core.resources.
+java.lang.ClassCastException: 
+org.eclipse.jdt.internal.compiler.ast.FieldDeclaration
+""	at ""
+org.eclipse.jdt.internal.compiler.parser.Parser.buildInitialRecoveryState
+(Parser.java:539)
+""	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java""
+(Compiled Code))
+""	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java""
+(Compiled Code))
+""	at org.eclipse.jdt.internal.compiler.parser.Parser.parse""
+(Parser.java:6362)
+""	at org.eclipse.jdt.internal.compiler.ast.Initializer.parseStatements""
+(Initializer.java:52)
+""	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod""
+(TypeDeclaration.java:695)
+""	at org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies""
+(Compiler.java:256)
+""	at org.eclipse.jdt.internal.compiler.Compiler.process(Compiler.java:363)""
+""	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:202)""
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.AbstractImageBuilder.compile
+(AbstractImageBuilder.java:90)
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDe
+lta(IncrementalImageBuilder.java:264)
+""	at ""
+org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.incrementalBuild
+(JavaBuilder.java:210)
+""	at org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.build""
+(JavaBuilder.java:54)
+""	at org.eclipse.core.internal.events.BuildManager$1.run""
+(BuildManager.java:93)
+""	at org.eclipse.core.internal.runtime.InternalPlatform.run""
+(InternalPlatform.java(Compiled Code))
+""	at org.eclipse.core.runtime.Platform.run(Platform.java(Compiled Code))""
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:114)
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:73)
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:41)
+""	at org.eclipse.core.internal.events.BuildManager$2.run""
+(BuildManager.java:140)
+""	at org.eclipse.core.internal.runtime.InternalPlatform.run""
+(InternalPlatform.java(Compiled Code))
+""	at org.eclipse.core.runtime.Platform.run(Platform.java(Compiled Code))""
+""	at org.eclipse.core.internal.events.BuildManager.basicBuild""
+(BuildManager.java:154)
+""	at org.eclipse.core.internal.events.BuildManager.build""
+(BuildManager.java:174)
+""	at org.eclipse.core.internal.resources.Workspace.endOperation""
+(Workspace.java:663)
+""	at org.eclipse.core.internal.resources.Workspace.run""
+(Workspace.java:1202)
+""	at org.eclipse.ui.actions.WorkspaceModifyOperation.run""
+(WorkspaceModifyOperation.java:78)
+""	at org.eclipse.ui.texteditor.AbstractTextEditor.performSaveOperation""
+(AbstractTextEditor.java:1484)
+""	at ""
+com.ibm.etools.ejb.ui.java.copies.OveridableCompilationUnitEditor.doSave
+(OveridableCompilationUnitEditor.java:208)
+""	at org.eclipse.ui.internal.EditorManager$9.run(EditorManager.java:712)""
+""	at org.eclipse.jface.operation.ModalContext.runInCurrentThread""
+(ModalContext.java:296)
+""	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:249)""
+""	at org.eclipse.jface.dialogs.ProgressMonitorDialog.run""
+(ProgressMonitorDialog.java:335)
+""	at org.eclipse.ui.internal.EditorManager.runProgressMonitorOperation""
+(EditorManager.java:570)
+""	at org.eclipse.ui.internal.EditorManager.saveEditor""
+(EditorManager.java:717)
+""	at org.eclipse.ui.internal.WorkbenchPage.saveEditor""
+(WorkbenchPage.java:1225)
+""	at org.eclipse.ui.internal.SaveAction.run(SaveAction.java:31)""
+""	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection""
+(ActionContributionItem.java:407)
+""	at org.eclipse.jface.action.ActionContributionItem.handleWidgetEvent""
+(ActionContributionItem.java:361)
+""	at org.eclipse.jface.action.ActionContributionItem.access$0""
+(ActionContributionItem.java:352)
+""	at ""
+org.eclipse.jface.action.ActionContributionItem$ActionListener.handleEvent
+(ActionContributionItem.java:47)
+""	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java(Compiled ""
+Code))
+""	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java(Compiled ""
+Code))
+""	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java""
+(Compiled Code))
+""	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java""
+(Compiled Code))
+""	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java""
+(Compiled Code))
+""	at org.eclipse.ui.internal.Workbench.run(Workbench.java:656)""
+""	at org.eclipse.core.internal.boot.InternalBootLoader.run""
+(InternalBootLoader.java:815)
+""	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:285)""
+""	at java.lang.reflect.Method.invoke(Native Method)""
+""	at org.eclipse.core.launcher.Main.basicRun(Main.java:151)""
+""	at org.eclipse.core.launcher.Main.run(Main.java:451)"""
+2,"eElementsOperation.processEl
+ements(CopyResourceElementsOperation.java:390)
+        at org.eclipse.jdt.internal.core.MultiOperation.executeOperation(MultiOp
+eration.java:90)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperati
+on.java:700)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaMod
+elOperation.java:744)
+        at org.eclipse.jdt.internal.core.JavaModel.rename(JavaModel.java:302)
+        at org.eclipse.jdt.internal.core.CompilationUnit.rename(CompilationUnit.
+java:1119)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.RenameCompilation
+UnitChange.doRename(RenameCompilationUnitChange.java:64)
+        at org.eclipse.jdt.internal.corext.refactoring.AbstractJavaElementRename
+Change.perform(AbstractJavaElementRenameChange.java:67)
+        at org.eclipse.ltk.core.refactoring.CompositeChange.perform(CompositeCha
+nge.java:262)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange.access$0(DynamicValidationStateChange.java:1)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange$1.run(DynamicValidationStateChange.java:76)
+        at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOp
+eration.java:34)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperati
+on.java:700)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3672)
+        at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3629)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange.perform(DynamicValidationStateChange.java:79)
+        at org.eclipse.ltk.core.refactoring.CompositeChange.perform(CompositeCha
+nge.java:262)
+        at org.eclipse.ltk.core.refactoring.PerformChangeOperation$1.run(Perform
+ChangeOperation.java:228)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1696
+)
+        at org.eclipse.ltk.core.refactoring.PerformChangeOperation.executeChange
+(PerformChangeOperation.java:273)
+        at org.eclipse.ltk.internal.ui.refactoring.UIPerformChangeOperation.acce
+ss$4(UIPerformChangeOperation.java:1)
+        at org.eclipse.ltk.internal.ui.refactoring.UIPerformChangeOperation$1.ru
+n(UIPerformChangeOperation.java:64)
+        at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+        at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.ja
+va:118)
+        at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2780)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2451)
+        at org.eclipse.jface.operation.ModalContext$ModalContextThread.block(Mod
+alContext.java:141)
+        at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:279)
+        at org.eclipse.ltk.internal.ui.refactoring.RefactoringWizardDialog2.run(
+RefactoringWizardDialog2.java:282)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizard.internalPerformFinis
+h(RefactoringWizard.java:539)
+        at org.eclipse.ltk.internal.ui.refactoring.PreviewWizardPage.performFini
+sh(PreviewWizardPage.java:175)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizard.performFinish(Refact
+oringWizard.java:605)
+        at org.eclipse.ltk.internal.ui.refactoring.RefactoringWizardDialog2.okPr
+essed(RefactoringWizardDialog2.java:406)
+        at org.eclipse.jface.dialogs.Dialog.buttonPressed(Dialog.java:396)
+        at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Dialog.java:543)
+        at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:
+89)
+        at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:814)
+        at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2803)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2448)
+        at org.eclipse.jface.window.Window.runEventLoop(Window.java:718)
+        at org.eclipse.jface.window.Window.open(Window.java:696)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation$1.run(R
+efactoringWizardOpenOperation.java:125)
+        at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation.run(Ref
+actoringWizardOpenOperation.java:138)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RefactoringStarter.ac
+tivate(RefactoringStarter.java:40)
+        at org.eclipse.jdt.internal.ui.refactoring.UserInterfaceStarter.activate
+(UserInterfaceStarter.java:56)
+        at org.eclipse.jdt.internal.ui.refactoring.reorg.RenameUserInterfaceStar
+ter.activate(RenameUserInterfaceStarter.java:113)
+        at org.eclipse.jdt.ui.refactoring.RenameSupport.openDialog(RenameSupport
+.java:114)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RenameJavaElementActi
+on.run(RenameJavaElementAction.java:178)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RenameJavaElementActi
+on.run(RenameJavaElementAction.java:131)
+        at org.eclipse.jdt.ui.actions.RenameAction.run(RenameAction.java:116)
+        at org.eclipse.jdt.ui.actions.SelectionDispatchAction.dispatchRun(Select
+ionDispatchAction.java:216)
+        at org.eclipse.jdt.ui.actions.SelectionDispatchAction.run(SelectionDispa
+tchAction.java:188)
+        at org.eclipse.jface.action.Action.runWithEvent(Action.java:989)
+        at org.eclipse.ui.commands.ActionHandler.execute(ActionHandler.java:188)
+
+        at org.eclipse.ui.internal.commands.Command.execute(Command.java:130)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(Workben
+chKeyboard.java:445)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboar
+d.java:724)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(Workbe
+nchKeyboard.java:767)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindi
+ngs(WorkbenchKeyboard.java:536)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$2(WorkbenchKeyb
+oard.java:479)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard$1.handleEvent(Workbenc
+hKeyboard.java:221)
+        at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+        at org.eclipse.swt.widgets.Display.filterEvent(Display.java:752)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:813)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:838)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:823)
+        at org.eclipse.swt.widgets.Control.traverse(Control.java:2734)
+        at org.eclipse.swt.widgets.Control.translateMnemonic(Control.java:2575)
+        at org.eclipse.swt.widgets.Composite.translateMnemonic(Composite.java:78
+6)
+        at org.eclipse.swt.widgets.Control.translateMnemonic(Control.java:2593)
+        at org.eclipse.swt.widgets.Display.translateMnemonic(Display.java:3223)
+        at org.eclipse.swt.widgets.Display.filterMessage(Display.java:766)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2444)
+        at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1579)
+        at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1550)
+        at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.jav
+a:282)
+        at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:144)
+        at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:10
+2)
+        at org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformAct
+ivator.java:220)
+        at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.ja
+va:273)
+        at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.ja
+va:129)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.
+java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAcces
+sorImpl.java:25)
+        at java.lang.reflect.Method.invoke(Method.java:324)
+        at org.eclipse.core.launcher.Main.basicRun(Main.java:185)
+        at org.eclipse.core.launcher.Main.run(Main.java:710)
+        at org.eclipse.core.launcher.Main.main(Main.java:694)
+!SUBENTRY 1 org.eclipse.core.resources 4 272 2004-12-08 17:01:27.55
+!MESSAGE Could not write file: c:\local\eclipse\workspace\current\org.eclipse.ui
+.workbench.texteditor\src\org\eclipse\ui\texteditor\spelling\DefaultSpellingProb
+lem.java.
+!STACK 0
+java.io.FileNotFoundException: c:\local\eclipse\workspace\current\org.eclipse.ui
+.workbench.texteditor\src\org\eclipse\ui\texteditor\spelling\DefaultSpellingProb
+lem.java (The requested operation cannot be performed on a file with a user-mapp
+ed section open)
+        at java.io.FileOutputStream.open(Native Method)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+        at java.io.FileOutputStream.<init>(FileOutputStream.java:102)
+        at org.eclipse.core.internal.localstore.FileSystemStore.createStream(Fil
+eSystemStore.java:103)
+        at org.eclipse.core.internal.localstore.FileSystemStore.write(FileSystem
+Store.java:384)
+        at org.eclipse.core.internal.localstore.FileSystemResourceManager.write(
+FileSystemResourceManager.java:788)
+        at org.eclipse.core.internal.resources.File.internalSetContents(File.jav
+a:295)
+        at org.eclipse.core.internal.resources.File.setContents(File.java:339)
+        at org.eclipse.jdt.internal.core.CopyResourceElementsOperation.processCo
+mpilationUnitResource(CopyResourceElementsOperation.java:296)
+        at org.eclipse.jdt.internal.core.CopyResourceElementsOperation.processEl
+ement(CopyResourceElementsOperation.java:372)
+        at org.eclipse.jdt.internal.core.MultiOperation.processElements(MultiOpe
+ration.java:160)
+        at org.eclipse.jdt.internal.core.CopyResourceElementsOperation.processEl
+ements(CopyResourceElementsOperation.java:390)
+        at org.eclipse.jdt.internal.core.MultiOperation.executeOperation(MultiOp
+eration.java:90)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperati
+on.java:700)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaMod
+elOperation.java:744)
+        at org.eclipse.jdt.internal.core.JavaModel.rename(JavaModel.java:302)
+        at org.eclipse.jdt.internal.core.CompilationUnit.rename(CompilationUnit.
+java:1119)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.RenameCompilation
+UnitChange.doRename(RenameCompilationUnitChange.java:64)
+        at org.eclipse.jdt.internal.corext.refactoring.AbstractJavaElementRename
+Change.perform(AbstractJavaElementRenameChange.java:67)
+        at org.eclipse.ltk.core.refactoring.CompositeChange.perform(CompositeCha
+nge.java:262)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange.access$0(DynamicValidationStateChange.java:1)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange$1.run(DynamicValidationStateChange.java:76)
+        at org.eclipse.jdt.internal.core.BatchOperation.executeOperation(BatchOp
+eration.java:34)
+        at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperati
+on.java:700)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3672)
+        at org.eclipse.jdt.core.JavaCore.run(JavaCore.java:3629)
+        at org.eclipse.jdt.internal.corext.refactoring.changes.DynamicValidation
+StateChange.perform(DynamicValidationStateChange.java:79)
+        at org.eclipse.ltk.core.refactoring.CompositeChange.perform(CompositeCha
+nge.java:262)
+        at org.eclipse.ltk.core.refactoring.PerformChangeOperation$1.run(Perform
+ChangeOperation.java:228)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1676
+)
+        at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:1696
+)
+        at org.eclipse.ltk.core.refactoring.PerformChangeOperation.executeChange
+(PerformChangeOperation.java:273)
+        at org.eclipse.ltk.internal.ui.refactoring.UIPerformChangeOperation.acce
+ss$4(UIPerformChangeOperation.java:1)
+        at org.eclipse.ltk.internal.ui.refactoring.UIPerformChangeOperation$1.ru
+n(UIPerformChangeOperation.java:64)
+        at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+        at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.ja
+va:118)
+        at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2780)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2451)
+        at org.eclipse.jface.operation.ModalContext$ModalContextThread.block(Mod
+alContext.java:141)
+        at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:279)
+        at org.eclipse.ltk.internal.ui.refactoring.RefactoringWizardDialog2.run(
+RefactoringWizardDialog2.java:282)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizard.internalPerformFinis
+h(RefactoringWizard.java:539)
+        at org.eclipse.ltk.internal.ui.refactoring.PreviewWizardPage.performFini
+sh(PreviewWizardPage.java:175)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizard.performFinish(Refact
+oringWizard.java:605)
+        at org.eclipse.ltk.internal.ui.refactoring.RefactoringWizardDialog2.okPr
+essed(RefactoringWizardDialog2.java:406)
+        at org.eclipse.jface.dialogs.Dialog.buttonPressed(Dialog.java:396)
+        at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Dialog.java:543)
+        at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:
+89)
+        at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:814)
+        at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2803)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2448)
+        at org.eclipse.jface.window.Window.runEventLoop(Window.java:718)
+        at org.eclipse.jface.window.Window.open(Window.java:696)
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation$1.run(R
+efactoringWizardOpenOperation.java:125)
+        at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+
+        at org.eclipse.ltk.ui.refactoring.RefactoringWizardOpenOperation.run(Ref
+actoringWizardOpenOperation.java:138)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RefactoringStarter.ac
+tivate(RefactoringStarter.java:40)
+        at org.eclipse.jdt.internal.ui.refactoring.UserInterfaceStarter.activate
+(UserInterfaceStarter.java:56)
+        at org.eclipse.jdt.internal.ui.refactoring.reorg.RenameUserInterfaceStar
+ter.activate(RenameUserInterfaceStarter.java:113)
+        at org.eclipse.jdt.ui.refactoring.RenameSupport.openDialog(RenameSupport
+.java:114)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RenameJavaElementActi
+on.run(RenameJavaElementAction.java:178)
+        at org.eclipse.jdt.internal.ui.refactoring.actions.RenameJavaElementActi
+on.run(RenameJavaElementAction.java:131)
+        at org.eclipse.jdt.ui.actions.RenameAction.run(RenameAction.java:116)
+        at org.eclipse.jdt.ui.actions.SelectionDispatchAction.dispatchRun(Select
+ionDispatchAction.java:216)
+        at org.eclipse.jdt.ui.actions.SelectionDispatchAction.run(SelectionDispa
+tchAction.java:188)
+        at org.eclipse.jface.action.Action.runWithEvent(Action.java:989)
+        at org.eclipse.ui.commands.ActionHandler.execute(ActionHandler.java:188)
+
+        at org.eclipse.ui.internal.commands.Command.execute(Command.java:130)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(Workben
+chKeyboard.java:445)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboar
+d.java:724)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(Workbe
+nchKeyboard.java:767)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindi
+ngs(WorkbenchKeyboard.java:536)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$2(WorkbenchKeyb
+oard.java:479)
+        at org.eclipse.ui.internal.keys.WorkbenchKeyboard$1.handleEvent(Workbenc
+hKeyboard.java:221)
+        at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+        at org.eclipse.swt.widgets.Display.filterEvent(Display.java:752)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:813)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:838)
+        at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:823)
+        at org.eclipse.swt.widgets.Control.traverse(Control.java:2734)
+        at org.eclipse.swt.widgets.Control.translateMnemonic(Control.java:2575)
+        at org.eclipse.swt.widgets.Composite.translateMnemonic(Composite.java:78
+6)
+        at org.eclipse.swt.widgets.Control.translateMnemonic(Control.java:2593)
+        at org.eclipse.swt.widgets.Display.translateMnemonic(Display.java:3223)
+        at org.eclipse.swt.widgets.Display.filterMessage(Display.java:766)
+        at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2444)
+        at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1579)
+        at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1550)
+        at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.jav
+a:282)
+        at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:144)
+        at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:10
+2)
+        at org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformAct
+ivator.java:220)
+        at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.ja
+va:273)
+        at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.ja
+va:129)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.
+java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAcces
+sorImpl.java:25)
+        at java.lang.reflect.Method.invoke(Method.java:324)
+        at org.eclipse.core.launcher.Main.basicRun(Main.java:185)
+        at org.eclipse.core.launcher.Main.run(Main.java:710)"
+3,"mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/commons-digester.jar						
+8262c000-82632000 r-xs 00000000 09:01 573741                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/commons-logging-api.jar						
+8263a000-826b5000 rwxp 8263a000 00:00 0						
+826b5000-82715000 rw-s 00000000 00:06 182222888                         						
+/SYSV00000000 (deleted)						
+82715000-8273a000 r-xs 00000000 09:01 766479                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/xml-apis.jar						
+8273a000-8275f000 r-xs 00000000 09:01 568956                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.pde_3.1.0.jar						
+82770000-82786000 r-xs 00000000 09:01 573948                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.core.filebuffers_3.1.0.jar						
+82786000-827ef000 r-xs 00000000 09:01 645407                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.compare_3.1.0.jar						
+82800000-82dfa000 rwxp 82800000 00:00 0						
+82dfa000-82e00000 ---p 82dfa000 00:00 0						
+82e00000-82e10000 r-xs 00000000 09:01 571572                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ui.views_3.1.0.jar						
+82e10000-82e13000 ---p 82e10000 00:00 0						
+82e13000-82e91000 rwxp 82e13000 00:00 0						
+82e91000-82eb3000 r-xp 00000000 09:00 56446                             						
+/usr/X11R6/lib/X11/fonts/truetype/verdanab.ttf						
+82eb3000-82ee6000 r-xs 00000000 09:01 645412                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ui.forms_3.1.0.jar						
+82f00000-830f0000 rwxp 82f00000 00:00 0						
+830f0000-83100000 ---p 830f0000 00:00 0						
+83100000-831f6000 rwxp 83100000 00:00 0						
+831f6000-83200000 ---p 831f6000 00:00 0						
+83200000-832fa000 rwxp 83200000 00:00 0						
+832fa000-83300000 ---p 832fa000 00:00 0						
+83300000-833f6000 r-xs 00000000 09:01 573693                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ant.ui_3.1.0.jar						
+83400000-83403000 rwxp 83400000 00:00 0						
+83403000-83481000 rwxp 83403000 00:00 0						
+834b4000-834cf000 r-xs 00000000 09:01 573749                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/commons-modeler.jar						
+834cf000-834d6000 r-xs 00000000 09:01 573739                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/jakarta-regexp-1.3.jar						
+834d6000-834ff000 r-xs 00000000 09:01 575076                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.help.webapp_3.1.0/WEB-INF/lib/jsp.jar						
+83500000-83600000 rwxp 83500000 00:00 0						
+83600000-8387d000 r-xs 00000000 09:01 645401                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.pde.ui_3.1.0.jar						
+8387d000-838a0000 r-xs 00000000 09:01 568953                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.pde.runtime_3.1.0.jar						
+838a0000-838c1000 r-xs 00000000 09:01 573947                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ui.console_3.1.0.jar						
+838c1000-839e6000 r-xs 00000000 09:01 574684                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.team.cvs.ui_3.1.0.jar						
+839e6000-83a9b000 r-xs 00000000 09:01 677368                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.gef_3.1.0.jar						
+83a9b000-83af5000 r-xs 00000000 09:01 632997                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.help.ui_3.1.0.jar						
+83b00000-83bfe000 rwxp 83b00000 00:00 0						
+83bfe000-83c00000 ---p 83bfe000 00:00 0						
+83c00000-83cf6000 rwxp 83c00000 00:00 0						
+83cf6000-83d00000 ---p 83cf6000 00:00 0						
+83d00000-83d03000 ---p 83d00000 00:00 0						
+83d03000-83d81000 rwxp 83d03000 00:00 0						
+83d81000-83db6000 r-xs 00000000 09:01 630403                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.help.base_3.1.0.jar						
+83db6000-83db9000 r-xs 00000000 09:01 568998                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.help.appserver_3.1.0.jar						
+83db9000-83dbf000 r-xs 00000000 09:01 573726                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/tomcatwrapper.jar						
+83dbf000-83dec000 r-xs 00000000 09:01 573760                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/jasper-compiler.jar						
+83dec000-83dfe000 r-xs 00000000 09:01 573748                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/jasper-runtime.jar						
+83e00000-840fa000 rwxp 83e00000 00:00 0						
+840fa000-84100000 ---p 840fa000 00:00 0						
+84100000-84103000 rwxp 84100000 00:00 0						
+84103000-84181000 rwxp 84103000 00:00 0						
+84181000-84184000 rwxp 84181000 00:00 0						
+84184000-84202000 rwxp 84184000 00:00 0						
+84227000-8422a000 rwxp 84227000 00:00 0						
+8422a000-842a8000 rwxp 8422a000 00:00 0						
+842a8000-842ae000 r-xs 00000000 09:01 573686                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.update.scheduler_3.1.0.jar						
+84300000-84aff000 rwxp 84300000 00:00 0						
+84aff000-84b00000 ---p 84aff000 00:00 0						
+84b00000-84be8000 rwxp 84b00000 00:00 0						
+84be8000-84c00000 ---p 84be8000 00:00 0						
+84c00000-84cfd000 rwxp 84c00000 00:00 0						
+84cfd000-84d00000 ---p 84cfd000 00:00 0						
+84d00000-84dfd000 rwxp 84d00000 00:00 0						
+84dfd000-84e00000 ---p 84dfd000 00:00 0						
+84e00000-84f00000 rwxp 84e00000 00:00 0						
+84f00000-84ffa000 r-xs 00000000 09:01 767021                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/xmleditor.jar						
+85000000-850f9000 rwxp 85000000 00:00 0						
+850f9000-85100000 ---p 850f9000 00:00 0						
+85100000-851f4000 rwxp 85100000 00:00 0						
+851f4000-85200000 ---p 851f4000 00:00 0						
+85200000-85210000 r-xs 00000000 09:01 761293                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/isorelax.jar						
+85210000-85231000 r-xs 00000000 09:01 766337                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/jaxen.jar						
+85231000-85285000 r-xs 00000000 09:01 573732                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/mx4j-jmx.jar						
+85288000-8528b000 rwxp 85288000 00:00 0						
+8528b000-85309000 rwxp 8528b000 00:00 0						
+85309000-853bc000 r-xs 00000000 09:01 573907                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.jdt.debug_3.1.0/jdimodel.jar						
+853bc000-853c3000 r-xs 00000000 09:01 573727                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/naming-common.jar						
+853c3000-853c8000 r-xs 00000000 09:01 573740                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/naming-factory.jar						
+853c8000-853d2000 r-xs 00000000 09:01 573750                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/naming-resources.jar						
+853d2000-853e6000 r-xs 00000000 09:01 573757                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/servlet.jar						
+853e6000-853e8000 r-xs 00000000 09:01 573734                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/servlets-common.jar						
+853e8000-853ed000 r-xs 00000000 09:01 573735                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/servlets-default.jar						
+853ed000-853ef000 r-xs 00000000 09:01 573763                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/servlets-invoker.jar						
+853ef000-853f4000 r-xs 00000000 09:01 573744                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/servlets-manager.jar						
+85400000-8541e000 r-xs 00000000 09:01 571604                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ui.externaltools_3.1.0.jar						
+8541e000-85477000 r-xs 00000000 09:01 731630                            						
+/home/mmoeller/eclipse/plugins/com.perforce.team.ui_2004.2.3122/ui.jar						
+85477000-8547a000 rwxp 85477000 00:00 0						
+8547a000-854f8000 rwxp 8547a000 00:00 0						
+854f9000-85535000 r-xp 00000000 09:00 56431                             						
+/usr/X11R6/lib/X11/fonts/truetype/couri.ttf						
+85535000-855cf000 r-xs 00000000 09:01 766338                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/jing.jar						
+855cf000-855d1000 r-xs 00000000 09:01 766463                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/moved.jar						
+855d1000-8564a000 r-xs 00000000 09:01 766474                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/trang.jar						
+8564a000-8564b000 r-xs 00000000 09:01 766475                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/trangutils.jar						
+8564b000-8564e000 ---p 8564b000 00:00 0						
+8564e000-856cc000 rwxp 8564e000 00:00 0						
+856cc000-856dd000 r-xs 00000000 09:01 573747                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/tomcat-coyote.jar						
+856dd000-856ea000 r-xs 00000000 09:01 573736                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/tomcat-http11.jar						
+85706000-857a4000 r-xs 00000000 09:01 645406                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.team.ui_3.1.0.jar						
+857a4000-857a7000 ---p 857a4000 00:00 0						
+857a7000-85825000 rwxp 857a7000 00:00 0						
+85825000-8594f000 r-xs 00000000 09:01 766471                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/saxon.jar						
+8594f000-85954000 r-xs 00000000 09:01 766472                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/saxpath.jar						
+85954000-8596d000 r-xs 00000000 09:01 766476                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/util.jar						
+8596d000-8596f000 r-xs 00000000 09:01 766477                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/walker.jar						
+8596f000-85a59000 r-xs 00000000 09:01 766478                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/xerces.jar						
+85a59000-85a7c000 r-xs 00000000 09:01 766480                            						
+/home/mmoeller/eclipse/plugins/com.objfac.xmleditor_2.0.59/xml.jar						
+85a7c000-85b76000 r-xs 00000000 08:12 4554                              						
+/tmp/jar_cache4179.tmp (deleted)						
+85b76000-85b86000 r-xs 00000000 08:12 4562                              						
+/tmp/jar_cache4180.tmp (deleted)						
+85b86000-85ba7000 r-xs 00000000 08:12 4563                              						
+/tmp/jar_cache4181.tmp (deleted)						
+85ba7000-85c41000 r-xs 00000000 08:12 4566                              						
+/tmp/jar_cache4182.tmp (deleted)						
+85c41000-85c43000 r-xs 00000000 08:12 4568                              						
+/tmp/jar_cache4183.tmp (deleted)						
+85c43000-85cbc000 r-xs 00000000 08:12 4569                              						
+/tmp/jar_cache4184.tmp (deleted)						
+85cbc000-85cbd000 r-xs 00000000 08:12 4570                              						
+/tmp/jar_cache4185.tmp (deleted)						
+85cbd000-85de7000 r-xs 00000000 08:12 4574                              						
+/tmp/jar_cache4186.tmp (deleted)						
+85de7000-85dec000 r-xs 00000000 08:12 4575                              						
+/tmp/jar_cache4187.tmp (deleted)						
+85dec000-85e05000 r-xs 00000000 08:12 4576                              						
+/tmp/jar_cache4188.tmp (deleted)						
+85e05000-85e07000 r-xs 00000000 08:12 4577                              						
+/tmp/jar_cache4189.tmp (deleted)						
+85e07000-85ef1000 r-xs 00000000 08:12 4578                              						
+/tmp/jar_cache4190.tmp (deleted)						
+85ef1000-85f14000 r-xs 00000000 08:12 4581                              						
+/tmp/jar_cache4191.tmp (deleted)						
+85f14000-85f39000 r-xs 00000000 08:12 4582                              						
+/tmp/jar_cache4192.tmp (deleted)						
+85f39000-85f3c000 ---p 85f39000 00:00 0						
+85f3c000-85fba000 rwxp 85f3c000 00:00 0						
+85fba000-85fbd000 rwxp 85fba000 00:00 0						
+85fbd000-8603b000 rwxp 85fbd000 00:00 0						
+8603b000-8603e000 rwxp 8603b000 00:00 0						
+8603e000-860bc000 rwxp 8603e000 00:00 0						
+860bc000-860ea000 r-xs 00000000 09:01 573761                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/tomcat-util.jar						
+86100000-861f9000 rwxp 86100000 00:00 0						
+861f9000-86200000 ---p 861f9000 00:00 0						
+86200000-86203000 ---p 86200000 00:00 0						
+86203000-86281000 rwxp 86203000 00:00 0						
+86281000-86284000 rwxp 86281000 00:00 0						
+86284000-86302000 rwxp 86284000 00:00 0						
+86302000-86305000 ---p 86302000 00:00 0						
+86305000-86383000 rwxp 86305000 00:00 0						
+86383000-863ad000 r-xs 00000000 09:01 645408                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.ui.browser_3.1.0.jar						
+86400000-86503000 rwxp 86400000 00:00 0						
+86503000-86581000 rwxp 86503000 00:00 0						
+86581000-86584000 ---p 86581000 00:00 0						
+86584000-86602000 rwxp 86584000 00:00 0						
+86602000-86605000 rwxp 86602000 00:00 0						
+86605000-86683000 rwxp 86605000 00:00 0						
+86683000-86686000 ---p 86683000 00:00 0						
+86686000-86704000 rwxp 86686000 00:00 0						
+86704000-86707000 ---p 86704000 00:00 0						
+86707000-86785000 rwxp 86707000 00:00 0						
+86785000-86788000 rwxp 86785000 00:00 0						
+86788000-86806000 rwxp 86788000 00:00 0						
+86806000-86809000 ---p 86806000 00:00 0						
+86809000-86887000 rwxp 86809000 00:00 0						
+86887000-8688a000 ---p 86887000 00:00 0						
+8688a000-86908000 rwxp 8688a000 00:00 0						
+86908000-8690b000 ---p 86908000 00:00 0						
+8690b000-86989000 rwxp 8690b000 00:00 0						
+86989000-8698c000 ---p 86989000 00:00 0						
+8698c000-86a0a000 rwxp 8698c000 00:00 0						
+86a0a000-86a0d000 ---p 86a0a000 00:00 0						
+86a0d000-86a8b000 rwxp 86a0d000 00:00 0						
+86a8b000-86a8e000 rwxp 86a8b000 00:00 0						
+86a8e000-86b0c000 rwxp 86a8e000 00:00 0						
+86b0c000-86b0f000 rwxp 86b0c000 00:00 0						
+86b0f000-86b8d000 rwxp 86b0f000 00:00 0						
+86b8d000-86b90000 rwxp 86b8d000 00:00 0						
+86b90000-86c0e000 rwxp 86b90000 00:00 0						
+86c0e000-86c11000 rwxp 86c0e000 00:00 0						
+86c11000-86c8f000 rwxp 86c11000 00:00 0						
+86c8f000-86c92000 rwxp 86c8f000 00:00 0						
+86c92000-86d10000 rwxp 86c92000 00:00 0						
+86dba000-86dbd000 ---p 86dba000 00:00 0						
+86dbd000-86e3b000 rwxp 86dbd000 00:00 0						
+86e3b000-86e3e000 ---p 86e3b000 00:00 0						
+86e3e000-86ebc000 rwxp 86e3e000 00:00 0						
+86ebc000-86ebf000 ---p 86ebc000 00:00 0						
+86ebf000-86f3d000 rwxp 86ebf000 00:00 0						
+86f3d000-86ff5000 r-xs 00000000 09:01 573762                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/catalina.jar						
+87000000-870f9000 rwxp 87000000 00:00 0						
+870f9000-87100000 ---p 870f9000 00:00 0						
+87100000-871f7000 rwxp 87100000 00:00 0						
+871f7000-87200000 ---p 871f7000 00:00 0						
+87200000-872f6000 rwxp 87200000 00:00 0						
+872f6000-87300000 ---p 872f6000 00:00 0						
+87300000-873ff000 rwxp 87300000 00:00 0						
+873ff000-87400000 ---p 873ff000 00:00 0						
+87400000-87421000 rwxp 87400000 00:00 0						
+87421000-87500000 ---p 87421000 00:00 0						
+87500000-875fd000 r-xs 00000000 09:01 573875                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant.jar						
+875fd000-875ff000 r-xs 00000000 09:01 573892                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-antlr.jar						
+875ff000-87602000 r-xs 00000000 09:01 573890                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-bcel.jar						
+87602000-87606000 r-xs 00000000 09:01 573895                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-bsf.jar						
+87606000-87607000 r-xs 00000000 09:01 573880                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-log4j.jar						
+87607000-87613000 r-xs 00000000 09:01 573898                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-oro.jar						
+87613000-87614000 r-xs 00000000 09:01 573897                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-regexp.jar						
+87614000-87615000 r-xs 00000000 09:01 573877                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-apache-resolver.jar						
+87615000-87616000 r-xs 00000000 09:01 573893                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-commons-logging.jar						
+87616000-8761f000 r-xs 00000000 09:01 573884                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-commons-net.jar						
+8761f000-87622000 r-xs 00000000 09:01 573888                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-icontract.jar						
+87622000-87628000 r-xs 00000000 09:01 573886                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-jai.jar						
+87628000-8762a000 r-xs 00000000 09:01 573876                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-javamail.jar						
+8762a000-8762c000 r-xs 00000000 09:01 573878                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-jdepend.jar						
+8762c000-8762e000 r-xs 00000000 09:01 573887                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-jmf.jar						
+8762e000-87634000 r-xs 00000000 09:01 573881                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-jsch.jar						
+87634000-87647000 r-xs 00000000 09:01 573899                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-junit.jar						
+87647000-8764a000 r-xs 00000000 09:01 573874                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-launcher.jar						
+8764a000-8764d000 r-xs 00000000 09:01 573885                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-netrexx.jar						
+8764d000-876b4000 r-xs 00000000 09:01 573889                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-nodeps.jar						
+876b4000-876bd000 r-xs 00000000 09:01 573882                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-starteam.jar						
+876bd000-876be000 r-xs 00000000 09:01 573894                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-stylebook.jar						
+876be000-876c0000 r-xs 00000000 09:01 573873                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-swing.jar						
+876c0000-876d1000 r-xs 00000000 09:01 573891                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-trax.jar						
+876d1000-876de000 r-xs 00000000 09:01 573879                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-vaj.jar						
+876de000-876e2000 r-xs 00000000 09:01 573867                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-weblogic.jar						
+876e2000-876e4000 r-xs 00000000 09:01 573883                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-xalan1.jar						
+876e4000-876e5000 r-xs 00000000 09:01 573896                            						
+/home/mmoeller/eclipse/plugins/org.apache.ant_1.6.4/lib/ant-xslp.jar						
+876e5000-877ad000 r-xp 00000000 09:00 51876                             						
+/usr/X11R6/lib/X11/fonts/uni/newunifont.pcf.gz						
+87800000-87843000 rwxp 87800000 00:00 0						
+87843000-87900000 ---p 87843000 00:00 0						
+87900000-879c8000 r-xp 00000000 09:00 51877                             						
+/usr/X11R6/lib/X11/fonts/uni/newunifontB.pcf.gz						
+88f34000-88f44000 r-xs 00000000 09:01 575281                            						
+/home/mmoeller/eclipse/plugins/org.eclipse.team.cvs.ssh2_3.1.0/cvsssh2.jar						
+ffdfe000-ffe01000 ---p ffdfe000 00:00 0						
+ffe01000-ffffe000 rwxp ffe01000 00:00 0						
+ffffe000-fffff000 ---p 00000000 00:00 0						
+						
+VM Arguments:						
+jvm_args: -Xmx512m						
+java_command: /home/mmoeller/eclipse/./startup.jar -data						
+/home/mmoeller/workspaces/KeplerSM -os linux -ws gtk -arch x86 -launcher						
+/home/mmoeller/eclipse/./eclipse -name Eclipse -showsplash 600 -ex						
+itdata ad90025 -vm /usr/java/jdk1.5.0_03-32/bin/java -vmargs -Xmx512m -jar						
+/home/mmoeller/eclipse/./startup.jar						
+						
+Environment Variables:						
+JAVA_HOME=/usr/lib/java						
+JRE_HOME=/usr/lib/java/jre						
+PATH=/usr/java/jdk1.5.0_03-32/bin/:/home/mmoeller/bin:/usr/local/bin:/usr/bin:/usr/X11R6/bin:/bin:/usr/games:/opt/gnome/bin:/opt/kde3/bin:/usr/lib/java/bin						
+LD_LIBRARY_PATH=/usr/java/jdk1.5.0_03-32/jre/lib/i386/server:/usr/java/jdk1.5.0_03-32/jre/lib/i386:/usr/java/jdk1.5.0_03-32/jre/../lib/i386:/home/mmoeller/eclipse/moz/mozilla/:/home/mmoeller/eclip						
+se/moz/mozilla/::/home/mmoeller/eclipse/moz/mozilla/						
+SHELL=/bin/bash						
+DISPLAY=:0						
+HOSTTYPE=x86_64						
+OSTYPE=linux						
+MACHTYPE=x86_64-suse-linux						
+						
+						
+---------------  S Y S T E M  ---------------						
+						
+OS:SuSE Linux 9.1 (x86-64)						
+VERSION = 9.1						
+						
+uname:Linux 2.6.5-7.111-smp #1 SMP Wed Oct 13 15:45:13 UTC 2004 x86_64						
+libc:glibc 2.3.3 NPTL 0.61						
+rlimit: STACK infinity	 CORE 0k	 NPROC 65536	 NOFILE 1024	 AS infinity		
+load average:0.35 0.40 0.53						
+						
+CPU:total 2 family 15	 cmov	 cx8	 fxsr	 mmx	 sse	 sse2
+						
+Memory: 4k page	 physical 1866k(13k free)	 swap 543k(543k free)				
+						
+vm_info: Java HotSpot(TM) Server VM (1.5.0_03-b07) for linux-x86	 built on Apr					"
+4,":27.244-05:00 PixMsgADT: setField PID-13-1 : PID-13						
+						
+""232 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""233 	""						
+						
+2006-12-04T18:43:27.244-05:00   path: PID-13-1 repeatPath: 1						
+						
+""234 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""235 	""						
+						
+2006-12-04T18:43:27.244-05:00 PixMsgADT: addOptionalPatientPhoneHome						
+						
+""236 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""237 	""						
+						
+2006-12-04T18:43:27.244-05:00 PixMsgADT: setField PID-14-1 : PID-14						
+						
+""238 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""239 	""						
+						
+2006-12-04T18:43:27.244-05:00   path: PID-14-1 repeatPath: 1						
+						
+""240 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""241 	""						
+						
+2006-12-04T18:43:27.244-05:00 PixMsgADT: addOptionalPatientPhoneBusiness						
+						
+""242 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""243 	""						
+						
+2006-12-04T18:43:27.244-05:00 Starting PixSource getPixSourcePixDestination()  in SessionContext ( mUser=[admin]    mSessionID=[9312470557c3a572f3f2caddc3ec4d26]    mRhioName=[NHIN-HUB TC]    mUserApplicationName=[openEMR]    mUserFacilityName=[null]    mReturnLogLevel=[null]     ) using RhioConfig ( mPublicHealthcareAffinityDomain=[false]    mName=[NHIN-HUB TC]    mDescription=[null]    mHidden=[false]    mAuditConfig=[AuditConfig ( mAuditUri=[IheUri ( mUnsecured=[udp://192.168.75.37:514]    mSecured=[null]     )]     )]    mPixConfig=[PixConfig ( mDefaultPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:2200]    mSecured=[null]     )]    mQueryPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:3601]    mSecured=[null]     )]    defaultClientProperties=[PixProperties ( facility=[TCADF]    applicationName=[null]    sourceApplicationName=[TCADPIDS]    consumerApplicationName=[TCADPIDS]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    serverProperties=[PixProperties ( facility=[TCADF]    applicationName=[TCADPIDS]    sourceApplicationName=[null]    consumerApplicationName=[null]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    mDefaultMessageQueryName=[null]     )]    mXdsRepositoryConfig=[XdsRepositoryConfig ( url=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]     )]    mXdsRegistryConfig=[XdsRegistryConfig ( noneStoredQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/ihii/registry/soap]    mSecured=[null]     )]    storedQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]    mllp=[null]     )]     )						
+						
+""244 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""245 	""						
+						
+2006-12-04T18:43:27.244-05:00 PixSource: send Register Outpatient A04 message - Entry controlId: 6159207779793081201 run verification? false user: admin						
+						
+""246 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""247 	""						
+						
+2006-12-04T18:43:27.244-05:00 Client: sendMsg -- Entry						
+						
+""248 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""249 	""						
+						
+2006-12-04T18:43:27.259-05:00 Client: send - Entry						
+						
+""250 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""251 	""						
+						
+2006-12-04T18:43:27.259-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""252 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""253 	""						
+						
+2006-12-04T18:43:27.259-05:00 Sending ActorStartStopMessage Audit message.						
+						
+""254 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""255 	""						
+						
+2006-12-04T18:43:27.259-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""256 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""257 	""						
+						
+2006-12-04T18:43:27.259-05:00 <13>Dec 4 18:43:27 NHIN-HUBC <?xml version=""""1.0"""" encoding=""""ASCII""""?><AuditMessage xmlns:xsi=""""http://www.w3.org/2001/XMLSchema-instance"""" xsi:noNamespaceSchemaLocation=""""healthcare-security-audit.xsd""""><EventIdentification EventActionCode=""""E"""" EventDateTime=""""2006-12-04T18:43:27.259-05:00"""" EventOutcomeIndicator=""""0""""><EventID code=""""110100"""" codeSystemName=""""DCM"""" displayName=""""Application Activity""""/><EventTypeCode code=""""110120"""" codeSystemName=""""DCM"""" displayName=""""Application Start""""/></EventIdentification><ActiveParticipant UserID=""""admin"""" UserIsRequestor=""""true""""><RoleIDCode code=""""110152"""" codeSystemName=""""DCM"""" displayName=""""Destination""""/></ActiveParticipant><ActiveParticipant UserID=""""mllp://192.168.75.34:2200"""" UserIsRequestor=""""false""""><RoleIDCode code=""""110153"""" codeSystemName=""""DCM"""" displayName=""""Source""""/></ActiveParticipant><AuditSourceIdentification AuditSourceID=""""192.168.75.29""""/></AuditMessage>						
+						
+""258 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""259 	""						
+						
+2006-12-04T18:43:27.259-05:00 Client: send - Enter SEND_MLLP_DEST MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""260 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""261 	""						
+						
+2006-12-04T18:43:27.259-05:00 MLLPDestination: sendMessage - Entry						
+						
+""262 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""263 	""						
+						
+2006-12-04T18:43:27.259-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""264 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""265 	""						
+						
+2006-12-04T18:43:27.259-05:00 *** Sending message to 192.168.75.34 on port 2200MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""266 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""267 	""						
+						
+2006-12-04T18:43:27.259-05:00 MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""268 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""269 	""						
+						
+2006-12-04T18:43:27.259-05:00 sending the server: MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""270 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""271 	""						
+						
+2006-12-04T18:43:27.275-05:00 MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""272 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""273 	""						
+						
+2006-12-04T18:43:27.275-05:00 done sending the message to the server						
+						
+""274 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""275 	""						
+						
+2006-12-04T18:43:27.275-05:00 Response was: MSH|^~\&|TCADPIDS|TCADF|openEMR|TCADF|20061204184327.EST||ACK^A04|6159207779793081201|P|2.3.1MSA|AA|6159207779793081201						
+						
+""276 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""277 	""						
+						
+2006-12-04T18:43:27.275-05:00 *** Response from 192.168.75.34 on port 2200 was:MSH|^~\&|TCADPIDS|TCADF|openEMR|TCADF|20061204184327.EST||ACK^A04|6159207779793081201|P|2.3.1MSA|AA|6159207779793081201						
+						
+""278 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""279 	""						
+						
+2006-12-04T18:43:27.275-05:00 MLLPDestination: sendMessage - Exit						
+						
+""280 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""281 	""						
+						
+2006-12-04T18:43:27.275-05:00 Client: send - Exit SEND_MLLP_DEST						
+						
+""282 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""283 	""						
+						
+2006-12-04T18:43:27.275-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""284 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""285 	""						
+						
+2006-12-04T18:43:27.275-05:00 Creating export patientID from: MSH|^~\&|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1EVN||20061204184327.ESTPID|||1^^^TC&2.16.840.1.113883.3.18.103&ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832PV1||O						
+						
+""286 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""287 	""						
+						
+2006-12-04T18:43:27.275-05:00 Sending PHIExportEvent Audit message.						
+						
+""288 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""289 	""						
+						
+2006-12-04T18:43:27.275-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""290 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""291 	""						
+						
+2006-12-04T18:43:27.291-05:00 <13>Dec 4 18:43:27 NHIN-HUBC <?xml version=""""1.0"""" encoding=""""ASCII""""?><AuditMessage xmlns:xsi=""""http://www.w3.org/2001/XMLSchema-instance"""" xsi:noNamespaceSchemaLocation=""""healthcare-security-audit.xsd""""><EventIdentification EventActionCode=""""R"""" EventDateTime=""""2006-12-04T18:43:27.275-05:00"""" EventOutcomeIndicator=""""0""""><EventID code=""""110106"""" codeSystemName=""""DCM"""" displayName=""""Export""""/></EventIdentification><ActiveParticipant UserID=""""admin"""" UserIsRequestor=""""true""""><RoleIDCode code=""""110153"""" codeSystemName=""""DCM"""" displayName=""""Source""""/></ActiveParticipant><ActiveParticipant UserID=""""mllp://192.168.75.34:2200"""" UserIsRequestor=""""false""""><RoleIDCode code=""""110154"""" codeSystemName=""""DCM"""" displayName=""""Destination Media""""/></ActiveParticipant><AuditSourceIdentification AuditSourceID=""""192.168.75.29""""/><ParticipantObjectIdentification ParticipantObjectID=""""1^^^TC&amp;2.16.840.1.113883.3.18.103&amp;ISO"""" ParticipantObjectTypeCode=""""2"""" ParticipantObjectTypeCodeRole=""""3""""><ParticipantObjectIDTypeCode code=""""110180"""" codeSystemName=""""DCM"""" displayName=""""Study Instance UID""""/></ParticipantObjectIdentification><ParticipantObjectIdentification ParticipantObjectID=""""MSH|^~\&amp;|openEMR|TCADF|TCADPIDS|TCADF|20061204184327.EST||ADT^A04^ADT_A01|6159207779793081201|P|2.3.1&#13;EVN||20061204184327.EST&#13;PID|||1^^^TC&amp;2.16.840.1.113883.3.18.103&amp;ISO||Murphy^Joyce^^^Mrs.||19630831|F|||903 Susan Pl^^Lacrosse^WI^54603^USA||428-555-1123|428-555-4832&#13;PV1||O&#13;"""" ParticipantObjectTypeCode=""""1"""" ParticipantObjectTypeCodeRole=""""1""""><ParticipantObjectIDTypeCode code=""""2""""/></ParticipantObjectIdentification></AuditMessage>						
+						
+""292 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""293 	""						
+						
+2006-12-04T18:43:27.291-05:00 Sending ActorStartStopMessage Audit message.						
+						
+""294 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""295 	""						
+						
+2006-12-04T18:43:27.291-05:00 in a threadSupportEnabled = true the super.get() is org.eclipse.ohf.ihe.atna.agent.AtnaAgent@fe135d						
+						
+""296 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""297 	""						
+						
+2006-12-04T18:43:27.291-05:00 <13>Dec 4 18:43:27 NHIN-HUBC <?xml version=""""1.0"""" encoding=""""ASCII""""?><AuditMessage xmlns:xsi=""""http://www.w3.org/2001/XMLSchema-instance"""" xsi:noNamespaceSchemaLocation=""""healthcare-security-audit.xsd""""><EventIdentification EventActionCode=""""E"""" EventDateTime=""""2006-12-04T18:43:27.291-05:00"""" EventOutcomeIndicator=""""0""""><EventID code=""""110100"""" codeSystemName=""""DCM"""" displayName=""""Application Activity""""/><EventTypeCode code=""""110121"""" codeSystemName=""""DCM"""" displayName=""""Application Stop""""/></EventIdentification><ActiveParticipant UserID=""""admin"""" UserIsRequestor=""""true""""><RoleIDCode code=""""110152"""" codeSystemName=""""DCM"""" displayName=""""Destination""""/></ActiveParticipant><ActiveParticipant UserID=""""mllp://192.168.75.34:2200"""" UserIsRequestor=""""false""""><RoleIDCode code=""""110153"""" codeSystemName=""""DCM"""" displayName=""""Source""""/></ActiveParticipant><AuditSourceIdentification AuditSourceID=""""192.168.75.29""""/></AuditMessage>						
+						
+""298 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""299 	""						
+						
+2006-12-04T18:43:27.291-05:00 Client: send - Exit						
+						
+""300 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""301 	""						
+						
+2006-12-04T18:43:27.291-05:00 Client: sendMsg - Exit						
+						
+""302 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""303 	""						
+						
+2006-12-04T18:43:27.306-05:00 PixSource: send Register Outpatient A04 message - Exit controlId: 6159207779793081201						
+						
+""304 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""305 	""						
+						
+2006-12-04T18:43:27.306-05:00 Starting PixSource getPixSourceXdsDestination()  in SessionContext ( mUser=[admin]    mSessionID=[9312470557c3a572f3f2caddc3ec4d26]    mRhioName=[NHIN-HUB TC]    mUserApplicationName=[openEMR]    mUserFacilityName=[null]    mReturnLogLevel=[null]     ) using RhioConfig ( mPublicHealthcareAffinityDomain=[false]    mName=[NHIN-HUB TC]    mDescription=[null]    mHidden=[false]    mAuditConfig=[AuditConfig ( mAuditUri=[IheUri ( mUnsecured=[udp://192.168.75.37:514]    mSecured=[null]     )]     )]    mPixConfig=[PixConfig ( mDefaultPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:2200]    mSecured=[null]     )]    mQueryPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:3601]    mSecured=[null]     )]    defaultClientProperties=[PixProperties ( facility=[TCADF]    applicationName=[null]    sourceApplicationName=[TCADPIDS]    consumerApplicationName=[TCADPIDS]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    serverProperties=[PixProperties ( facility=[TCADF]    applicationName=[TCADPIDS]    sourceApplicationName=[null]    consumerApplicationName=[null]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    mDefaultMessageQueryName=[null]     )]    mXdsRepositoryConfig=[XdsRepositoryConfig ( url=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]     )]    mXdsRegistryConfig=[XdsRegistryConfig ( noneStoredQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/ihii/registry/soap]    mSecured=[null]     )]    storedQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]    mllp=[null]     )]     )						
+						
+""306 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""307 	""						
+						
+2006-12-04T18:43:27.306-05:00 No Registry MLLP configured for RhioConfig ( mPublicHealthcareAffinityDomain=[false]    mName=[NHIN-HUB TC]    mDescription=[null]    mHidden=[false]    mAuditConfig=[AuditConfig ( mAuditUri=[IheUri ( mUnsecured=[udp://192.168.75.37:514]    mSecured=[null]     )]     )]    mPixConfig=[PixConfig ( mDefaultPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:2200]    mSecured=[null]     )]    mQueryPixUri=[IheUri ( mUnsecured=[mllp://192.168.75.34:3601]    mSecured=[null]     )]    defaultClientProperties=[PixProperties ( facility=[TCADF]    applicationName=[null]    sourceApplicationName=[TCADPIDS]    consumerApplicationName=[TCADPIDS]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    serverProperties=[PixProperties ( facility=[TCADF]    applicationName=[TCADPIDS]    sourceApplicationName=[null]    consumerApplicationName=[null]    assigningAuthorityNamespaceId=[TC]    assigningAuthorityUniversalId=[2.16.840.1.113883.3.18.103]    assigningAuthorityUniversalIdType=[ISO]     )]    mDefaultMessageQueryName=[null]     )]    mXdsRepositoryConfig=[XdsRepositoryConfig ( url=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]     )]    mXdsRegistryConfig=[XdsRegistryConfig ( noneStoredQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/ihii/registry/soap]    mSecured=[null]     )]    storedQueriesUrl=[IheUri ( mUnsecured=[http://192.168.75.34:9080/IHIIRepository/SubmissionSetReceiver]    mSecured=[null]     )]    mllp=[null]     )]     )						
+						
+""308 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""309 	""						
+						
+2006-12-04T18:43:27.306-05:00 don't have an XdsDestination						
+						
+""310 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""311 	""						
+						
+2006-12-04T18:43:27.306-05:00 returning response: ResponseType ( success=[true]    failMessage=[]    successMessage=[AA]     )						
+						
+""312 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""313 	""						
+						
+2006-12-04T18:43:27.306-05:00 Starting void SecuredTransactionHandlerFactory.stop() in SessionContext ( mUser=[admin]    mSessionID=[9312470557c3a572f3f2caddc3ec4d26]    mRhioName=[NHIN-HUB TC]    mUserApplicationName=[openEMR]    mUserFacilityName=[null]    mReturnLogLevel=[null]     )						
+						
+""314 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""315 	""						
+						
+2006-12-04T18:43:27.306-05:00 Transaction cleared configurations						
+						
+""316 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""317 	""						
+						
+2006-12-04T18:43:27.306-05:00 ......................................................................						
+						
+""318 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""319 	""						
+						
+2006-12-04T18:43:27.306-05:00 end transaction mark for SessionContext ( mUser=[admin]    mSessionID=[9312470557c3a572f3f2caddc3ec4d26]    mRhioName=[NHIN-HUB TC]    mUserApplicationName=[openEMR]    mUserFacilityName=[null]    mReturnLogLevel=[null]     )						
+						
+""320 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""321 	""						
+						
+2006-12-04T18:43:27.306-05:00 Transaction took 1890 miliseconds						
+						
+""322 	""						
+						
+Log overflow	 the log was trimmed since it is to large to send in one message					
+						
+""323 	""						
+						
+2006-12-04T18:43:27.306-05:00 ......................................................................						
+						
+""324 	""						
+						"
+5,"element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+""	Location= Exception thrown: gov.nist.registry.common2.exception.SchemaValidationException""
+Input did not validate against schema:
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+gov.nist.registry.common2.exception.SchemaValidationException: Input did not validate against schema:
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:ExternalIdentifier'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.
+Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
+""	at gov.nist.registry.common2.registry.XdsCommon.schema_validate(XdsCommon.java:56)""
+""	at gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provide_and_register(ProvideAndRegisterDocumentSet.java:115)""
+""	at gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSet.java:63)""
+""	at gov.nist.registry.ws.serviceclasses.AbstractRepositoryB.ProvideAndRegisterDocumentSetRequest(AbstractRepositoryB.java:33)""
+""	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)""
+""	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)""
+""	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)""
+""	at java.lang.reflect.Method.invoke(Method.java:585)""
+""	at gov.nist.registry.ws.receivers.XDSRawXMLINOutMessageReceiver.invokeBusinessLogic(XDSRawXMLINOutMessageReceiver.java:111)""
+""	at org.apache.axis2.receivers.AbstractInOutMessageReceiver.invokeBusinessLogic(AbstractInOutMessageReceiver.java:40)""
+""	at org.apache.axis2.receivers.AbstractMessageReceiver.receive(AbstractMessageReceiver.java:96)""
+""	at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:145)""
+""	at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:275)""
+""	at org.apache.axis2.transport.http.AxisServlet.doPost(AxisServlet.java:120)""
+""	at javax.servlet.http.HttpServlet.service(HttpServlet.java:710)""
+""	at javax.servlet.http.HttpServlet.service(HttpServlet.java:803)""
+""	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:269)""
+""	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:188)""
+""	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:210)""
+""	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:174)""
+""	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)""
+""	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:117)""
+""	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:108)""
+""	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:151)""
+""	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:870)""
+""	at org.apache.coyote.http11.Http11BaseProtocol$Http11ConnectionHandler.processConnection(Http11BaseProtocol.java:665)""
+""	at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:528)""
+""	at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:81)""
+""	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:685)""
+""	at java.lang.Thread.run(Thread.java:613)"""""""
+6,"tmgr.EventManager$EventThread.run(EventManager.java:333)				
+				
+Low Memory Detector"""" daemon prio=10 tid=0x080f9400 nid=0x5e1b runnable [0x00000000..0x00000000]				
+   java.lang.Thread.State: RUNNABLE				
+				
+CompilerThread1"""" daemon prio=10 tid=0x080f7400 nid=0x5e1a waiting on condition [0x00000000..0x7439e4f8]				
+   java.lang.Thread.State: RUNNABLE				
+				
+CompilerThread0"""" daemon prio=10 tid=0x080f4800 nid=0x5e19 waiting on condition [0x00000000..0x7441f478]				
+   java.lang.Thread.State: RUNNABLE				
+				
+Signal Dispatcher"""" daemon prio=10 tid=0x080f3000 nid=0x5e18 waiting on condition [0x00000000..0x00000000]				
+   java.lang.Thread.State: RUNNABLE				
+				
+Finalizer"""" daemon prio=10 tid=0x080dec00 nid=0x5e17 in Object.wait() [0x74500000..0x745010c0]				
+   java.lang.Thread.State: WAITING (on object monitor)				
+""	at java.lang.Object.wait(Native Method)""				
+""	- waiting on <0x84d9b868> (a java.lang.ref.ReferenceQueue$Lock)""				
+""	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:116)""				
+""	- locked <0x84d9b868> (a java.lang.ref.ReferenceQueue$Lock)""				
+""	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:132)""				
+""	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:159)""				
+				
+Reference Handler"""" daemon prio=10 tid=0x080dd800 nid=0x5e16 in Object.wait() [0x74551000..0x74551e40]				
+   java.lang.Thread.State: WAITING (on object monitor)				
+""	at java.lang.Object.wait(Native Method)""				
+""	- waiting on <0x84d9b840> (a java.lang.ref.Reference$Lock)""				
+""	at java.lang.Object.wait(Object.java:485)""				
+""	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:116)""				
+""	- locked <0x84d9b840> (a java.lang.ref.Reference$Lock)""				
+				
+main"""" prio=10 tid=0x08059000 nid=0x5e12 waiting for monitor entry [0xb7e10000..0xb7e11208]				
+   java.lang.Thread.State: BLOCKED (on object monitor)				
+""	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:418)""				
+""	- waiting to lock <0x8f2ad670> (a org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage)""				
+""	at org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.takeLocal(IStateFilter.java:99)""				
+""	at org.eclipse.team.svn.core.IStateFilter$25.acceptImpl(IStateFilter.java:498)""				
+""	at org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.accept(IStateFilter.java:86)""				
+""	at org.eclipse.team.svn.core.synchronize.AbstractSVNSyncInfo.isTreeConflicted(AbstractSVNSyncInfo.java:71)""				
+""	at org.eclipse.team.svn.core.synchronize.UpdateSyncInfo.calculateKind(UpdateSyncInfo.java:50)""				
+""	at org.eclipse.team.core.synchronize.SyncInfo.init(SyncInfo.java:388)""				
+""	at org.eclipse.team.svn.core.synchronize.AbstractSVNSubscriber.getSyncInfo(AbstractSVNSubscriber.java:142)""				
+""	at org.eclipse.team.core.subscribers.Subscriber.getDiff(Subscriber.java:370)""				
+""	at org.eclipse.team.internal.core.subscribers.SubscriberChangeSetManager.getDiff(SubscriberChangeSetManager.java:302)""				
+""	at org.eclipse.team.internal.core.subscribers.ActiveChangeSet.init(ActiveChangeSet.java:156)""				
+""	at org.eclipse.team.internal.core.subscribers.ActiveChangeSetManager.createSet(ActiveChangeSetManager.java:436)""				
+""	at org.eclipse.team.internal.core.subscribers.ActiveChangeSetManager.load(ActiveChangeSetManager.java:407)""				
+""	at org.eclipse.team.internal.core.subscribers.SubscriberChangeSetManager.initializeSets(SubscriberChangeSetManager.java:278)""				
+""	at org.eclipse.team.internal.core.subscribers.ChangeSetManager.internalGetSets(ChangeSetManager.java:213)""				
+""	at org.eclipse.team.internal.core.subscribers.ChangeSetManager.getSets(ChangeSetManager.java:175)""				
+""	at org.eclipse.mylyn.internal.team.ui.ContextActiveChangeSetManager.initContextChangeSets(ContextActiveChangeSetManager.java:157)""				
+""	at org.eclipse.mylyn.team.ui.AbstractContextChangeSetManager.enable(AbstractContextChangeSetManager.java:43)""				
+""	at org.eclipse.mylyn.internal.team.ui.ContextActiveChangeSetManager.enable(ContextActiveChangeSetManager.java:130)""				
+""	at org.eclipse.mylyn.internal.team.ui.FocusedTeamUiPlugin$1.run(FocusedTeamUiPlugin.java:84)""				
+""	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)""				
+""	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:134)""				
+""	- locked <0x91148610> (a org.eclipse.swt.widgets.RunnableLock)""				
+""	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:3468)""				
+""	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3115)""				
+""	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2405)""				
+""	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2369)""				
+""	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2221)""				
+""	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:500)""				
+""	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)""				
+""	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:493)""				
+""	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)""				
+""	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:113)""				
+""	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:194)""				
+""	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)""				
+""	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)""				
+""	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:368)""				
+""	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)""				
+""	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)""				
+""	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)""				
+""	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)""				
+""	at java.lang.reflect.Method.invoke(Method.java:597)""				
+""	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:559)""				
+""	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:514)""				
+""	at org.eclipse.equinox.launcher.Main.run(Main.java:1311)""				
+""	at org.eclipse.equinox.launcher.Main.main(Main.java:1287)""				
+				
+VM Thread"""" prio=10 tid=0x080da000 nid=0x5e15 runnable 				
+				
+GC task thread#0 (ParallelGC)"""" prio=10 tid=0x08060000 nid=0x5e13 runnable 				
+				
+GC task thread#1 (ParallelGC)"""" prio=10 tid=0x08061800 nid=0x5e14 runnable 				
+				
+VM Periodic Task Thread"""" prio=10 tid=0x080fb000 nid=0x5e1c waiting on condition 				
+				
+JNI global references: 1382				
+				
+Heap				
+ PSYoungGen      total 59904K	 used 24236K [0xaf720000	 0xb3a50000	 0xb4c70000)	
+  eden space 53312K	 34% used [0xaf720000	0xb08ea8c8	0xb2b30000)	
+  from space 6592K	 91% used [0xb3270000	0xb38507d8	0xb38e0000)	
+  to   space 7424K	 0% used [0xb2b30000	0xb2b30000	0xb3270000)	
+ PSOldGen        total 290560K	 used 225061K [0x84c70000	 0x96830000	 0xaf720000)	
+  object space 290560K	 77% used [0x84c70000	0x92839688	0x96830000)	
+ PSPermGen       total 131072K	 used 70944K [0x74c70000	 0x7cc70000	 0x84c70000)	
+  object space 131072K	 54% used [0x74c70000	0x791b8350	0x7cc70000)""	normal"

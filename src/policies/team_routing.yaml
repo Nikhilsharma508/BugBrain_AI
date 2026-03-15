@@ -1,0 +1,85 @@
+# ============================================================
+# Team Routing Rules — Component → Team Mapping
+# ============================================================
+# This file maps bug report components/areas to the responsible team.
+# The TriageAgent uses these rules to suggest the owning team.
+# ============================================================
+
+teams:
+  Frontend-Team:
+    description: "Handles UI/UX issues, browser compatibility, CSS/JS bugs"
+    keywords:
+      - "UI"
+      - "frontend"
+      - "CSS"
+      - "JavaScript"
+      - "browser"
+      - "rendering"
+      - "layout"
+      - "responsive"
+      - "button"
+      - "form"
+
+  Backend-Team:
+    description: "Handles server-side logic, API errors, database issues"
+    keywords:
+      - "API"
+      - "server"
+      - "database"
+      - "timeout"
+      - "500 error"
+      - "backend"
+      - "query"
+      - "REST"
+      - "endpoint"
+
+  Payments-Backend-Team:
+    description: "Handles payment processing, transaction failures, checkout"
+    keywords:
+      - "payment"
+      - "transaction"
+      - "checkout"
+      - "purchase"
+      - "billing"
+      - "invoice"
+      - "stripe"
+      - "refund"
+
+  Mobile-Team:
+    description: "Handles iOS and Android native app issues"
+    keywords:
+      - "iOS"
+      - "Android"
+      - "mobile"
+      - "app crash"
+      - "native"
+      - "push notification"
+      - "deep link"
+
+  DevOps-Team:
+    description: "Handles infrastructure, deployment, and CI/CD issues"
+    keywords:
+      - "deployment"
+      - "infrastructure"
+      - "CI/CD"
+      - "Docker"
+      - "Kubernetes"
+      - "memory leak"
+      - "out of memory"
+      - "server down"
+
+  Platform-Team:
+    description: "Handles IDE, plugin, compiler, and build system issues"
+    keywords:
+      - "Eclipse"
+      - "compiler"
+      - "build"
+      - "plugin"
+      - "IDE"
+      - "classpath"
+      - "refactoring"
+
+# ============================================================
+# Default: If no team matches, assign to the Platform-Team.
+# ============================================================
+default_team: "Platform-Team"
