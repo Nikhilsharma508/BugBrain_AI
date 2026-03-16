@@ -1,19 +1,15 @@
-# src/duplicate_detection/embeddings.py — Embedding Model Wrapper
-#
-# PURPOSE:
-#   Provides a unified interface for generating text embeddings.
-#   Supports OpenAI embeddings and can be extended to HuggingFace models.
-#   Used to convert bug report summaries into vectors for similarity search.
-#
-# KEY CLASS:
-#   EmbeddingManager — with methods like:
-#     - embed_text(text: str) → List[float]
-#     - embed_batch(texts: List[str]) → List[List[float]]
-#
-# TODO:
-#   - Initialise embedding model from settings
-#   - Implement embed_text() and embed_batch()
-#   - Add caching to avoid re-embedding the same text
+"""
+src/duplicate_detection/embeddings.py — Embedding Model Wrapper
+-----------------------------------------------------------------
+WHAT IT CAN DO (when implemented):
+    - Generate text embeddings using OpenAI (text-embedding-3-small)
+    - Generate embeddings using HuggingFace sentence-transformers (free, local)
+    - Batch embedding for processing multiple reports at once
+    - Caching: avoid re-embedding the same text twice
+    - Configurable model selection via settings
 
-from langchain_openai import OpenAIEmbeddings
-from typing import Optional
+CONNECTS TO:
+    - similarity.py calls embed_text() to vectorise new reports
+    - vector_store.py stores the resulting vectors
+    - config/settings.py provides embedding_model_name
+"""

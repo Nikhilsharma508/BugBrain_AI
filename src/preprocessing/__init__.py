@@ -1,15 +1,40 @@
-# src/preprocessing — Log Noise Filtering & Text Cleaning
-#
-# This package contains all pre-processing logic that runs BEFORE the LLM.
-# Its job is to trim ~95% of irrelevant content from raw bug reports.
-#
-# Exports:
-#   - LogParser: Regex-based stack trace and error extractor
-#   - NoiseFilter: Strips emotional language, memory dumps, hardware info
-#   - TextCleaner: Unicode normalisation, whitespace cleanup
+"""
+src/preprocessing — Text Preprocessing Pipeline
+-------------------------------------------------
+Chains: clean → filter_noise → extract_signals
 
-from src.preprocessing.log_parser import LogParser
-from src.preprocessing.noise_filter import NoiseFilter
-from src.preprocessing.text_cleaner import TextCleaner
+USAGE:
+    from src.preprocessing import run_preprocessing
+    result = run_preprocessing(bug_trace)
+    # result = {"cleaned_text": "...", "signals": {...}}
+"""
 
-__all__ = ["LogParser", "NoiseFilter", "TextCleaner"]
+from src.preprocessing.text_cleaner import clean
+from src.preprocessing.noise_filter import filter_noise
+from src.preprocessing.log_parser import extract_signals
+
+
+def run_preprocessing(bug_trace: str) -> dict:
+    """Run the full preprocessing pipeline on raw bug report text.
+
+    Returns:
+        dict with:
+            - cleaned_text: str (noise-filtered text)
+            - signals: dict (extracted exceptions, stack frames, etc.)
+    """
+    # Step 1: Normalise whitespace and line endings
+    text = clean(bug_trace)
+
+    # Step 2: Remove non-diagnostic noise
+    text = filter_noise(text)
+
+    # Step 3: Extract technical signals
+    signals = extract_signals(text)
+
+    return {
+        "cleaned_text": text,
+        "signals": signals,
+    }
+
+
+__all__ = ["run_preprocessing", "clean", "filter_noise", "extract_signals"]

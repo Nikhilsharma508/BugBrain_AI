@@ -2,7 +2,7 @@
 
 ## Core Entry Point
 
-### `src.agents.orchestrator.run_pipeline(raw_text: str) → TriageResult`
+### `src.agents.orchestrator.run_pipeline(bug_trace: str) → TriageResult`
 The main function to process a bug report end-to-end.
 
 ---
@@ -10,15 +10,15 @@ The main function to process a bug report end-to-end.
 ## Preprocessing (`src.preprocessing`)
 
 ### `LogParser`
-- `extract_stack_traces(raw_text: str) → List[str]`
-- `extract_error_codes(raw_text: str) → List[str]`
-- `parse(raw_text: str) → dict`
+- `extract_stack_traces(bug_trace: str) → List[str]`
+- `extract_error_codes(bug_trace: str) → List[str]`
+- `parse(bug_trace: str) → dict`
 
 ### `NoiseFilter`
-- `filter(raw_text: str) → str`
+- `filter(bug_trace: str) → str`
 
 ### `TextCleaner`
-- `clean(raw_text: str) → str`
+- `clean(bug_trace: str) → str`
 
 ---
 

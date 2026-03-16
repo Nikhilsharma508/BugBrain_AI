@@ -238,7 +238,7 @@ The submission requires: *"Cost estimation to process 100 user queries."*
 
 ---
 
-# 6. Initial Project Setup — Full Walkthrough - done
+# 6. Initial Project Setup — Full Walkthrough - completed
 
 Follow these steps **in order** after the project structure has been created.
 
@@ -277,7 +277,7 @@ git add .
 git commit -m "Initial project structure: AI Bug Triage System"
 ```
 
-## 6.3 Create a GitHub Repository (Optional but Recommended)
+## 6.3 Create a GitHub Repository (Optional but Recommended) - completed
 
 ```bash
 # Option A: Using GitHub CLI (gh)
@@ -294,7 +294,7 @@ git branch -M main
 git push -u origin main
 ```
 
-## 6.4 Create Virtual Environment
+## 6.4 Create Virtual Environment - completed
 
 ```bash
 # Create a virtual environment named .venv
@@ -449,3 +449,5 @@ pyproject.toml
 > init uv
 
 > uv add `library`
+
+# 10: signals: dict not being used

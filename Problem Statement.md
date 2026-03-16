@@ -36,7 +36,7 @@ The system accepts a **Raw BUG Report Extract**
 5.  **Expected Output**
 > A structured JSON object ready to be injected into a tool like Jira or
 > GitHub Issues:
-JSON
+```JSON
 {
   "issue_summary": "Inconsistent 'Purchase' button failure on iPad/Safari",
   "steps_to_reproduce": [
@@ -52,6 +52,7 @@ JSON
   "severity": "P1 (Critical - Revenue Impacting)",
   "suggested_owner": "Payments-Backend-Team"
 }
+```
 
 6.  **Solution Design Questions for the Trainee**
 

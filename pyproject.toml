@@ -5,7 +5,15 @@ description = "AI-powered agent to filter noise, standardize formatting, and per
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "altair>=6.0.0",
+    "dotenv>=0.9.9",
+    "ipykernel>=7.2.0",
     "langchain>=1.2.12",
-    "pandas>=3.0.1",
+    "langchain-google-genai>=4.2.1",
+    "langchain-ollama>=1.0.1",
+    "langgraph-cli>=0.4.17",
+    "pandas<3",
+    "pydantic-settings>=2.13.1",
     "ruff>=0.15.6",
+    "streamlit==1.55.0",
 ]

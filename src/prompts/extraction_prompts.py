@@ -1,20 +1,31 @@
-# src/prompts/extraction_prompts.py — Extraction Agent Prompts
-#
-# PURPOSE:
-#   Contains the system and user prompt templates for the Extraction Agent.
-#   The extraction agent converts preprocessed bug report text into
-#   structured JSON matching the TriageResult schema.
-#
-# PROMPT DESIGN PRINCIPLES:
-#   - System prompt defines the agent's role and output format
-#   - User prompt injects the actual bug report text
-#   - Explicit instruction: NEVER hallucinate steps to reproduce
-#   - Output must match the Pydantic schema exactly
-#
-# TODO:
-#   - Write the EXTRACTION_SYSTEM_PROMPT with role, rules, and output format
-#   - Write the EXTRACTION_USER_PROMPT with the {bug_report_text} placeholder
-#   - Add few-shot examples if needed for better extraction quality
+"""
+src/prompts/extraction_prompts.py — Extraction Agent Prompts
+-------------------------------------------------------------
+PURPOSE:
+    System + user prompt templates for the extraction agent.
+    The LLM reads a bug report and produces structured JSON.
 
-EXTRACTION_SYSTEM_PROMPT = ""
-EXTRACTION_USER_PROMPT = ""
+DESIGN:
+    - Simple, 5-6 lines — concise instructions
+    - Anti-hallucination rule: if steps not provided, say so honestly
+    - Uses {bug_report_text} and {user_review} placeholders
+
+CONNECTS TO:
+    - agents/extraction_agent.py uses these prompts
+"""
+
+EXTRACTION_SYSTEM_PROMPT = """You are a software engineer that reads bug reports and extracts structured information.
+MANDATORY: YOU MUST RETURN ONLY VALID JSON. DO NOT INCLUDE ANY CONVERSATIONAL TEXT, PREAMBLE, OR EXPLANATION.
+Given a bug report, extract: issue summary (one line), steps to reproduce (ordered list), and technical details.
+If steps to reproduce are NOT mentioned in the report or user review, return ["Not provided by user"]. Never guess steps.
+Return only facts from the text. Do not add information that is not present.
+"""
+
+EXTRACTION_USER_PROMPT = """Bug Report:
+{bug_report_text}
+
+User Review:
+{user_review}
+
+Pre-extracted Signals (for reference):
+{signals}"""
