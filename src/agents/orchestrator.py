@@ -65,8 +65,7 @@ def preprocess_node(state: dict) -> dict:
     result = run_preprocessing(bug_trace)
 
     return {
-        "cleaned_text": result["cleaned_text"],
-        "signals": result["signals"],
+        "cleaned_text": result["cleaned_text"]
     }
 
 
@@ -130,10 +129,12 @@ def run_pipeline(bug_trace: str, user_review: Optional[str] = None) -> TriageRes
     result = TriageResult(
         issue_summary=extraction_raw.issue_summary,
         steps_to_reproduce=extraction_raw.steps_to_reproduce,
+        user_impact_assessment=extraction_raw.user_impact_assessment,
         technical_details=extraction_raw.technical_details,
+        triage_reasoning=triage_raw.triage_reasoning,
         severity=triage_raw.severity,
-        suggested_owner=triage_raw.suggested_owner
+        suggested_owner=triage_raw.suggested_owner,
     )
-
+    
     logger.info("=== Pipeline Complete ===\n")
     return result

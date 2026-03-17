@@ -25,7 +25,7 @@ CONNECTS TO:
 """
 
 # Use PydanticOutputParser only to get format instructions (helps non-compliant models)
-# from langchain_core.output_parsers import PydanticOutputParser
+from langchain_core.output_parsers import PydanticOutputParser
 
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -46,22 +46,24 @@ def run_extraction(state: dict) -> dict:
     Reads from state:
         - cleaned_text: str
         - user_review: str (optional)
-        - signals: dict
 
     Writes to state:
         - extraction_result: ExtractionResult
     """
     cleaned_text = state.get("cleaned_text", "")
     user_review = state.get("user_review", "No user review provided")
-    signals = state.get("signals", {})
 
     logger.info("Running extraction agent...")
 
     # Build the prompt
     prompt = ChatPromptTemplate.from_messages([
-        ("system", EXTRACTION_SYSTEM_PROMPT),
+        ("system",  EXTRACTION_SYSTEM_PROMPT),
         ("human", EXTRACTION_USER_PROMPT),
     ])
+
+    # Generate format instructions for non-compliant local models
+    parser = PydanticOutputParser(pydantic_object=ExtractionResult)
+    format_instructions = parser.get_format_instructions()
 
     # Get LLM with structured output
     llm_manager = LLMManager()
@@ -73,9 +75,8 @@ def run_extraction(state: dict) -> dict:
     result = chain.invoke({
         "bug_report_text": cleaned_text,
         "user_review": user_review or "No user review provided",
-        "signals": str(signals)
+        "format_instructions": format_instructions,
     })
 
     logger.info(f"Extraction complete: {result.issue_summary}")
-    logger.info(f'')
     return {"extraction_result": result}

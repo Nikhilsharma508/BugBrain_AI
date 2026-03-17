@@ -9,44 +9,40 @@
 severity_levels:
   P1_Critical:
     label: "P1 (Critical)"
-    description: "System down, revenue impacting, or blocks core functionality for many users"
+    description: "System down, revenue impacting, or blocks core functionality for a large user base without any workaround."
     conditions:
-      - "Prevents user login or authentication"
-      - "Blocks checkout or payment processing"
-      - "Causes data loss or corruption"
-      - "Affects more than 100 users"
-      - "Complete application crash or system outage"
-    response_time: "Immediate — within 1 hour"
+      - "Explicitly prevents user authentication or login."
+      - "Explicitly blocks checkout, payment processing, or revenue generation."
+      - "Causes verified data loss, data corruption, or severe security breach."
+      - "Issue explicitly affects 100 or more users."
+      - "Complete application crash, dead-lock, or wide-spread system outage."
 
   P2_High:
     label: "P2 (High)"
-    description: "Major feature broken but workaround exists"
+    description: "Core feature is broken but a workaround exists, or significant performance degradation."
     conditions:
-      - "Core feature broken with a known workaround"
-      - "Affects 10-100 users"
-      - "Performance degradation exceeding 5x normal"
-      - "Intermittent crashes in key workflows"
-    response_time: "Within 4 hours"
+      - "Core feature is broken but users have a known workaround."
+      - "Issue explicitly affects between 10 and 99 users."
+      - "Severe performance degradation (e.g., timeouts, 5x slower than normal)."
+      - "Intermittent crashes in key business workflows."
 
   P3_Medium:
     label: "P3 (Medium)"
-    description: "Non-core feature issue with limited user impact"
+    description: "Non-core feature issue with limited user impact. This is the DEFAULT severity if user count is missing or impact is ambiguous."
     conditions:
-      - "Non-core feature is broken"
-      - "Affects 1-10 users"
-      - "Functionality available through alternative path"
-      - "Minor data inconsistency with no loss"
-    response_time: "Within 24 hours"
+      - "Non-core or secondary feature is broken."
+      - "Issue explicitly affects fewer than 10 users."
+      - "Functionality is available through an alternative path in the UI."
+      - "Minor data display inconsistency with no actual data loss."
 
   P4_Low:
     label: "P4 (Low)"
-    description: "Cosmetic, trivial, or enhancement request"
+    description: "Cosmetic, trivial, or enhancement request."
     conditions:
-      - "Typo or visual glitch"
-      - "Affects 1 user with easy workaround"
-      - "Enhancement request or nice-to-have"
-      - "Documentation issue"
-    response_time: "Next sprint"
+      - "Typographical error or visual/CSS alignment glitch."
+      - "Issue exclusively affects exactly 1 user with a trivial workaround."
+      - "User is explicitly requesting a new feature or enhancement."
+      - "Documentation mistake or broken external link."
 
 # ============================================================
 # Default: If no conditions match, assign P3 as a safe default.

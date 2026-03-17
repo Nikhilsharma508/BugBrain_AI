@@ -36,75 +36,71 @@ from langchain_ollama import ChatOllama
 from pydantic import BaseModel
 from typing import Optional, Type
 
-try:
-    from langchain_openai import ChatOpenAI
-except ImportError:
-    ChatOpenAI = None
+# Load environment variables early for class-level attributes
+load_dotenv()
+
+from langchain_openai import ChatOpenAI, AzureChatOpenAI
 
 from langchain_google_genai import ChatGoogleGenerativeAI
+from src.telemetry.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 
 # Removed static TOOL_CAPABLE_MODELS list in favor of dynamic testing
 
+def _ensure_env_var(var_name: Optional[str]) -> Optional[str]:
+    """Ensure the required environment variable exists."""
+    if var_name is None:
+        return None
+    value = os.getenv(var_name)
+    if not value:
+        raise ValueError(f"Environment variable '{var_name}' not found.")
+    return value
 
 class LLMManager:
     """Unified LLM loader with dynamic tool capability detection."""
 
     DEFAULT_MODELS = {
-        "openai": "gpt-4o-mini",
-        "gemini": "gemini-3-flash-preview",
-        "openrouter": "meta-llama/llama-3-70b-instruct",
-        "ollama": "lfm2.5-thinking:latest",
-        # "ollama": "gpt-oss:120b-cloud",
+        "gemini": _ensure_env_var("GEMINI_MODEL"),
+        "openrouter": _ensure_env_var("OPENROUTER_MODEL"),
+        "ollama": _ensure_env_var("OLLAMA_MODEL"),
+        "azure": _ensure_env_var("AZURE_OPENAI_DEPLOYMENT"),
     }
 
     ENV_VARS = {
-        "openai": "OPENAI_API_KEY",
         "gemini": "GOOGLE_API_KEY",
         "openrouter": "OPENROUTER_API_KEY",
         "ollama": None,
+        "azure": "AZURE_OPENAI_API_KEY",
     }
 
     def __init__(
         self,
-        base_model: str = "ollama",
+        base_model: str = _ensure_env_var("LLM_BASE_MODEL"),
         specific_model: Optional[str] = None,
-        temperature: float = 0.0,
     ):
-        load_dotenv()
         self.base_model = base_model.lower()
         self.specific_model = specific_model or self.DEFAULT_MODELS.get(self.base_model)
-        self.temperature = temperature
+        self.temperature = float(_ensure_env_var("LLM_TEMPERATURE") or 0.0)  # Default temperature
+        self.max_tokens = _ensure_env_var("LLM_MAX_TOKENS")  # Default max tokens
+        
+        logger.info(f"LLM active: provider={self.base_model}, model={self.specific_model}")
+        
         self.client = self._load_model()
 
-    def _ensure_env_var(self, var_name: Optional[str]) -> Optional[str]:
-        """Ensure the required environment variable exists."""
-        if var_name is None:
-            return None
-        value = os.getenv(var_name)
-        if not value:
-            raise ValueError(f"Environment variable '{var_name}' not found.")
-        return value
 
     def _load_model(self):
         """Instantiate the requested LLM client."""
         env_var = self.ENV_VARS.get(self.base_model)
-        api_key = self._ensure_env_var(env_var)
-
-        if self.base_model in ("chatgpt", "openai"):
-            if ChatOpenAI is None:
-                raise ImportError("Install langchain-openai: pip install langchain-openai")
-            return ChatOpenAI(
-                model=self.specific_model,
-                temperature=self.temperature,
-                openai_api_key=api_key,
-            )
+        api_key = _ensure_env_var(env_var)
+        
 
         if self.base_model == "gemini":
             if ChatGoogleGenerativeAI is None:
                 raise ImportError("Install langchain-google-genai: pip install langchain-google-genai")
-            print(api_key)
+            
             return ChatGoogleGenerativeAI(
                 model=self.specific_model,
                 temperature=self.temperature,
@@ -118,6 +114,15 @@ class LLMManager:
                 model=self.specific_model,
                 openai_api_base="https://openrouter.ai/api/v1",
                 openai_api_key=api_key,
+                temperature=self.temperature,
+            )
+
+        if self.base_model == "azure":
+            return AzureChatOpenAI(
+                azure_endpoint=_ensure_env_var("AZURE_OPENAI_ENDPOINT"),
+                api_key=api_key,
+                api_version=_ensure_env_var("AZURE_OPENAI_API_VERSION"),
+                deployment_name=self.specific_model,
                 temperature=self.temperature,
             )
 
@@ -173,6 +178,6 @@ class LLMManager:
 
 if __name__ == "__main__":
     load_dotenv()
-    manager = LLMManager(base_model="ollama")
+    manager = LLMManager()
     print(f"Model: {manager.specific_model}")
     print(f"Supports tools: {manager.supports_tools()}")

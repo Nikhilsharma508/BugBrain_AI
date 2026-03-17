@@ -32,15 +32,19 @@ class TechnicalDetails(BaseModel):
     )
     error_message: str = Field(
         default="Not identified",
-        description="Error message or description",
+        description="The specific error message or description accompanying the error",
     )
     environment: str = Field(
         default="Not identified",
-        description="Platform, OS, or runtime environment mentioned",
+        description="The platform, OS, browser, or runtime environment mentioned where the bug occurred",
+    )
+    timestamp: str = Field(
+        default="Not identified",
+        description="The exact date/time the error occurred, extracted directly from the logs or report",
     )
     key_stack_frames: List[str] = Field(
         default_factory=list,
-        description="Most relevant stack trace lines (max 5)",
+        description="The most relevant stack trace lines pointing to the failure origin",
     )
 
 
@@ -48,38 +52,45 @@ class ExtractionResult(BaseModel):
     """Structured output of the bug extraction pipeline."""
 
     issue_summary: str = Field(
-        description="One-line technical summary of the bug",
+    description="Format as 'Error: TypeError ...' followed by a one-line technical summary describing the failure, its cause, and when it occurs."
     )
+
     steps_to_reproduce: List[str] = Field(
         default_factory=lambda: ["Not provided by user"],
-        description="Ordered reproduction steps. If not available, say 'Not provided by user'",
+        description="Ordered, step-by-step actions required to reproduce the bug. Reconstruct these from the user narrative if possible. If completely missing, output ['Not provided by user'].",
+    )
+    user_impact_assessment: str = Field(
+        default="Unknown",
+        description="A short summary of how many users this affects and how severely it blocks their workflows, based purely on the text.",
     )
     technical_details: TechnicalDetails = Field(
         default_factory=TechnicalDetails,
-        description="Extracted technical information",
-    )
-    signals: dict = Field(
-        default_factory=dict,
-        description="Extracted log signals (exceptions, error messages, key stack frames, timestamps)",
+        description="Detailed technical information including errors, stack traces, and environment variables.",
     )
 
 class ClassificationResult(BaseModel):
     """Structured output of the triage policy pipeline."""
+    model_config = {"extra": "ignore"}
 
+    triage_reasoning: str = Field(
+        description="Step-by-step logical justification for the chosen severity and owner, referencing specific policies.",
+    )
     severity: str = Field(
         default="P3 (Medium)",
-        description="Severity level: P1 (Critical), P2 (High), P3 (Medium), or P4 (Low)",
+        description="The assigned severity level based strictly on the provided policy: P1 (Critical), P2 (High), P3 (Medium), or P4 (Low).",
     )
     suggested_owner: str = Field(
         default="Platform-Team",
-        description="Team name responsible for this bug",
+        description="The engineering team responsible for addressing this bug, based strictly on the provided routing keywords.",
     )
 
 class TriageResult(BaseModel):
     """Final combined output containing both Extraction and Classification."""
     
-    issue_summary: str = Field(description="One-line technical summary of the bug")
+    issue_summary: str = Field(description="One line formatted as 'Error: <ExceptionType> <technical summary>', describing the bug, its cause, and when it occurs.")
     steps_to_reproduce: List[str] = Field(description="Ordered reproduction steps")
+    user_impact_assessment: str = Field(description="Assessment of user impact")
     technical_details: TechnicalDetails = Field(description="Extracted technical information")
+    triage_reasoning: str = Field(description="Justification for the triage decision")
     severity: str = Field(description="Severity level")
     suggested_owner: str = Field(description="Team name responsible for this bug")

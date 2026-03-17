@@ -11,8 +11,6 @@ USAGE:
 
 from src.preprocessing.text_cleaner import clean
 from src.preprocessing.noise_filter import filter_noise
-from src.preprocessing.log_parser import extract_signals
-
 
 def run_preprocessing(bug_trace: str) -> dict:
     """Run the full preprocessing pipeline on raw bug report text.
@@ -28,13 +26,9 @@ def run_preprocessing(bug_trace: str) -> dict:
     # Step 2: Remove non-diagnostic noise
     text = filter_noise(text)
 
-    # Step 3: Extract technical signals
-    signals = extract_signals(text)
-
     return {
         "cleaned_text": text,
-        "signals": signals,
     }
 
 
-__all__ = ["run_preprocessing", "clean", "filter_noise", "extract_signals"]
+__all__ = ["run_preprocessing", "clean", "filter_noise"]

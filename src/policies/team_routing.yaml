@@ -7,7 +7,8 @@
 
 teams:
   Frontend-Team:
-    description: "Handles UI/UX issues, browser compatibility, CSS/JS bugs"
+    description: "Handles UI/UX issues, browser compatibility, CSS/JS bugs. Do NOT assign here if payment or infrastructure is involved."
+    priority: "Low"
     keywords:
       - "UI"
       - "frontend"
@@ -18,10 +19,23 @@ teams:
       - "layout"
       - "responsive"
       - "button"
-      - "form"
+
+  Payments-Backend-Team:
+    description: "Handles payment processing, transaction failures, checkout. ALWAYS prioritize this team if financial keywords are present."
+    priority: "Highest"
+    keywords:
+      - "payment"
+      - "transaction"
+      - "checkout"
+      - "purchase"
+      - "billing"
+      - "invoice"
+      - "stripe"
+      - "refund"
 
   Backend-Team:
-    description: "Handles server-side logic, API errors, database issues"
+    description: "Handles general server-side logic, API errors, database issues. Do NOT assign here if issue is specifically Payments."
+    priority: "Medium"
     keywords:
       - "API"
       - "server"
@@ -33,31 +47,21 @@ teams:
       - "REST"
       - "endpoint"
 
-  Payments-Backend-Team:
-    description: "Handles payment processing, transaction failures, checkout"
-    keywords:
-      - "payment"
-      - "transaction"
-      - "checkout"
-      - "purchase"
-      - "billing"
-      - "invoice"
-      - "stripe"
-      - "refund"
-
   Mobile-Team:
-    description: "Handles iOS and Android native app issues"
+    description: "Handles iOS, iPad, and Android native app/browser issues."
+    priority: "High"
     keywords:
       - "iOS"
+      - "iPad"
       - "Android"
       - "mobile"
       - "app crash"
       - "native"
       - "push notification"
-      - "deep link"
 
   DevOps-Team:
-    description: "Handles infrastructure, deployment, and CI/CD issues"
+    description: "Handles infrastructure, deployment, and CI/CD issues."
+    priority: "Medium"
     keywords:
       - "deployment"
       - "infrastructure"
@@ -65,11 +69,11 @@ teams:
       - "Docker"
       - "Kubernetes"
       - "memory leak"
-      - "out of memory"
       - "server down"
 
   Platform-Team:
-    description: "Handles IDE, plugin, compiler, and build system issues"
+    description: "DEFAULT TEAM. Handles IDE, plugin, compiler, build system issues, or any issue that does not strictly match another team."
+    priority: "Lowest"
     keywords:
       - "Eclipse"
       - "compiler"

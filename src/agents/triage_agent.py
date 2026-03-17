@@ -85,6 +85,10 @@ def run_triage(state: dict) -> dict:
         ("human", TRIAGE_USER_PROMPT),
     ])
 
+    # Generate format instructions for non-compliant local models
+    parser = PydanticOutputParser(pydantic_object=ClassificationResult)
+    format_instructions = parser.get_format_instructions()
+
     # Get LLM with structured output
     llm_manager = LLMManager()
     structured_llm = llm_manager.get_client_with_structured_output(ClassificationResult)
@@ -95,6 +99,7 @@ def run_triage(state: dict) -> dict:
         "severity_policy": SEVERITY_POLICY_TEXT,
         "team_routing": TEAM_ROUTING_TEXT,
         "extracted_data": extraction_result.model_dump_json(indent=2),
+        "format_instructions": format_instructions,
     })
 
     logger.info(f"Triage complete: severity={result.severity}, owner={result.suggested_owner}")

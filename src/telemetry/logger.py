@@ -20,7 +20,7 @@ CAPABILITIES (can be extended later):
 CONNECTS TO:
     - Every module imports: from src.telemetry.logger import get_logger
     - extraction_agent.py, triage_agent.py, orchestrator.py all use it
-    - config/settings.py provides LOG_LEVEL and LOG_FILE_PATH
+    - Reads LOG_LEVEL and LOG_FILE_PATH directly from .env
 
 USAGE:
     from src.telemetry.logger import get_logger
@@ -53,10 +53,10 @@ def get_logger(name: str, level: Optional[str] = None) -> logging.Logger:
     if name in _loggers:
         return _loggers[name]
 
-    # Import settings locally to avoid circular imports
-    from src.config.settings import settings
+    from dotenv import load_dotenv
 
-    log_level = level or settings.log_level
+    load_dotenv()
+    log_level = level or os.getenv("LOG_LEVEL", "INFO")
     numeric_level = getattr(logging, log_level.upper(), logging.INFO)
 
     logger = logging.getLogger(name)
@@ -77,7 +77,8 @@ def get_logger(name: str, level: Optional[str] = None) -> logging.Logger:
         logger.addHandler(console_handler)
 
         # 2. File Handler (Rotating)
-        log_file = Path(settings.log_file_path)
+        log_file_path = os.getenv("LOG_FILE_PATH", "data/temp/app.log")
+        log_file = Path(log_file_path)
         try:
             # Ensure log directory exists
             log_file.parent.mkdir(parents=True, exist_ok=True)
