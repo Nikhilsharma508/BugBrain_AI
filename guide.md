@@ -451,3 +451,16 @@ pyproject.toml
 > uv add `library`
 
 # 10: signals: dict not being used
+
+# Automated Tests
+Script Validation: Run python scripts/load_json_data.py. Verify that Data/processed correctly populates with new .json files corresponding to unindexed rows without throwing exceptions.
+Vector Index Validation: Run python scripts/build_vector_index.py. Verify that Data/vector_store/index.faiss and index.pkl are generated/updated. Re-run the script to ensure it skips already indexed documents.
+
+
+Manual Verification
+UI Layout: Run streamlit run src/ui/app.py. Submit a new bug report. Wait for pipeline analysis. Visually verify the 3-column layout matches the screenshot.
+Duplicate Search: Check the far-right column for "RAG Similarity Search". Ensure duplicates return plausible similarity scores.
+Ready to Commit Workflow: Click "Ready to Commit". Verify that:
+The CSV receives a new row.
+A new JSON file appears in Data/processed/.
+The vector store is updated (file modified time changes, or subsequent exact-match searches return 100% similarity).

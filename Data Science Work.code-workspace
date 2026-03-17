@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../Virtual environment"
+		}
+	],
+	"settings": {
+		"notebook.output.textLineLimit": 10
+	}
+}

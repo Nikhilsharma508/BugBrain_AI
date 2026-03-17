@@ -1,4 +1,4 @@
-Id,Bug Details
+Id,Bug Details,User Review
 1,"ts
 (Initializer.java:52)
 ""	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod""
@@ -191,7 +191,11 @@ Code))
 ""	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:285)""
 ""	at java.lang.reflect.Method.invoke(Native Method)""
 ""	at org.eclipse.core.launcher.Main.basicRun(Main.java:151)""
-""	at org.eclipse.core.launcher.Main.run(Main.java:451)"""
+""	at org.eclipse.core.launcher.Main.run(Main.java:451)""","I first ran into this issue while saving changes to a Java source file in Eclipse, which triggered an automatic incremental rebuild. Instead of completing the save, the editor threw an immediate error, and the build process halted as the compiler tried to parse the updated code. The stack trace showed the failure happening during method body parsing, right after the editor kicked off the background build.  
+
+As I looked into the error, it became clear that the core problem was a type conversion issue inside the Java parser, where it tried to treat a field declaration as something else during recovery from a syntax problem. This meant the compiler encountered code it couldn’t interpret cleanly, and instead of recovering, it attempted an incompatible type cast that caused the build to fail. The issue originated deep within the parser's error recovery path, which suggests that even a small structural mistake in the source file could push the parser into this invalid state.  
+
+Each time I repeated the save operation with the same file, the error occurred in the same place, making it fully reproducible. It only happened when the incremental rebuild process tried to recompile after changes, indicating the problem is tied directly to parsing the modified source rather than a full workspace build."
 2,"eElementsOperation.processEl
 ements(CopyResourceElementsOperation.java:390)
         at org.eclipse.jdt.internal.core.MultiOperation.executeOperation(MultiOp
@@ -515,7 +519,11 @@ java:39)
 sorImpl.java:25)
         at java.lang.reflect.Method.invoke(Method.java:324)
         at org.eclipse.core.launcher.Main.basicRun(Main.java:185)
-        at org.eclipse.core.launcher.Main.run(Main.java:710)"
+        at org.eclipse.core.launcher.Main.run(Main.java:710)","When I tried to rename a Java compilation unit through the Eclipse refactoring wizard, the process failed partway through the operation. Everything seemed normal until I confirmed the rename, at which point the workflow stopped and displayed an error indicating that Eclipse could not write to one of the source files involved in the refactor. The refactoring dialog appeared to proceed, but the actual file changes never completed, leaving the operation in a broken state.
+
+Looking through the details, it became clear that the failure was caused by a file write issue. The stack trace pointed to a FileNotFoundException triggered because the system reported that the file had a user‑mapped section open, meaning another process or tool had locked the file at the OS level. Since Eclipse attempted to rewrite the file during the rename, it could not obtain the necessary write access, causing the refactoring engine to fail deep inside the resource management steps.
+
+I found that the issue was fully reproducible whenever the file was open in another tool or when a background process was indexing or scanning it. Each time I retried the rename while the file was locked, Eclipse consistently hit the same failure point. Once the external lock was released, the rename succeeded without errors."
 3,"mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/commons-digester.jar						
 8262c000-82632000 r-xs 00000000 09:01 573741                            						
 /home/mmoeller/eclipse/plugins/org.eclipse.tomcat_4.1.30.1/commons-logging-api.jar						
@@ -873,7 +881,11 @@ CPU:total 2 family 15	 cmov	 cx8	 fxsr	 mmx	 sse	 sse2
 						
 Memory: 4k page	 physical 1866k(13k free)	 swap 543k(543k free)				
 						
-vm_info: Java HotSpot(TM) Server VM (1.5.0_03-b07) for linux-x86	 built on Apr					"
+vm_info: Java HotSpot(TM) Server VM (1.5.0_03-b07) for linux-x86	 built on Apr					","I ran into this issue while working inside my Eclipse workspace on SuSE Linux, and the error appeared right after launching the IDE with a fairly large set of plugins enabled. As I attempted to open and build a project, Eclipse abruptly terminated and left behind a long memory map dump showing all the jars it had loaded along with the JVM arguments. The crash itself happened without a clear user‑visible exception, but the sudden exit made it obvious that something low‑level had gone wrong during startup or initial project processing.
+
+Looking through the details, I realized the root cause was tied to system resource exhaustion rather than a typical code or type error. The memory map showed an enormous number of jars being loaded into the process space, while the system information section reported that physical memory was nearly depleted, leaving only a small amount free. With the JVM running under a 32‑bit environment on a 64‑bit OS and using a relatively large maximum heap, the process likely hit an address space limit or ran out of available memory mappings, which caused the VM to abort unexpectedly. This wasn't a typical NullPointerException or parser issue but rather a failure in system‑level resource allocation.
+
+The behavior was consistent because every time I launched Eclipse with the same plugin set and memory parameters, the crash happened during the early stages of initialization. It was reproducible on this machine configuration and only occurred when running with the heavier workspace and the extensive set of PDE, Tomcat, XML editor, and Ant plugins loaded simultaneously. Once I reduced the heap size or disabled some plugins, the problem stopped appearing, confirming that it was tied directly to memory pressure and address space limits."
 4,":27.244-05:00 PixMsgADT: setField PID-13-1 : PID-13						
 						
 ""232 	""						
@@ -1245,7 +1257,11 @@ Log overflow	 the log was trimmed since it is to large to send in one message
 2006-12-04T18:43:27.306-05:00 ......................................................................						
 						
 ""324 	""						
-						"
+						","When I tried to register a new outpatient and send the associated A04 message through our system, I followed the usual workflow in openEMR. The process moved smoothly through building the HL7 fields for patient contact information and then passed the message to the PIX source for delivery. I saw the outbound ADT message get transmitted over MLLP and received an AA acknowledgment from the destination, confirming that part of the workflow completed successfully.
+
+As I reviewed the logs to confirm the transaction details, I noticed that the PIX portion behaved as expected, but the next step involving the XDS routing failed silently. The system reported that no registry MLLP connection was configured for the current RHIO settings, which meant there was no available destination for the repository or registry portion of the workflow. In plain terms, the message could be sent to the PIX server, but there was nowhere to forward the XDS export, causing that part of the process to be skipped entirely.
+
+This behavior was consistent every time I ran the same registration transaction. Each attempt produced the same absence of an XDS destination, the same informational message about missing configuration, and the same successful PIX acknowledgment. The workflow completed without crashing, but it was clear that the XDS portion would never run until a registry destination was configured."
 5,"element 'rim:Classification'.
 Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3/XDS.b_DocumentRepository.xsd urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0 http://localhost:9080/xdsref/schema/v3/rs.xsd http://schemas.xmlsoap.org/soap/envelope/ http://localhost:9080/xdsref/schema/v3/soap.xsd
 Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'.
@@ -1384,7 +1400,11 @@ Schema location is urn:ihe:iti:xds-b:2007 http://localhost:9080/xdsref/schema/v3
 ""	at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:528)""
 ""	at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:81)""
 ""	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:685)""
-""	at java.lang.Thread.run(Thread.java:613)"""""""
+""	at java.lang.Thread.run(Thread.java:613)""""""","I ran into this issue while trying to submit a Provide and Register Document Set request to the repository, expecting the XML to pass validation as usual. Instead, the service immediately returned a schema validation error complaining about several missing required attributes, starting with an indication that the rim:Classification element had no id attribute. As I retried the workflow, the same errors repeated for other elements like rim:ExternalIdentifier and rim:Identifiable, and the request failed before any business logic could run.
+
+Digging into the details, it became clear that the XML being generated was missing mandatory attributes defined in the XDS.b and ebXML registry schemas. The validation engine interpreted these omissions as structural problems, meaning the document metadata never met the minimum schema requirements before processing. Each step in the error sequence pointed to the same root cause: certain registry objects were being created without the required id or registryObject attributes, which prevented the server from mapping them to their expected roles in the submission set.
+
+The behavior was fully reproducible, occurring every time the same document set was submitted to the endpoint. No matter how many times I ran it, the validator consistently flagged the same missing attributes, suggesting the issue originates from how the submission XML is constructed rather than anything intermittent or environmental."
 6,"tmgr.EventManager$EventThread.run(EventManager.java:333)				
 				
 Low Memory Detector"""" daemon prio=10 tid=0x080f9400 nid=0x5e1b runnable [0x00000000..0x00000000]				
@@ -1484,4 +1504,8 @@ Heap
  PSOldGen        total 290560K	 used 225061K [0x84c70000	 0x96830000	 0xaf720000)	
   object space 290560K	 77% used [0x84c70000	0x92839688	0x96830000)	
  PSPermGen       total 131072K	 used 70944K [0x74c70000	 0x7cc70000	 0x84c70000)	
-  object space 131072K	 54% used [0x74c70000	0x791b8350	0x7cc70000)""	normal"
+  object space 131072K	 54% used [0x74c70000	0x791b8350	0x7cc70000)""	normal","I ran into this issue while starting Eclipse and letting it initialize my SVN and Mylyn change set integrations. As the workspace loaded, the UI froze and never progressed past the initial sync phase, and the main thread appeared to be blocked while trying to access local SVN resources. The immediate symptom was the application becoming completely unresponsive even though background threads were still running.
+
+From the stack details, the freeze seems to come from a lock inside the SVNRemoteStorage component, where the main thread was waiting for access to a shared resource that another process never released. This created a deadlock situation where the UI thread could not proceed, but the rest of the JVM continued running, consuming memory until it approached the upper limits of the old generation heap. The presence of high old-gen usage and fully active GC threads suggests the memory pressure made the blocked state even more noticeable.
+
+Each time I opened the workspace with Mylyn and SVN integration enabled, the behavior repeated consistently. It occurred before I could interact with the IDE, which suggests the conflict happens during automatic initialization of change sets and synchronization routines."

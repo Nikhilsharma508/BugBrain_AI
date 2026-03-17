@@ -1,0 +1,150 @@
+{
+  "1": {
+    "issue_summary": "Error: ClassCastException \u2013 parser attempts an invalid cast of a FieldDeclaration during incremental build after saving a Java file in Eclipse.",
+    "steps_to_reproduce": [
+      "Open a Java source file in Eclipse.",
+      "Modify the file.",
+      "Save the file, which triggers an automatic incremental rebuild.",
+      "Observe the ClassCastException error and build failure."
+    ],
+    "user_impact_assessment": "Severe impact for developers using Eclipse incremental builds; prevents saving and compiling edited files, blocking the workflow.",
+    "technical_details": {
+      "detected_error": "java.lang.ClassCastException",
+      "error_message": "java.lang.ClassCastException: org.eclipse.jdt.internal.compiler.ast.FieldDeclaration",
+      "environment": "Eclipse IDE with JDT Java compiler",
+      "timestamp": "Fri May 10 11:46:52 GMT+03:00 2002",
+      "key_stack_frames": [
+        "org.eclipse.jdt.internal.compiler.ast.Initializer.parseStatements (Initializer.java:52)",
+        "org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod (TypeDeclaration.java:695)",
+        "org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies (Compiler.java:256)",
+        "org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDelta (IncrementalImageBuilder.java:264)",
+        "org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.incrementalBuild (JavaBuilder.java:210)"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis: The bug occurs during an incremental build in the Eclipse IDE, causing a ClassCastException that stops the build and prevents developers from saving and compiling edited Java files. This is a core feature of the IDE (compilation), but the report does not state a specific number of affected users. According to the handling rules, missing user count defaults to 1 user. Severity Matching: \u2013 No P1 condition is met (no login block, no checkout, no data loss, no explicit 100+ users, and the error does not constitute a full application crash). \u2013 No clear P2 condition is met: while a core feature is broken, the report does not mention a known workaround or a user count of 10\u201199, nor does it describe severe performance degradation or intermittent crashes. \u2013 The P3 condition \"Issue explicitly affects fewer than 10 users\" applies by default (assumed 1 user). Since severity is ambiguous, policy directs us to select the lower severity, so P3_Medium is chosen. Team Assignment: Technical keywords extracted are \"Eclipse\", \"compiler\", and \"build\", which match the Platform-Team keywords. No other team keywords are present, so the default routing selects Platform-Team. Therefore, the bug is categorized as P3 (Medium) severity and assigned to Platform-Team.",
+    "severity": "P3 (Medium)",
+    "suggested_owner": "Platform-Team"
+  },
+  "2": {
+    "issue_summary": "Error: FileNotFoundException \u2013 Rename of a Java compilation unit fails because Eclipse cannot write to the source file when it is locked by another process (user\u2011mapped section open), occurring during the refactoring wizard's rename confirmation.",
+    "steps_to_reproduce": [
+      "Open the Java source file (e.g., in another editor or let a background process index it) so that the file is locked by the OS.",
+      "In Eclipse, select the compilation unit and invoke Refactor \u2192 Rename.",
+      "Confirm the rename operation in the Refactoring Wizard."
+    ],
+    "user_impact_assessment": "Affects any user attempting to rename a Java file while it is locked; blocks the refactoring workflow until the lock is released.",
+    "technical_details": {
+      "detected_error": "FileNotFoundException",
+      "error_message": "c:\\local\\eclipse\\workspace\\current\\org.eclipse.ui.workbench.texteditor\\src\\org\\eclipse\\ui\\texteditor\\spelling\\DefaultSpellingProblem.java (The requested operation cannot be performed on a file with a user-mapped section open)",
+      "environment": "Windows OS, Eclipse IDE (Java Development Tools)",
+      "timestamp": "2004-12-08 17:01:27.55",
+      "key_stack_frames": [
+        "at java.io.FileOutputStream.open(Native Method)",
+        "at java.io.FileOutputStream.<init>(FileOutputStream.java:179)",
+        "at org.eclipse.core.internal.localstore.FileSystemStore.createStream(FileSystemStore.java:103)",
+        "at org.eclipse.core.internal.resources.File.setContents(File.java:339)",
+        "at org.eclipse.jdt.internal.core.CopyResourceElementsOperation.processCompilationUnitResource(CopyResourceElementsOperation.java:296)"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis:\n- The bug occurs when a user attempts to rename a Java source file in Eclipse while the file is locked by another process. This blocks the refactoring workflow until the lock is released. \n- The blocked operation is a core feature of the IDE (refactoring/rename), but a known workaround exists: close the other process or release the file lock.\n- No user count is provided; per policy we assume 1 user (conservative).\n\nPolicy Matching:\n- P1 conditions are not met (no authentication, payment, data loss, crash, or >100 users).\n- The P2 condition \"Core feature is broken but users have a known workaround\" directly applies because the rename refactoring cannot complete and the workaround is to release the lock.\n- Although the assumed user count (<10) would satisfy a P3 condition, the policy states that the highest matching severity is used. Therefore, P2 (High) is selected.\n\nTeam Assignment:\n- Technical keywords include \"Eclipse\", \"IDE\", \"compiler\", \"refactoring wizard\", and \"Java compilation unit\".\n- The TEAM_ROUTING table maps these keywords to the Platform-Team (handles IDE, plugin, compiler issues).\n- No payment, backend, frontend, mobile, or DevOps keywords are present, so the default to Platform-Team is appropriate.\n\nDecision:\n- Severity: P2 (High)\n- Suggested Owner: Platform-Team",
+    "severity": "P2 (High)",
+    "suggested_owner": "Platform-Team"
+  },
+  "4": {
+    "issue_summary": "Error: Missing XDS registry MLLP configuration \u2013 XDS routing is skipped because no registry MLLP destination is configured for the current RHIO settings.",
+    "steps_to_reproduce": [
+      "Log in to openEMR as admin.",
+      "Create a new outpatient registration (ADT A04) using the standard workflow.",
+      "Allow the system to build HL7 fields and send the ADT message to the PIX server via MLLP.",
+      "Observe the successful PIX acknowledgment (AA) returned from the PIX destination.",
+      "Continue the workflow and notice that the XDS export step reports that no registry MLLP is configured and the XDS routing is skipped."
+    ],
+    "user_impact_assessment": "All users attempting to register an outpatient and export the record to XDS will have the XDS portion silently skipped, preventing document sharing while the PIX step still succeeds.",
+    "technical_details": {
+      "detected_error": "No Registry MLLP configured",
+      "error_message": "No Registry MLLP configured for RhioConfig",
+      "environment": "openEMR application (admin user) on server communicating with PIX via mllp://192.168.75.34:2200 and XDS repository via http://192.168.75.34:9080; RHIO name NHIN-HUB TC",
+      "timestamp": "2006-12-04T18:43:27.306-05:00",
+      "key_stack_frames": [
+        "2006-12-04T18:43:27.306-05:00 No Registry MLLP configured for RhioConfig ( mPublicHealthcareAffinityDomain=[false] ... )",
+        "2006-12-04T18:43:27.306-05:00 don't have an XdsDestination",
+        "2006-12-04T18:43:27.275-05:00 Response was: MSH|^~\\&|TCADPIDS|TCADF|openEMR|TCADF|...|ACK^A04|...|MSA|AA|...",
+        "2006-12-04T18:43:27.244-05:00 PixSource: send Register Outpatient A04 message - Entry controlId: 6159207779793081201",
+        "2006-12-04T18:43:27.306-05:00 returning response: ResponseType ( success=[true] failMessage=[] successMessage=[AA] )"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis: The bug prevents the XDS document export step from executing, which is a core health information exchange feature. The report states that *all* users attempting an outpatient registration will have the XDS portion silently skipped, but no numeric user count is provided. No authentication, checkout, data loss, or complete application crash is described. No explicit workaround for end\u2011users is mentioned.\\n\\nSeverity Policy Matching: \\n- P1 conditions (authentication block, checkout block, data loss, 100+ users, full crash) do not apply.\\n- P2 conditions require either a known user workaround, a user count of 10\u201199, severe performance degradation, or intermittent crashes; none are present.\\n- P3 is the default severity for ambiguous cases and is applied when no higher\u2011level conditions match. The policy states that P3 is the default when impact is unclear or user count is missing.\\nTherefore, the highest matching severity is **P3 (Medium)**.\\n\\nTeam Routing: The technical details mention server\u2011side configuration (\"server communicating with PIX via mllp://...\" and \"No Registry MLLP configured for RhioConfig\"). Keywords such as \"server\", \"backend\", and \"API\" align with the Backend-Team routing keywords. No payment\u2011related keywords are present, and the issue is not purely UI, mobile, or infrastructure. Consequently, the appropriate team is **Backend-Team**.",
+    "severity": "P3 (Medium)",
+    "suggested_owner": "Backend-Team"
+  },
+  "5": {
+    "issue_summary": "Error: SchemaValidationException \u2013 Missing required attributes (id, registryObject) on rim:Classification, rim:ExternalIdentifier, and rim:Identifiable cause schema validation to fail for ProvideAndRegisterDocumentSet requests.",
+    "steps_to_reproduce": [
+      "Generate a Provide and Register Document Set request with XML payload.",
+      "Send the request to the repository endpoint (e.g., http://localhost:9080/xdsref).",
+      "Observe that the service immediately returns schema validation errors indicating missing 'id' or 'registryObject' attributes on rim elements."
+    ],
+    "user_impact_assessment": "All submissions of the affected document set fail, preventing any business logic from executing and blocking the workflow entirely.",
+    "technical_details": {
+      "detected_error": "SchemaValidationException",
+      "error_message": "cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'",
+      "environment": "Java application running on Apache Tomcat with Axis2, endpoint http://localhost:9080/xdsref",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "gov.nist.registry.common2.registry.XdsCommon.schema_validate(XdsCommon.java:56)",
+        "gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provide_and_register(ProvideAndRegisterDocumentSet.java:115)",
+        "gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSet.java:63)",
+        "gov.nist.registry.ws.serviceclasses.AbstractRepositoryB.ProvideAndRegisterDocumentSetRequest(AbstractRepositoryB.java:33)",
+        "org.apache.axis2.receivers.AbstractInOutMessageReceiver.invokeBusinessLogic(AbstractInOutMessageReceiver.java:40)"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis: The bug causes every ProvideAndRegisterDocumentSet request to be rejected with a SchemaValidationException, which stops the entire document registration workflow. This is a core business function, but the report does not specify a user count; per the handling rules we assume 1 affected user. Severity Policy Matching: None of the P1 conditions (large\u2011user crash, authentication block, payment block, or data loss) are explicitly met. P2 conditions (core feature broken with a known workaround, 10\u201199 users, intermittent crashes) are also not satisfied. The only condition that matches is the P3 clause \"Issue explicitly affects fewer than 10 users\" (we assumed 1 user). Because the policy states to choose the lower severity when ambiguous, we select P3_Medium. Team Assignment: The error originates from server\u2011side XML schema validation in a Java/Tomcat/Axis2 service endpoint. Keywords such as \"API\", \"server\", \"endpoint\", and the stack frames indicate backend processing. No payment\u2011related keywords are present, so the appropriate team is Backend-Team.",
+    "severity": "P3 (Medium)",
+    "suggested_owner": "Backend-Team"
+  },
+  "6": {
+    "issue_summary": "Error: Deadlock in SVNRemoteStorage \u2013 UI thread blocked while initializing SVN and Mylyn change set synchronization, causing Eclipse to freeze during workspace load.",
+    "steps_to_reproduce": [
+      "Start Eclipse.",
+      "Ensure SVN and Mylyn change set integrations are enabled.",
+      "Open a workspace that triggers automatic SVN/Mylyn initialization.",
+      "Allow Eclipse to load the workspace and perform initial synchronization."
+    ],
+    "user_impact_assessment": "Severe impact; the UI becomes completely unresponsive for any user with SVN/Mylyn integration enabled, blocking all workflow until Eclipse is terminated.",
+    "technical_details": {
+      "detected_error": "Not identified",
+      "error_message": "UI thread blocked waiting to lock SVNRemoteStorage during initialization.",
+      "environment": "Not identified",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:418)",
+        "org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.takeLocal(IStateFilter.java:99)",
+        "org.eclipse.team.svn.core.synchronize.AbstractSVNSyncInfo.isTreeConflicted(AbstractSVNSyncInfo.java:71)",
+        "org.eclipse.team.internal.core.subscribers.ActiveChangeSet.init(ActiveChangeSet.java:156)",
+        "org.eclipse.mylyn.internal.team.ui.ContextActiveChangeSetManager.initContextChangeSets(ContextActiveChangeSetManager.java:157)"
+      ]
+    },
+    "triage_reasoning": "The bug causes the UI thread in Eclipse to deadlock during workspace load, making the entire IDE unresponsive until terminated. This is a complete application freeze (dead\u2011lock), which directly matches the P1_Critical condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\". User count is not specified, but the deadlock condition alone triggers the highest severity, per the policy's top\u2011down evaluation. For team routing, the report mentions Eclipse, SVNRemoteStorage, and Mylyn \u2013 all components of the IDE/plugin ecosystem. The keyword \"Eclipse\" maps to the Platform-Team, which handles IDE, plugin, and build\u2011system issues. No payment, mobile, or pure backend keywords are present, so Platform-Team is the appropriate owner.\n",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "Platform-Team"
+  },
+  "3": {
+    "issue_summary": "Error: Resource exhaustion \u2013 Eclipse JVM aborts during startup due to insufficient physical memory and address\u2011space limits when launched with a large plugin set and -Xmx512m on SuSE Linux.",
+    "steps_to_reproduce": [
+      "Launch Eclipse on SuSE Linux 9.1 with the provided VM arguments (e.g., -Xmx512m) and the full set of plugins enabled.",
+      "Attempt to open and build a project in the workspace.",
+      "Observe that Eclipse terminates abruptly without a user\u2011visible exception."
+    ],
+    "user_impact_assessment": "The crash prevents the user from working in Eclipse with the heavy plugin configuration until memory parameters are reduced, effectively blocking development on this setup.",
+    "technical_details": {
+      "detected_error": "Not identified",
+      "error_message": "Not identified",
+      "environment": "SuSE Linux 9.1 (x86-64), Java HotSpot Server VM 1.5.0_03-b07 (32\u2011bit JVM on 64\u2011bit OS)",
+      "timestamp": "Not identified",
+      "key_stack_frames": []
+    },
+    "triage_reasoning": "Impact Analysis: The report describes a complete crash of the Eclipse IDE during startup caused by resource exhaustion. This prevents the user from performing any development work, which is a core functionality of the IDE. The issue results in an abrupt termination without a visible exception, matching the \"Complete application crash\" condition in the severity policy. Although the user count is not specified, the policy states that a complete crash is sufficient for P1 severity regardless of the number of users.\n\nPolicy Matching: The severity policy's P1_Critical level lists \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\" as a condition. The bug meets this condition, so the highest matching severity is P1 (Critical). No other higher\u2011severity conditions (e.g., data loss, authentication) apply, but P1 is already the top level.\n\nTeam Assignment: The report contains keywords such as \"Eclipse\", \"plugin\", \"build\", and \"IDE\". These match the Platform-Team's keyword list. No payment, backend, DevOps, mobile, or frontend keywords are present, so the default team that aligns with the identified keywords is Platform-Team.\n\nConclusion: Based on the explicit crash impact and matching keywords, the bug is classified as P1 (Critical) and assigned to Platform-Team.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "Platform-Team"
+  }
+}
