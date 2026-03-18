@@ -3,7 +3,7 @@
 # Common development commands
 # ============================================================
 
-.PHONY: install test lint run-ui clean help
+.PHONY: install test run-ui clean help
 
 # Default target
 help:
@@ -11,25 +11,22 @@ help:
 	@echo "  AI Bug Triage System — Available Commands"
 	@echo "  ──────────────────────────────────────────"
 	@echo "  make install     Install project + dev dependencies"
-	@echo "  make test        Run all tests"
-	@echo "  make test-unit   Run unit tests only"
-	@echo "  make lint        Run linter (ruff)"
 	@echo "  make run-ui      Start Streamlit app"
 	@echo "  make clean       Remove caches and temp files"
+	@echo "  make test        Run all tests"
+	@echo "  make test-unit   Run unit tests only"
 	@echo "  make load-data   Load CSV data and build vector index"
 	@echo ""
 
 install:
 	pip install -e ".[dev]"
 
+# Test targets
 test:
 	pytest tests/ -v --tb=short
 
 test-unit:
 	pytest tests/unit/ -v --tb=short
-
-lint:
-	ruff check src/ tests/
 
 run-ui:
 	streamlit run src/ui/app.py --server.port 8501

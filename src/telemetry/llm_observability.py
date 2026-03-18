@@ -61,6 +61,7 @@ import os
 try:
     from langchain_core.callbacks import BaseCallbackHandler
     from langchain.callbacks.tracers import LangChainTracer
+
     _LANGSMITH_AVAILABLE = True
 except ImportError:
     _LANGSMITH_AVAILABLE = False
@@ -70,7 +71,7 @@ except ImportError:
 # Env vars: LANGFUSE_PUBLIC_KEY=..., LANGFUSE_SECRET_KEY=..., LANGFUSE_HOST=...
 try:
     from langfuse.callback import CallbackHandler as LangFuseCallbackHandler
+
     _LANGFUSE_AVAILABLE = True
 except ImportError:
     _LANGFUSE_AVAILABLE = False
-

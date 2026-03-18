@@ -56,10 +56,12 @@ def run_extraction(state: dict) -> dict:
     logger.info("Running extraction agent...")
 
     # Build the prompt
-    prompt = ChatPromptTemplate.from_messages([
-        ("system",  EXTRACTION_SYSTEM_PROMPT),
-        ("human", EXTRACTION_USER_PROMPT),
-    ])
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", EXTRACTION_SYSTEM_PROMPT),
+            ("human", EXTRACTION_USER_PROMPT),
+        ]
+    )
 
     # Generate format instructions for non-compliant local models
     parser = PydanticOutputParser(pydantic_object=ExtractionResult)
@@ -72,11 +74,13 @@ def run_extraction(state: dict) -> dict:
     # Build and invoke the chain
     # We add format_instructions to the system prompt dynamically
     chain = prompt | structured_llm
-    result = chain.invoke({
-        "bug_report_text": cleaned_text,
-        "user_review": user_review or "No user review provided",
-        "format_instructions": format_instructions,
-    })
+    result = chain.invoke(
+        {
+            "bug_report_text": cleaned_text,
+            "user_review": user_review or "No user review provided",
+            "format_instructions": format_instructions,
+        }
+    )
 
     logger.info(f"Extraction complete: {result.issue_summary}")
     return {"extraction_result": result}

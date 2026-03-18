@@ -12,6 +12,7 @@ USAGE:
 from src.preprocessing.text_cleaner import clean
 from src.preprocessing.noise_filter import filter_noise
 
+
 def run_preprocessing(bug_trace: str) -> dict:
     """Run the full preprocessing pipeline on raw bug report text.
 

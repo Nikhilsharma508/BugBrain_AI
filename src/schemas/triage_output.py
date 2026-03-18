@@ -52,7 +52,7 @@ class ExtractionResult(BaseModel):
     """Structured output of the bug extraction pipeline."""
 
     issue_summary: str = Field(
-        description="Start with 'Error: <ExceptionType>' followed by a concise, natural summary of what failed, why it failed, and when it occurs."
+        description="Start with 'Error' or 'Warning: <ExceptionType>' followed by a concise, natural summary of what failed, why it failed, and when it occurs."
     )
 
     steps_to_reproduce: List[str] = Field(
@@ -68,8 +68,10 @@ class ExtractionResult(BaseModel):
         description="Detailed technical information including errors, stack traces, and environment variables.",
     )
 
+
 class ClassificationResult(BaseModel):
     """Structured output of the triage policy pipeline."""
+
     model_config = {"extra": "ignore"}
 
     triage_reasoning: str = Field(
@@ -84,13 +86,18 @@ class ClassificationResult(BaseModel):
         description="The engineering team responsible for addressing this bug, based strictly on the provided routing keywords.",
     )
 
+
 class TriageResult(BaseModel):
     """Final combined output containing both Extraction and Classification."""
-    
-    issue_summary: str = Field(description="One line formatted as 'Error: <ExceptionType> <technical summary>', describing the bug, its cause, and when it occurs.")
+
+    issue_summary: str = Field(
+        description="One line formatted as 'Error: <ExceptionType> <technical summary>', describing the bug, its cause, and when it occurs."
+    )
     steps_to_reproduce: List[str] = Field(description="Ordered reproduction steps")
     user_impact_assessment: str = Field(description="Assessment of user impact")
-    technical_details: TechnicalDetails = Field(description="Extracted technical information")
+    technical_details: TechnicalDetails = Field(
+        description="Extracted technical information"
+    )
     triage_reasoning: str = Field(description="Justification for the triage decision")
     severity: str = Field(description="Severity level")
     suggested_owner: str = Field(description="Team name responsible for this bug")

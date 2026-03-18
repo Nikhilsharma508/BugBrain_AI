@@ -19,18 +19,20 @@ sys.path.append(str(project_root))
 
 from src.ui.views import main_pipeline_page, settings, Dashboard
 
+
 def main():
     st.set_page_config(
         page_title="AI Bug Triage",
         page_icon="🐛",
         layout="wide",
-        initial_sidebar_state="expanded"
+        initial_sidebar_state="expanded",
     )
 
     # ---------------------------------------------------------
     # GLOBAL AESTHETICS (Clean Dark Tech Glassmorphism)
     # ---------------------------------------------------------
-    st.markdown("""
+    st.markdown(
+        """
         <style>
             body {
                 margin: 0;
@@ -173,7 +175,9 @@ def main():
                 border-radius: 12px !important;
             }
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     st.sidebar.title("🐛 AI Bug Triage System")
     st.sidebar.markdown(
@@ -181,11 +185,10 @@ def main():
         "This tool uses an LLM-driven LangGraph pipeline to extract, parse, "
         "and triage incoming software bug reports."
     )
-    
+
     # Navigation
     page = st.sidebar.radio(
-        "Navigation", 
-        ["Run Triage Pipeline", "Dashboard", "Settings"]
+        "Navigation", ["Run Triage Pipeline", "Dashboard", "Settings"]
     )
 
     if page == "Run Triage Pipeline":
@@ -196,6 +199,7 @@ def main():
         settings.render()
     else:
         st.info("Feature under construction.")
+
 
 if __name__ == "__main__":
     main()

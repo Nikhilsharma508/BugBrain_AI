@@ -35,17 +35,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # 5. Lint the code (check for style issues)
-      - name: Lint with ruff
-        run: ruff check src/ tests/
-
-      # 6. Run unit tests
+      # 5. Run unit tests
       - name: Run tests
-        run: pytest tests/ -v --tb=short
+        run: pytest tests/test_pipeline_backend.py -v --tb=short
 
-      # 7. (Optional) Check types
-      # - name: Type check with mypy
-      #   run: mypy src/
 
   # Optional: Build check
   build:

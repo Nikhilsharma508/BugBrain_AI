@@ -15,12 +15,12 @@ import streamlit as st
 def render_report_card(result, expanded=True):
     """
     Renders a triage result as a visually attractive card with all key information.
-    
+
     Args:
         result: TriageResult object
         expanded: Whether to show all details or collapsed view
     """
-    
+
     # Determine severity color
     if "P1" in result.severity:
         severity_color, border_color = "#ff6b6b", "#ffaaaa"
@@ -30,7 +30,7 @@ def render_report_card(result, expanded=True):
         severity_color, border_color = "#ffc107", "#ffe082"
     else:
         severity_color, border_color = "#4caf50", "#81c784"
-    
+
     # Card header
     card_html = f"""
     <div style='
@@ -72,5 +72,5 @@ def render_report_card(result, expanded=True):
         </div>
     </div>
     """
-    
+
     st.markdown(card_html, unsafe_allow_html=True)

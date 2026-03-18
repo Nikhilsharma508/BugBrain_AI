@@ -26,6 +26,7 @@ import re
 
 import re
 
+
 def clean(text: str) -> str:
     """Normalise raw text: fix line endings, collapse whitespace, strip edges."""
     if not text:
@@ -51,13 +52,14 @@ def clean(text: str) -> str:
     # Strip leading/trailing whitespace
     return text.strip()
 
+
 if __name__ == "__main__":
     print("--- TEXT CLEANER TEST ---")
     # Test varying levels of quote escaping and whitespace
     dirty = '""ts""\n\n\n\t\t(Initializer.java:52)\n""""at org.eclipse""""\n"""Root Cause"""'
     cleaned = clean(dirty)
     print(f"Cleaned Output:\n{cleaned}")
-    
+
     # Verification
     assert '""' not in cleaned
-    assert '\t' not in cleaned
+    assert "\t" not in cleaned

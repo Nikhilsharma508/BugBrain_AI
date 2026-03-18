@@ -47,8 +47,8 @@ from src.telemetry.logger import get_logger
 logger = get_logger(__name__)
 
 
-
 # Removed static TOOL_CAPABLE_MODELS list in favor of dynamic testing
+
 
 def _ensure_env_var(var_name: Optional[str]) -> Optional[str]:
     """Ensure the required environment variable exists."""
@@ -58,6 +58,7 @@ def _ensure_env_var(var_name: Optional[str]) -> Optional[str]:
     if not value:
         raise ValueError(f"Environment variable '{var_name}' not found.")
     return value
+
 
 class LLMManager:
     """Unified LLM loader with dynamic tool capability detection."""
@@ -83,24 +84,28 @@ class LLMManager:
     ):
         self.base_model = base_model.lower()
         self.specific_model = specific_model or self.DEFAULT_MODELS.get(self.base_model)
-        self.temperature = float(_ensure_env_var("LLM_TEMPERATURE") or 0.0)  # Default temperature
+        self.temperature = float(
+            _ensure_env_var("LLM_TEMPERATURE") or 0.0
+        )  # Default temperature
         self.max_tokens = _ensure_env_var("LLM_MAX_TOKENS")  # Default max tokens
-        
-        logger.info(f"LLM active: provider={self.base_model}, model={self.specific_model}")
-        
-        self.client = self._load_model()
 
+        logger.info(
+            f"LLM active: provider={self.base_model}, model={self.specific_model}"
+        )
+
+        self.client = self._load_model()
 
     def _load_model(self):
         """Instantiate the requested LLM client."""
         env_var = self.ENV_VARS.get(self.base_model)
         api_key = _ensure_env_var(env_var)
-        
 
         if self.base_model == "gemini":
             if ChatGoogleGenerativeAI is None:
-                raise ImportError("Install langchain-google-genai: pip install langchain-google-genai")
-            
+                raise ImportError(
+                    "Install langchain-google-genai: pip install langchain-google-genai"
+                )
+
             return ChatGoogleGenerativeAI(
                 model=self.specific_model,
                 temperature=self.temperature,
@@ -109,7 +114,9 @@ class LLMManager:
 
         if self.base_model == "openrouter":
             if ChatOpenAI is None:
-                raise ImportError("Install langchain-openai: pip install langchain-openai")
+                raise ImportError(
+                    "Install langchain-openai: pip install langchain-openai"
+                )
             return ChatOpenAI(
                 model=self.specific_model,
                 openai_api_base="https://openrouter.ai/api/v1",
@@ -145,13 +152,13 @@ class LLMManager:
         """
         from pydantic import BaseModel, Field
         import logging
-        
+
         logger = logging.getLogger(__name__)
-        
+
         # Simple test schema
         class TestSchema(BaseModel):
             result: str = Field(description="Test output")
-        
+
         try:
             # If this works, the model supports structured output
             self.client.with_structured_output(TestSchema)

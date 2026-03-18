@@ -38,7 +38,11 @@ from langgraph.graph import StateGraph, START, END
 from src.preprocessing import run_preprocessing
 from src.agents.extraction_agent import run_extraction
 from src.agents.triage_agent import run_triage
-from src.schemas.triage_output import TriageResult, ExtractionResult, ClassificationResult
+from src.schemas.triage_output import (
+    TriageResult,
+    ExtractionResult,
+    ClassificationResult,
+)
 from src.duplicate_detection.similarity import search_similar_reports
 from src.telemetry.logger import get_logger
 import json
@@ -58,6 +62,7 @@ class PipelineState(TypedDict, total=False):
     triage_result: ClassificationResult
     similar_reports: list[dict]
 
+
 # --- Node Functions ---
 def preprocess_node(state: dict) -> dict:
     """LangGraph node: run preprocessing pipeline."""
@@ -66,9 +71,7 @@ def preprocess_node(state: dict) -> dict:
 
     result = run_preprocessing(bug_trace)
 
-    return {
-        "cleaned_text": result["cleaned_text"]
-    }
+    return {"cleaned_text": result["cleaned_text"]}
 
 
 def duplicate_detection_node(state: dict) -> dict:
@@ -76,11 +79,15 @@ def duplicate_detection_node(state: dict) -> dict:
     logger.info("Running duplicate detection node...")
     user_review = state.get("user_review", "")
     extraction = state.get("extraction_result")
-    
+
     if not extraction:
         return {"similar_reports": []}
-        
-    tech_details_dict = extraction.technical_details.model_dump() if hasattr(extraction.technical_details, 'model_dump') else extraction.technical_details
+
+    tech_details_dict = (
+        extraction.technical_details.model_dump()
+        if hasattr(extraction.technical_details, "model_dump")
+        else extraction.technical_details
+    )
     combined_text = f"""
     User Review: {user_review}
     Issue Summary: {extraction.issue_summary}
@@ -88,7 +95,7 @@ def duplicate_detection_node(state: dict) -> dict:
     User Impact: {extraction.user_impact_assessment}
     Technical Details: {json.dumps(tech_details_dict)}
     """
-    
+
     similar_reports = search_similar_reports(combined_text)
     return {"similar_reports": similar_reports}
 
@@ -127,7 +134,7 @@ def run_pipeline(bug_trace: str, user_review: Optional[str] = None):
         user_review: Optional user commentary providing extra context
 
     Yields:
-        Dict: Intermediate states from LangGraph execution, ending with 
+        Dict: Intermediate states from LangGraph execution, ending with
               a final dictionary containing 'final_triage_result': TriageResult.
     """
     logger.info("=== Pipeline Started ===")
@@ -138,18 +145,15 @@ def run_pipeline(bug_trace: str, user_review: Optional[str] = None):
     }
 
     final_state_snapshot = {}
-    
+
     # We use pipeline.stream instead of invoke
     for step_output in pipeline.stream(initial_state):
         # We merge into snapshot so we know the cumulative state
         for node_name, node_state in step_output.items():
             final_state_snapshot.update(node_state)
-            
+
             # Yield the node's name and the combined current state to the caller (e.g. Streamlit UI)
-            yield {
-                "node_name": node_name,
-                "current_state": final_state_snapshot
-            }
+            yield {"node_name": node_name, "current_state": final_state_snapshot}
 
     triage_raw = final_state_snapshot.get("triage_result")
     extraction_raw = final_state_snapshot.get("extraction_result")
@@ -161,10 +165,10 @@ def run_pipeline(bug_trace: str, user_review: Optional[str] = None):
             "final_triage_result": TriageResult(
                 issue_summary="Pipeline error: missing result",
                 steps_to_reproduce=["Error"],
-                technical_details= "Not provide", # type: ignore
+                technical_details="Not provide",  # type: ignore
                 severity="Unknown",
-                suggested_owner="Unknown"
-            )
+                suggested_owner="Unknown",
+            ),
         }
         return
 
@@ -178,11 +182,11 @@ def run_pipeline(bug_trace: str, user_review: Optional[str] = None):
         severity=triage_raw.severity,
         suggested_owner=triage_raw.suggested_owner,
     )
-    
+
     logger.info("=== Pipeline Complete ===\n")
     yield {
         "node_name": "completed",
         "final_triage_result": result,
         "similar_reports": final_state_snapshot.get("similar_reports", []),
-        "combined_text": final_state_snapshot.get("combined_text_for_search", "")
+        "combined_text": final_state_snapshot.get("combined_text_for_search", ""),
     }

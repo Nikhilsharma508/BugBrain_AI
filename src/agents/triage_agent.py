@@ -29,6 +29,7 @@ CONNECTS TO:
     - Uses prompts/triage_prompts.py for prompt templates
     - Reads from src/policies/*.yaml
 """
+
 # Use PydanticOutputParser for format instructions (helps non-compliant models)
 from langchain_core.output_parsers import PydanticOutputParser
 
@@ -80,10 +81,12 @@ def run_triage(state: dict) -> dict:
     logger.info("Running triage agent...")
 
     # Build the prompt with policies injected
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", TRIAGE_SYSTEM_PROMPT),
-        ("human", TRIAGE_USER_PROMPT),
-    ])
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", TRIAGE_SYSTEM_PROMPT),
+            ("human", TRIAGE_USER_PROMPT),
+        ]
+    )
 
     # Generate format instructions for non-compliant local models
     parser = PydanticOutputParser(pydantic_object=ClassificationResult)
@@ -95,13 +98,17 @@ def run_triage(state: dict) -> dict:
 
     # Build and invoke the chain
     chain = prompt | structured_llm
-    result = chain.invoke({
-        "severity_policy": SEVERITY_POLICY_TEXT,
-        "team_routing": TEAM_ROUTING_TEXT,
-        "extracted_data": extraction_result.model_dump_json(indent=2),
-        "format_instructions": format_instructions,
-    })
+    result = chain.invoke(
+        {
+            "severity_policy": SEVERITY_POLICY_TEXT,
+            "team_routing": TEAM_ROUTING_TEXT,
+            "extracted_data": extraction_result.model_dump_json(indent=2),
+            "format_instructions": format_instructions,
+        }
+    )
 
-    logger.info(f"Triage complete: severity={result.severity}, owner={result.suggested_owner}")
+    logger.info(
+        f"Triage complete: severity={result.severity}, owner={result.suggested_owner}"
+    )
 
     return {"triage_result": result}

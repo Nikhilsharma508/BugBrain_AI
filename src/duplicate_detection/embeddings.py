@@ -12,6 +12,7 @@ load_dotenv()
 
 _embedding_model = None
 
+
 def get_embedding_model() -> OllamaEmbeddings:
     """Returns a singleton instance of the OllamaEmbeddings model."""
     global _embedding_model
@@ -21,6 +22,7 @@ def get_embedding_model() -> OllamaEmbeddings:
         _embedding_model = OllamaEmbeddings(model=model_name)
     return _embedding_model
 
+
 def get_embeddings(text: str) -> List[float]:
     """Generates an embedding for a single text string."""
     try:
@@ -29,6 +31,7 @@ def get_embeddings(text: str) -> List[float]:
     except Exception as e:
         logger.error(f"Error generating embedding: {e}")
         raise
+
 
 def get_batch_embeddings(texts: List[str]) -> List[List[float]]:
     """Generates embeddings for a batch of text strings."""

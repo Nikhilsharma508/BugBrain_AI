@@ -41,6 +41,7 @@ from src.telemetry.logger import get_logger
 
 logger = get_logger("build_vector_index")
 
+
 def main():
     logger.info("Setting up vector index builder...")
 
@@ -77,21 +78,21 @@ def main():
 
     for index, row in tqdm(df.iterrows(), total=len(df)):
         bug_id = str(row.get("Id", ""))
-        
+
         # 1. Skip if already indexed by checking the ID directly
         if not bug_id or bug_id in indexed_ids:
             continue
-            
+
         # Skip if JSON doesn't exist (means it wasn't processed yet or load_json_data didn't run)
         if bug_id not in processed_data:
             continue
-            
+
         bug_trace = str(row.get("Bug Details", ""))
         user_review = str(row.get("User Review", "No user review provided"))
 
         try:
             triage_data = processed_data[bug_id]
-                
+
             # Combine all core technical fields (exclude raw trace and triage results)
             combined_text = f"""
             User Review: {user_review}
@@ -100,22 +101,24 @@ def main():
             User Impact: {triage_data.get('user_impact_assessment', '')}
             Technical Details: {json.dumps(triage_data.get('technical_details', {}))}
             """
-            
+
             # Use metadata for retrieval context
             metadata = {
                 "id": bug_id,
-                "issue_summary": triage_data.get('issue_summary', ''),
-                "steps": ', '.join(triage_data.get('steps_to_reproduce', [])),
-                "user_impact": triage_data.get('user_impact_assessment', ''),
-                "technical_details": json.dumps(triage_data.get('technical_details', {})),
-                "triage_reasoning": triage_data.get('triage_reasoning', ''),
-                "severity": triage_data.get('severity', ''),
-                "team": triage_data.get('suggested_owner', '')
+                "issue_summary": triage_data.get("issue_summary", ""),
+                "steps": ", ".join(triage_data.get("steps_to_reproduce", [])),
+                "user_impact": triage_data.get("user_impact_assessment", ""),
+                "technical_details": json.dumps(
+                    triage_data.get("technical_details", {})
+                ),
+                "triage_reasoning": triage_data.get("triage_reasoning", ""),
+                "severity": triage_data.get("severity", ""),
+                "team": triage_data.get("suggested_owner", ""),
             }
-            
+
             texts_to_embed.append(combined_text)
             metadatas.append(metadata)
-            
+
         except Exception as e:
             logger.error(f"Failed to read JSON for Bug ID {bug_id}: {e}")
 
@@ -128,6 +131,7 @@ def main():
             logger.error(f"Failed to save to vector index: {e}")
     else:
         logger.info("No new documents to add to the index.")
+
 
 if __name__ == "__main__":
     main()

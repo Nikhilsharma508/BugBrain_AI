@@ -17,6 +17,7 @@ PROJECT_ROOT = Path(__file__).parent.parent.parent.parent
 JSON_PATH = PROJECT_ROOT / "Data" / "processed" / "processed_bug_reports.json"
 POLICIES_DIR = PROJECT_ROOT / "src" / "policies"
 
+
 def load_policies():
     """Loads severity and team definitions from YAML files."""
     severities = ["P1_Critical", "P2_High", "P3_Medium", "P4_Low"]
@@ -29,7 +30,9 @@ def load_policies():
         with open(sev_path, "r") as f:
             sev_data = yaml.safe_load(f)
             if "severity_levels" in sev_data:
-                severities = [v.get("label", k) for k, v in sev_data["severity_levels"].items()]
+                severities = [
+                    v.get("label", k) for k, v in sev_data["severity_levels"].items()
+                ]
 
     if team_path.exists():
         with open(team_path, "r") as f:
@@ -56,8 +59,12 @@ def load_data():
                 "Severity": details.get("severity", "Unknown"),
                 "Owner": details.get("suggested_owner", "Unassigned"),
                 "Summary": details.get("issue_summary", ""),
-                "Error": details.get("technical_details", {}).get("detected_error", "N/A"),
-                "Timestamp": details.get("technical_details", {}).get("timestamp", "N/A")
+                "Error": details.get("technical_details", {}).get(
+                    "detected_error", "N/A"
+                ),
+                "Timestamp": details.get("technical_details", {}).get(
+                    "timestamp", "N/A"
+                ),
             }
             flat_data.append(row)
 
@@ -68,7 +75,8 @@ def load_data():
 
 
 def render():
-    st.markdown("""
+    st.markdown(
+        """
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;700;900&display=swap');
 
@@ -347,17 +355,25 @@ def render():
                 padding-top: 2rem !important;
             }
         </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     # ── Header ──
-    st.markdown("<div class='dash-title'>📊 TRIAGE ANALYTICS</div>", unsafe_allow_html=True)
-    st.markdown("<div class='dash-sub'>REAL-TIME SYSTEM PERFORMANCE DASHBOARD</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='dash-title'>📊 TRIAGE ANALYTICS</div>", unsafe_allow_html=True
+    )
+    st.markdown(
+        "<div class='dash-sub'>REAL-TIME SYSTEM PERFORMANCE DASHBOARD</div>",
+        unsafe_allow_html=True,
+    )
 
     df = load_data()
     all_severities, all_teams = load_policies()
 
     if df.empty:
-        st.markdown("""
+        st.markdown(
+            """
             <div class='glass-card' style='text-align:center; padding: 3rem;'>
                 <div style='font-size:3rem;'>🛰️</div>
                 <h3 style='color:#64b6ff; font-family: Rajdhani, sans-serif; letter-spacing:2px;'>NO DATA FOUND</h3>
@@ -365,50 +381,64 @@ def render():
                     Run the triage pipeline to generate analytics.
                 </p>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
         return
 
     # ── TOP METRICS ──
     m1, m2, m3, m4 = st.columns(4)
 
     with m1:
-        st.markdown(f"""
+        st.markdown(
+            f"""
             <div class='metric-card'>
                 <span class='metric-icon'>🗂️</span>
                 <div class='metric-val'>{len(df)}</div>
                 <div class='metric-lab'>Reports Handled</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with m2:
         top_sev = df["Severity"].mode()[0] if not df["Severity"].empty else "N/A"
-        st.markdown(f"""
+        st.markdown(
+            f"""
             <div class='metric-card'>
                 <span class='metric-icon'>🔴</span>
                 <div class='metric-val' style='color:#ff8080; font-size:1.7rem;'>{top_sev}</div>
                 <div class='metric-lab'>Main Impact</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with m3:
         top_owner = df["Owner"].mode()[0] if not df["Owner"].empty else "N/A"
-        st.markdown(f"""
+        st.markdown(
+            f"""
             <div class='metric-card'>
                 <span class='metric-icon'>👤</span>
                 <div class='metric-val' style='color:#7eff9e; font-size:1.7rem;'>{top_owner.split('-')[0]}</div>
                 <div class='metric-lab'>Lead Assignee</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     with m4:
         avg_char = int(df["Summary"].str.len().mean()) if not df["Summary"].empty else 0
-        st.markdown(f"""
+        st.markdown(
+            f"""
             <div class='metric-card'>
                 <span class='metric-icon'>✏️</span>
                 <div class='metric-val' style='color:#64d9ff;'>{avg_char}</div>
                 <div class='metric-lab'>Avg Summary Len</div>
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
@@ -416,40 +446,57 @@ def render():
     c1, c2 = st.columns(2)
 
     with c1:
-        st.markdown("<div class='section-header'>⚡ Severity Spread</div>", unsafe_allow_html=True)
-        sev_counts = df["Severity"].value_counts().reindex(all_severities, fill_value=0).reset_index()
+        st.markdown(
+            "<div class='section-header'>⚡ Severity Spread</div>",
+            unsafe_allow_html=True,
+        )
+        sev_counts = (
+            df["Severity"]
+            .value_counts()
+            .reindex(all_severities, fill_value=0)
+            .reset_index()
+        )
         sev_counts.columns = ["Severity", "Reports"]
         st.bar_chart(sev_counts.set_index("Severity"), color="#64b6ff", height=260)
 
     with c2:
-        st.markdown("<div class='section-header'>🛠️ Team Load</div>", unsafe_allow_html=True)
-        team_counts = df["Owner"].value_counts().reindex(all_teams, fill_value=0).reset_index()
+        st.markdown(
+            "<div class='section-header'>🛠️ Team Load</div>", unsafe_allow_html=True
+        )
+        team_counts = (
+            df["Owner"].value_counts().reindex(all_teams, fill_value=0).reset_index()
+        )
         team_counts.columns = ["Team", "Reports"]
         st.bar_chart(team_counts.set_index("Team"), color="#a855f7", height=260)
 
     st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
     # ── ERROR PATTERN ANALYSIS ──
-    st.markdown("<div class='section-header'>🧬 Error Pattern Recognition</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='section-header'>🧬 Error Pattern Recognition</div>",
+        unsafe_allow_html=True,
+    )
     error_df = df["Error"].value_counts().reset_index()
     error_df.columns = ["Error Type", "Frequency"]
-    st.dataframe(
-        error_df,
-        use_container_width=True,
-        hide_index=True,
-        height=240
-    )
+    st.dataframe(error_df, use_container_width=True, hide_index=True, height=240)
 
     st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
 
     # ── RAW CLASSIFICATIONS TABLE ──
-    st.markdown("<div class='section-header'>📋 Recent Classifications</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='section-header'>📋 Recent Classifications</div>",
+        unsafe_allow_html=True,
+    )
     st.dataframe(
-        df[["Id", "Severity", "Owner", "Summary", "Timestamp"]].sort_values("Id", ascending=True),
+        df[["Id", "Severity", "Owner", "Summary", "Timestamp"]].sort_values(
+            "Id", ascending=True
+        ),
         use_container_width=True,
-        hide_index=True
+        hide_index=True,
     )
 
     # ── Footer ──
     st.markdown("---")
-    st.caption("⬤ Data sync: ONLINE  ·  Source: processed_bug_reports.json  ·  Auto-refresh enabled")
+    st.caption(
+        "⬤ Data sync: ONLINE  ·  Source: processed_bug_reports.json  ·  Auto-refresh enabled"
+    )

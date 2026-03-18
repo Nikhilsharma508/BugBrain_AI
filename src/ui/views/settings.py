@@ -282,13 +282,19 @@ div[data-testid="stSlider"] [role="slider"] {
 </style>
 """
 
+
 def render():
     st.markdown(NODE_CSS, unsafe_allow_html=True)
     st.markdown("<div class='node-bg'></div>", unsafe_allow_html=True)
 
     # ── HEADER ────────────────────────────────────────────────────────────────
-    st.markdown("<div class='env-title'>ENVIRONMENT NODES</div>", unsafe_allow_html=True)
-    st.markdown("<div class='env-subtitle'>// configure system-wide variables interactively //</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='env-title'>ENVIRONMENT NODES</div>", unsafe_allow_html=True
+    )
+    st.markdown(
+        "<div class='env-subtitle'>// configure system-wide variables interactively //</div>",
+        unsafe_allow_html=True,
+    )
 
     # ── SESSION STATE ─────────────────────────────────────────────────────────
     if "active_node" not in st.session_state:
@@ -302,31 +308,41 @@ def render():
         st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
 
         nodes = [
-            ("llm",  "🧠", "LLM_PROVIDER",    "node-btn-llm"),
-            ("emb",  "🧬", "EMBEDDING",        "node-btn-emb"),
-            ("vec",  "📦", "VECTOR_STORE",     "node-btn-vec"),
-            ("obs",  "🔭", "OBSERVABILITY",    "node-btn-obs"),
+            ("llm", "🧠", "LLM_PROVIDER", "node-btn-llm"),
+            ("emb", "🧬", "EMBEDDING", "node-btn-emb"),
+            ("vec", "📦", "VECTOR_STORE", "node-btn-vec"),
+            ("obs", "🔭", "OBSERVABILITY", "node-btn-obs"),
         ]
 
         for node_id, icon, label, btn_class in nodes:
             is_active = st.session_state.active_node == node_id
             prefix = "▶ " if is_active else "   "
-            if st.button(f"{icon}  {prefix}{label}", key=f"node_{node_id}", use_container_width=True):
+            if st.button(
+                f"{icon}  {prefix}{label}",
+                key=f"node_{node_id}",
+                use_container_width=True,
+            ):
                 st.session_state.active_node = node_id
                 st.rerun()
 
             # Connector line below active node
             if is_active:
-                st.markdown("<div class='connector-line' style='height:28px'></div>", unsafe_allow_html=True)
+                st.markdown(
+                    "<div class='connector-line' style='height:28px'></div>",
+                    unsafe_allow_html=True,
+                )
             else:
                 st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
         # Live indicator
-        st.markdown("""
+        st.markdown(
+            """
             <div class='status-tag'>
                 <span class='status-dot'></span>SESSION ACTIVE
             </div>
-        """, unsafe_allow_html=True)
+        """,
+            unsafe_allow_html=True,
+        )
 
     # ── RIGHT: CONFIG PANEL ───────────────────────────────────────────────────
     with right_col:
@@ -335,12 +351,22 @@ def render():
         # ── LLM NODE ──────────────────────────────────────────────────────────
         if active == "llm":
             st.markdown("<div class='config-panel'>", unsafe_allow_html=True)
-            st.markdown("<div class='panel-header-llm'>⬡ CORE LLM PARAMETERS</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='panel-header-llm'>⬡ CORE LLM PARAMETERS</div>",
+                unsafe_allow_html=True,
+            )
 
             c1, c2 = st.columns(2)
-            temp = c1.slider("Temperature", 0.0, 1.0,
-                             float(os.getenv("LLM_TEMPERATURE", "0.0")), 0.05)
-            tokens = c2.text_input("Max Tokens", value=os.getenv("LLM_MAX_TOKENS", "None"))
+            temp = c1.slider(
+                "Temperature",
+                0.0,
+                1.0,
+                float(os.getenv("LLM_TEMPERATURE", "0.0")),
+                0.05,
+            )
+            tokens = c2.text_input(
+                "Max Tokens", value=os.getenv("LLM_MAX_TOKENS", "None")
+            )
             os.environ["LLM_TEMPERATURE"] = str(temp)
             os.environ["LLM_MAX_TOKENS"] = tokens
 
@@ -358,57 +384,102 @@ def render():
 
             # Provider-specific pop-up
             BADGE = {
-                "gemini":     ("badge-gemini",     "💎 GEMINI COMPONENTS"),
-                "azure":      ("badge-azure",      "☁️ AZURE OPENAI COMPONENTS"),
-                "ollama":     ("badge-ollama",     "🦙 OLLAMA COMPONENTS"),
+                "gemini": ("badge-gemini", "💎 GEMINI COMPONENTS"),
+                "azure": ("badge-azure", "☁️ AZURE OPENAI COMPONENTS"),
+                "ollama": ("badge-ollama", "🦙 OLLAMA COMPONENTS"),
                 "openrouter": ("badge-openrouter", "🌐 OPENROUTER COMPONENTS"),
             }
             cls, label = BADGE[base_model]
-            st.markdown(f"<div class='provider-badge {cls}'>{label}</div>", unsafe_allow_html=True)
+            st.markdown(
+                f"<div class='provider-badge {cls}'>{label}</div>",
+                unsafe_allow_html=True,
+            )
 
             if base_model == "gemini":
-                gem_key = st.text_input("GEMINI_API_KEY", value=os.getenv("GEMINI_API_KEY", ""), type="password")
-                gem_mod = st.text_input("GEMINI_MODEL",   value=os.getenv("GEMINI_MODEL", "gemini-2.0-flash"))
+                gem_key = st.text_input(
+                    "GEMINI_API_KEY",
+                    value=os.getenv("GEMINI_API_KEY", ""),
+                    type="password",
+                )
+                gem_mod = st.text_input(
+                    "GEMINI_MODEL", value=os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+                )
                 os.environ["GEMINI_API_KEY"] = gem_key
-                os.environ["GEMINI_MODEL"]   = gem_mod
+                os.environ["GEMINI_MODEL"] = gem_mod
 
             elif base_model == "azure":
-                az_key = st.text_input("AZURE_OPENAI_API_KEY",     value=os.getenv("AZURE_OPENAI_API_KEY", ""),     type="password")
-                az_end = st.text_input("AZURE_OPENAI_ENDPOINT",    value=os.getenv("AZURE_OPENAI_ENDPOINT", ""))
-                az_ver = st.text_input("AZURE_OPENAI_API_VERSION", value=os.getenv("AZURE_OPENAI_API_VERSION", ""))
-                az_dep = st.text_input("AZURE_OPENAI_DEPLOYMENT",  value=os.getenv("AZURE_OPENAI_DEPLOYMENT", ""))
-                os.environ["AZURE_OPENAI_API_KEY"]     = az_key
-                os.environ["AZURE_OPENAI_ENDPOINT"]    = az_end
+                az_key = st.text_input(
+                    "AZURE_OPENAI_API_KEY",
+                    value=os.getenv("AZURE_OPENAI_API_KEY", ""),
+                    type="password",
+                )
+                az_end = st.text_input(
+                    "AZURE_OPENAI_ENDPOINT",
+                    value=os.getenv("AZURE_OPENAI_ENDPOINT", ""),
+                )
+                az_ver = st.text_input(
+                    "AZURE_OPENAI_API_VERSION",
+                    value=os.getenv("AZURE_OPENAI_API_VERSION", ""),
+                )
+                az_dep = st.text_input(
+                    "AZURE_OPENAI_DEPLOYMENT",
+                    value=os.getenv("AZURE_OPENAI_DEPLOYMENT", ""),
+                )
+                os.environ["AZURE_OPENAI_API_KEY"] = az_key
+                os.environ["AZURE_OPENAI_ENDPOINT"] = az_end
                 os.environ["AZURE_OPENAI_API_VERSION"] = az_ver
-                os.environ["AZURE_OPENAI_DEPLOYMENT"]  = az_dep
+                os.environ["AZURE_OPENAI_DEPLOYMENT"] = az_dep
 
             elif base_model == "ollama":
-                oll_mod = st.text_input("OLLAMA_MODEL", value=os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud"))
+                oll_mod = st.text_input(
+                    "OLLAMA_MODEL",
+                    value=os.getenv("OLLAMA_MODEL", "gpt-oss:120b-cloud"),
+                )
                 os.environ["OLLAMA_MODEL"] = oll_mod
 
             elif base_model == "openrouter":
-                or_key = st.text_input("OPENROUTER_API_KEY", value=os.getenv("OPENROUTER_API_KEY", ""), type="password")
-                or_mod = st.text_input("OPENROUTER_MODEL",   value=os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3-70b-instruct"))
+                or_key = st.text_input(
+                    "OPENROUTER_API_KEY",
+                    value=os.getenv("OPENROUTER_API_KEY", ""),
+                    type="password",
+                )
+                or_mod = st.text_input(
+                    "OPENROUTER_MODEL",
+                    value=os.getenv(
+                        "OPENROUTER_MODEL", "meta-llama/llama-3-70b-instruct"
+                    ),
+                )
                 os.environ["OPENROUTER_API_KEY"] = or_key
-                os.environ["OPENROUTER_MODEL"]   = or_mod
+                os.environ["OPENROUTER_MODEL"] = or_mod
 
             st.markdown("</div>", unsafe_allow_html=True)
 
         # ── EMBEDDING NODE ────────────────────────────────────────────────────
         elif active == "emb":
             st.markdown("<div class='config-panel'>", unsafe_allow_html=True)
-            st.markdown("<div class='panel-header-emb'>⬡ EMBEDDING CONFIGURATION</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='panel-header-emb'>⬡ EMBEDDING CONFIGURATION</div>",
+                unsafe_allow_html=True,
+            )
 
-            emb_mod = st.text_input("EMBEDDING_MODEL",
-                                    value=os.getenv("EMBEDDING_MODEL", "qwen3-embedding:0.6b"))
+            emb_mod = st.text_input(
+                "EMBEDDING_MODEL",
+                value=os.getenv("EMBEDDING_MODEL", "qwen3-embedding:0.6b"),
+            )
             os.environ["EMBEDDING_MODEL"] = emb_mod
 
             st.markdown("<div class='node-divider'></div>", unsafe_allow_html=True)
-            st.markdown("<div class='provider-badge badge-gemini'>📐 SIMILARITY PARAMETERS</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='provider-badge badge-gemini'>📐 SIMILARITY PARAMETERS</div>",
+                unsafe_allow_html=True,
+            )
 
             emb_threshold = st.slider(
-                "EMBEDDING_SIMILARITY_THRESHOLD", 0.0, 1.0,
-                float(os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.2")), 0.05
+                "EMBEDDING_SIMILARITY_THRESHOLD",
+                0.0,
+                1.0,
+                float(os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.2")),
+                0.05,
             )
             os.environ["EMBEDDING_SIMILARITY_THRESHOLD"] = str(emb_threshold)
 
@@ -417,19 +488,26 @@ def render():
         # ── VECTOR STORE NODE ─────────────────────────────────────────────────
         elif active == "vec":
             st.markdown("<div class='config-panel'>", unsafe_allow_html=True)
-            st.markdown("<div class='panel-header-vec'>⬡ VECTOR STORE CONFIGURATION</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='panel-header-vec'>⬡ VECTOR STORE CONFIGURATION</div>",
+                unsafe_allow_html=True,
+            )
 
             v_type = st.selectbox(
                 "VECTOR_STORE_TYPE",
                 options=["faiss", "chromadb"],
-                index=["faiss", "chromadb"].index(os.getenv("VECTOR_STORE_TYPE", "faiss"))
+                index=["faiss", "chromadb"].index(
+                    os.getenv("VECTOR_STORE_TYPE", "faiss")
+                ),
             )
             os.environ["VECTOR_STORE_TYPE"] = v_type
 
             st.markdown("<div class='node-divider'></div>", unsafe_allow_html=True)
 
-            v_path = st.text_input("VECTOR_STORE_PATH",
-                                   value=os.getenv("VECTOR_STORE_PATH", "data/vector_store"))
+            v_path = st.text_input(
+                "VECTOR_STORE_PATH",
+                value=os.getenv("VECTOR_STORE_PATH", "data/vector_store"),
+            )
             os.environ["VECTOR_STORE_PATH"] = v_path
 
             st.markdown("</div>", unsafe_allow_html=True)
@@ -437,53 +515,88 @@ def render():
         # ── OBSERVABILITY NODE ────────────────────────────────────────────────
         elif active == "obs":
             st.markdown("<div class='config-panel'>", unsafe_allow_html=True)
-            st.markdown("<div class='panel-header-obs'>⬡ LOGGING & OBSERVABILITY</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='panel-header-obs'>⬡ LOGGING & OBSERVABILITY</div>",
+                unsafe_allow_html=True,
+            )
 
             c1, c2 = st.columns(2)
             l_level = c1.selectbox(
                 "LOG_LEVEL",
                 ["DEBUG", "INFO", "WARNING", "ERROR"],
-                index=["DEBUG", "INFO", "WARNING", "ERROR"].index(os.getenv("LOG_LEVEL", "INFO"))
+                index=["DEBUG", "INFO", "WARNING", "ERROR"].index(
+                    os.getenv("LOG_LEVEL", "INFO")
+                ),
             )
-            l_path = c2.text_input("LOG_FILE_PATH", value=os.getenv("LOG_FILE_PATH", "data/temp/app.log"))
-            os.environ["LOG_LEVEL"]     = l_level
+            l_path = c2.text_input(
+                "LOG_FILE_PATH", value=os.getenv("LOG_FILE_PATH", "data/temp/app.log")
+            )
+            os.environ["LOG_LEVEL"] = l_level
             os.environ["LOG_FILE_PATH"] = l_path
 
             st.markdown("<div class='node-divider'></div>", unsafe_allow_html=True)
-            st.markdown("<div class='provider-badge' style='background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.4)'>🔗 LANGCHAIN TRACING</div>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='provider-badge' style='background:rgba(239,68,68,0.15);color:#fca5a5;border:1px solid rgba(239,68,68,0.4)'>🔗 LANGCHAIN TRACING</div>",
+                unsafe_allow_html=True,
+            )
 
-            tracing = st.checkbox("LANGCHAIN_TRACING_V2",
-                                  value=os.getenv("LANGCHAIN_TRACING_V2", "false").lower() == "true")
-            lc_proj = st.text_input("LANGCHAIN_PROJECT",
-                                    value=os.getenv("LANGCHAIN_PROJECT", "ai-bug-triage"))
-            lc_key  = st.text_input("LANGCHAIN_API_KEY",
-                                    value=os.getenv("LANGCHAIN_API_KEY", ""), type="password")
+            tracing = st.checkbox(
+                "LANGCHAIN_TRACING_V2",
+                value=os.getenv("LANGCHAIN_TRACING_V2", "false").lower() == "true",
+            )
+            lc_proj = st.text_input(
+                "LANGCHAIN_PROJECT",
+                value=os.getenv("LANGCHAIN_PROJECT", "ai-bug-triage"),
+            )
+            lc_key = st.text_input(
+                "LANGCHAIN_API_KEY",
+                value=os.getenv("LANGCHAIN_API_KEY", ""),
+                type="password",
+            )
             os.environ["LANGCHAIN_TRACING_V2"] = str(tracing).lower()
-            os.environ["LANGCHAIN_PROJECT"]    = lc_proj
-            os.environ["LANGCHAIN_API_KEY"]    = lc_key
+            os.environ["LANGCHAIN_PROJECT"] = lc_proj
+            os.environ["LANGCHAIN_API_KEY"] = lc_key
 
             st.markdown("</div>", unsafe_allow_html=True)
 
     # ── ADVANCED BULK OPERATIONS ──────────────────────────────────────────────
     st.markdown("<div class='bulk-panel'>", unsafe_allow_html=True)
-    st.markdown("<div class='bulk-title'>🛠 ADVANCED BULK OPERATIONS</div>", unsafe_allow_html=True)
-    st.markdown("<div class='bulk-sub'>// apply sweeping changes or export your session config //</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='bulk-title'>🛠 ADVANCED BULK OPERATIONS</div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<div class='bulk-sub'>// apply sweeping changes or export your session config //</div>",
+        unsafe_allow_html=True,
+    )
 
     c1, c2, c3 = st.columns([1.4, 1.4, 2])
 
-    if c1.button("💾  Apply Session Settings", type="primary", use_container_width=True):
+    if c1.button(
+        "💾  Apply Session Settings", type="primary", use_container_width=True
+    ):
         # Update session state from environment variables
         st.session_state.LLM_BASE_MODEL = os.getenv("LLM_BASE_MODEL", "ollama")
         st.session_state.LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.0"))
         st.session_state.LLM_MAX_TOKENS = os.getenv("LLM_MAX_TOKENS", "None")
-        st.session_state.EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "qwen3-embedding:0.6b")
-        st.session_state.EMBEDDING_SIMILARITY_THRESHOLD = float(os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.2"))
+        st.session_state.EMBEDDING_MODEL = os.getenv(
+            "EMBEDDING_MODEL", "qwen3-embedding:0.6b"
+        )
+        st.session_state.EMBEDDING_SIMILARITY_THRESHOLD = float(
+            os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.2")
+        )
         st.session_state.VECTOR_STORE_TYPE = os.getenv("VECTOR_STORE_TYPE", "faiss")
-        st.session_state.VECTOR_STORE_PATH = os.getenv("VECTOR_STORE_PATH", "data/vector_store")
+        st.session_state.VECTOR_STORE_PATH = os.getenv(
+            "VECTOR_STORE_PATH", "data/vector_store"
+        )
         st.session_state.LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
         st.session_state.LOG_FILE_PATH = os.getenv("LOG_FILE_PATH", "data/temp/app.log")
-        st.session_state.LANGCHAIN_TRACING_V2 = os.getenv("LANGCHAIN_TRACING_V2", "false")
-        st.session_state.LANGCHAIN_PROJECT = os.getenv("LANGCHAIN_PROJECT", "ai-bug-triage")
+        st.session_state.LANGCHAIN_TRACING_V2 = os.getenv(
+            "LANGCHAIN_TRACING_V2", "false"
+        )
+        st.session_state.LANGCHAIN_PROJECT = os.getenv(
+            "LANGCHAIN_PROJECT", "ai-bug-triage"
+        )
         st.session_state.LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY", "")
         st.success("✓ Session configurations applied.")
         st.balloons()
@@ -505,17 +618,26 @@ LANGCHAIN_PROJECT={os.getenv('LANGCHAIN_PROJECT', 'ai-bug-triage')}"""
         st.code(config_str, language="bash")
         st.toast("Config string generated!", icon="📋")
 
-    c3.file_uploader("Import .env File", type=["env", "txt"], label_visibility="collapsed")
+    c3.file_uploader(
+        "Import .env File", type=["env", "txt"], label_visibility="collapsed"
+    )
 
     # Add a button to clear cache
     if st.button("🧹 Clear Cache", use_container_width=True):
         # Clear session state keys related to config
         keys_to_clear = [
-            "LLM_BASE_MODEL", "LLM_TEMPERATURE", "LLM_MAX_TOKENS",
-            "EMBEDDING_MODEL", "EMBEDDING_SIMILARITY_THRESHOLD",
-            "VECTOR_STORE_TYPE", "VECTOR_STORE_PATH",
-            "LOG_LEVEL", "LOG_FILE_PATH",
-            "LANGCHAIN_TRACING_V2", "LANGCHAIN_PROJECT", "LANGCHAIN_API_KEY"
+            "LLM_BASE_MODEL",
+            "LLM_TEMPERATURE",
+            "LLM_MAX_TOKENS",
+            "EMBEDDING_MODEL",
+            "EMBEDDING_SIMILARITY_THRESHOLD",
+            "VECTOR_STORE_TYPE",
+            "VECTOR_STORE_PATH",
+            "LOG_LEVEL",
+            "LOG_FILE_PATH",
+            "LANGCHAIN_TRACING_V2",
+            "LANGCHAIN_PROJECT",
+            "LANGCHAIN_API_KEY",
         ]
         for key in keys_to_clear:
             if key in st.session_state:
@@ -527,5 +649,5 @@ LANGCHAIN_PROJECT={os.getenv('LANGCHAIN_PROJECT', 'ai-bug-triage')}"""
     # ── FOOTER ────────────────────────────────────────────────────────────────
     st.markdown(
         "<div class='node-footer'>⚡ SESSION-SCOPED // CHANGES RESET ON APP RESTART // ALL VARS ARE TEMPORARY</div>",
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )

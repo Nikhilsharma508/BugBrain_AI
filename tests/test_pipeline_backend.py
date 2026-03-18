@@ -1,78 +1,80 @@
 """
-scripts/test_pipeline.py — End-to-End Pipeline Test
----------------------------------------------------
+tests/test_pipeline_backend.py — Functional Pipeline Test
+-----------------------------------------------------------
 PURPOSE:
-    Tests the complete AI Bug Triage pipeline from end-to-end.
-    Loads a real bug report from the CSV, passes it through the
-    orchestrator, and prints the extracted structured JSON.
+    Provides a standalone test case to verify the LangGraph-based
+    orchestrator and the full bug triage pipeline.
 
 USAGE:
-    Run this script from the project root:
-    $ python scripts/test_pipeline.py
+    1. As a script: python tests/test_pipeline_backend.py
+    2. As a test: pytest tests/test_pipeline_backend.py -s
 """
 
 import sys
-import pandas as pd
 from pathlib import Path
+import json
+from dotenv import load_dotenv
 
-# Add project root to PYTHONPATH so we can import src
-project_root = Path(__file__).resolve().parent.parent
-sys.path.append(str(project_root))
+# Load environment variables (simulate .env loading if not already in environment)
+load_dotenv()
+
+# Add project root to sys.path
+PROJECT_ROOT = Path(__file__).parent.parent
+sys.path.append(str(PROJECT_ROOT))
 
 from src.agents.orchestrator import run_pipeline
-from src.telemetry.logger import get_logger
 
-logger = get_logger("test_pipeline")
+SAMPLE_BUG_TRACE = """
+Date: Fri May 10 11:46:52 GMT+03:00 2002
+java.lang.ClassCastException: org.eclipse.jdt.internal.compiler.ast.FieldDeclaration
+	at org.eclipse.jdt.internal.compiler.parser.Parser.buildInitialRecoveryState(Parser.java:539)
+	at org.eclipse.jdt.internal.compiler.parser.Parser.parse(Parser.java:500)
+	at org.eclipse.jdt.internal.compiler.ast.Initializer.parseStatements(Initializer.java:52)
+	at org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod(TypeDeclaration.java:695)
+	at org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies(Compiler.java:256)
+	at org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDelta(IncrementalImageBuilder.java:264)
+	at org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.build(JavaBuilder.java:54)
+"""
+
+SAMPLE_USER_REVIEW = (
+    "I was saving a Java file in Eclipse when the build failed with this error."
+)
 
 
-def main():
-    logger.info("Setting up pipeline test...")
+def test_full_pipeline_execution():
+    """Run the orchestrator with one instance and print the JSON result."""
+    print("\n" + "=" * 50)
+    print("🚀 STARTING BACKEND PIPELINE TEST")
+    print("=" * 50 + "\n")
 
-    csv_path = project_root / "Data" / "bug_report.csv"
-    if not csv_path.exists():
-        logger.error(f"Could not find CSV at {csv_path}")
-        return
+    final_result = None
 
-    logger.info(f"Loading data from {csv_path}")
-    try:
-        df = pd.read_csv(csv_path)
-    except Exception as e:
-        logger.error(f"Failed to read CSV: {e}")
-        return
+    # Run the pipeline generator
+    for update in run_pipeline(SAMPLE_BUG_TRACE, SAMPLE_USER_REVIEW):
+        node_name = update.get("node_name")
 
-    if df.empty:
-        logger.error("CSV is empty!")
-        return
+        if node_name == "completed":
+            final_result = update.get("final_triage_result")
+            print("\n✅ PIPELINE CAN RUN SUCCESSFULLY")
+        else:
+            print(f"🔄 Executing: [{node_name}]...")
 
-    # Let's grab the first real bug report from the dataset
-    sample_row = df.iloc[0]
-    bug_id = sample_row.get("Id", "Unknown")
-    bug_trace = sample_row.get("Bug Details", "")
-    
-    # Check if 'User Review' column exists, otherwise default
-    user_review = sample_row.get("User Review", "No user review provided") if "User Review" in df.columns else "No user review provided"
+    if final_result:
+        print("\n" + "=" * 50)
+        print("📋 FINAL TRIAGE RESULT (JSON)")
+        print("=" * 50)
 
-    # type of bug_trace and user_review should be string for the pipeline, ensure that
-    # print(f"Type of bug_trace: {type(bug_trace)}, Type of user_review: {type(user_review)}") # Str , Str (result)
+        # Convert Pydantic model to dict and then formatted JSON
+        result_dict = final_result.model_dump()
+        print(json.dumps(result_dict, indent=2))
+        print("=" * 50 + "\n")
 
-    logger.info(f"Testing pipeline with Bug ID: {bug_id}")
-    logger.info(f"Bug Trace: {bug_trace[:100]}..., Raw Text Length: {len(str(bug_trace))} characters")
-    logger.info(f"Review: {user_review[:50]}..., User Review Length: {len(str(user_review))} characters")
+        return result_dict
+    else:
+        print("\n❌ Pipeline failed to produce a final result.")
+        return None
 
-    
-    # Run the pipeline!
-    try:
-        result = run_pipeline(bug_trace=str(bug_trace), user_review=str(user_review))
-        
-        print("\n" + "="*50)
-        print("🎉 PIPELINE EXECUTION SUCCESSFUL 🎉")
-        print("="*50)
-        print("\n[ FINAL STRUCTURED OUTPUT ]\n")
-        print(result.model_dump_json(indent=2))
-        print("\n" + "="*50)
-        
-    except Exception as e:
-        logger.exception(f"Pipeline failed during execution: {e}")
 
 if __name__ == "__main__":
-    main()
+    # If run directly as a script, execute the test function
+    test_full_pipeline_execution()

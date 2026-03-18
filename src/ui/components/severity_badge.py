@@ -18,7 +18,7 @@ import streamlit as st
 def render_severity_badge(severity: str):
     """
     Renders a colour-coded severity badge with bright, highly visible styling.
-    
+
     Args:
         severity: Severity string (e.g., "P1 (Critical)", "P2 (High)", "P3 (Medium)", "P4 (Low)")
     """
@@ -29,11 +29,11 @@ def render_severity_badge(severity: str):
         "P3": ("#ffc107", "#ffe082", "🟡 MEDIUM"),
         "P4": ("#4caf50", "#81c784", "🟢 LOW"),
     }
-    
+
     # Extract priority level
     priority = severity.split()[0] if severity else "P3"
     bg_color, border_color, label = colors.get(priority, colors["P3"])
-    
+
     badge_html = f"""
     <div style='
         display: inline-block;

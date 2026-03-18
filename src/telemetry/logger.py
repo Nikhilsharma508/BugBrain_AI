@@ -35,7 +35,6 @@ from pathlib import Path
 from logging.handlers import RotatingFileHandler
 from typing import Optional
 
-
 # Cache loggers to avoid duplicate handlers
 _loggers: dict[str, logging.Logger] = {}
 
@@ -82,12 +81,12 @@ def get_logger(name: str, level: Optional[str] = None) -> logging.Logger:
         try:
             # Ensure log directory exists
             log_file.parent.mkdir(parents=True, exist_ok=True)
-            
+
             file_handler = RotatingFileHandler(
                 log_file,
                 maxBytes=5 * 1024 * 1024,  # 5MB
                 backupCount=5,
-                encoding="utf-8"
+                encoding="utf-8",
             )
             file_handler.setLevel(numeric_level)
             file_handler.setFormatter(formatter)

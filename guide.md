@@ -145,11 +145,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # 5. Lint the code (check for style issues)
-      - name: Lint with ruff
-        run: ruff check src/ tests/
-
-      # 6. Run unit tests
+      # 5. Run unit tests
       - name: Run tests
         run: pytest tests/ -v --tb=short
 
@@ -400,7 +396,7 @@ git push
 source .venv/bin/activate          # Activate venv
 make run-ui                        # Start Streamlit
 make test                          # Run tests
-make lint                          # Check code style
+make run-ui                          # Start Streamlit (alternate)
 
 # ──────────────── Git Workflow ────────────────
 git add .
@@ -466,3 +462,5 @@ A new JSON file appears in Data/processed/.
 The vector store is updated (file modified time changes, or subsequent exact-match searches return 100% similarity).
 
 # one problem is that, if give garbage data, it still give you something.
+- I can improve on logging system, which is not just taking the INFO but other critical viewpoints (like warning, debug etc)
+- More modularize - means some function create multiple times.
