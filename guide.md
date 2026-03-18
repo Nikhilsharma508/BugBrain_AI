@@ -464,3 +464,5 @@ Ready to Commit Workflow: Click "Ready to Commit". Verify that:
 The CSV receives a new row.
 A new JSON file appears in Data/processed/.
 The vector store is updated (file modified time changes, or subsequent exact-match searches return 100% similarity).
+
+# one problem is that, if give garbage data, it still give you something.

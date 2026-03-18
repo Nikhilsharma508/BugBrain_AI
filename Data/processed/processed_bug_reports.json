@@ -146,5 +146,92 @@
     "triage_reasoning": "Impact Analysis: The report describes a complete crash of the Eclipse IDE during startup caused by resource exhaustion. This prevents the user from performing any development work, which is a core functionality of the IDE. The issue results in an abrupt termination without a visible exception, matching the \"Complete application crash\" condition in the severity policy. Although the user count is not specified, the policy states that a complete crash is sufficient for P1 severity regardless of the number of users.\n\nPolicy Matching: The severity policy's P1_Critical level lists \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\" as a condition. The bug meets this condition, so the highest matching severity is P1 (Critical). No other higher\u2011severity conditions (e.g., data loss, authentication) apply, but P1 is already the top level.\n\nTeam Assignment: The report contains keywords such as \"Eclipse\", \"plugin\", \"build\", and \"IDE\". These match the Platform-Team's keyword list. No payment, backend, DevOps, mobile, or frontend keywords are present, so the default team that aligns with the identified keywords is Platform-Team.\n\nConclusion: Based on the explicit crash impact and matching keywords, the bug is classified as P1 (Critical) and assigned to Platform-Team.",
     "severity": "P1 (Critical)",
     "suggested_owner": "Platform-Team"
+  },
+  "8": {
+    "issue_summary": "Error: java.lang.OutOfMemoryError \u2013 The service fails to start after deployment because the container is OOMKilled due to a 512\u202fMB memory limit that is insufficient for the new data cache size.",
+    "steps_to_reproduce": [
+      "Trigger the automated deployment pipeline in Jenkins.",
+      "Build the Docker image and push it to the Kubernetes cluster.",
+      "Allow the deployment to create the pod and start the container.",
+      "Observe that the pod enters CrashLoopBackOff and is OOMKilled immediately."
+    ],
+    "user_impact_assessment": "Production deployment experiences several minutes of downtime, affecting all users of the service and blocking the CI/CD workflow until a rollback is performed.",
+    "technical_details": {
+      "detected_error": "java.lang.OutOfMemoryError",
+      "error_message": "Java heap space",
+      "environment": "Kubernetes cluster (Docker container) during Jenkins CI/CD deployment",
+      "timestamp": "2023-10-27T10:15:30Z",
+      "key_stack_frames": [
+        "at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)",
+        "at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis:\n- The bug causes the service container to be OOMKilled, resulting in a CrashLoopBackOff and preventing the service from starting after a production deployment. This is a complete outage of the service, which blocks all core functionality for the service.\n- The user impact statement says the outage affects \"all users of the service\" and blocks the CI/CD workflow, meaning the issue impacts 100+ users (the entire production user base) and causes several minutes of downtime.\n\nPolicy Matching (severity):\n- P1_Critical conditions include a complete application crash/outage and impact on 100 or more users. Both conditions are explicitly met, so the highest matching severity is P1 (Critical).\n- No lower\u2011severity conditions override this, and there is no ambiguity requiring a downgrade.\n\nTeam Assignment:\n- Technical keywords in the report: \"Docker\", \"Kubernetes\", \"deployment\", \"CI/CD\", \"container\", \"memory limit\", \"OOMKilled\".\n- These terms match the DevOps-Team routing keywords (deployment, infrastructure, CI/CD, Docker, Kubernetes, memory leak/server down).\n- No payment or pure backend API keywords dominate, and the issue is not a UI, mobile, or platform\u2011specific bug, so DevOps-Team is the appropriate owner.\n\nConclusion:\n- Severity = P1 (Critical) based on complete outage and full user impact.\n- Suggested Owner = DevOps-Team due to clear infrastructure and deployment context.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "DevOps-Team"
+  },
+  "9": {
+    "issue_summary": "Error: NullPointerException \u2013 Android app crashes when a push notification is received or tapped because NotificationActivity attempts to call setText on a null TextView.",
+    "steps_to_reproduce": [
+      "Receive a push notification on an Android device while the app is in the background.",
+      "Tap on the notification (or simply allow it to be received)."
+    ],
+    "user_impact_assessment": "Severe; prevents Android users from seeing important updates and blocks the main engagement feature.",
+    "technical_details": {
+      "detected_error": "java.lang.NullPointerException",
+      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
+      "environment": "Android",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
+        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
+      ]
+    },
+    "triage_reasoning": "Phase 1 \u2013 Impact Analysis: The report describes an Android app crash (NullPointerException) triggered by a push notification. The crash terminates the app, preventing users from accessing the main engagement feature (viewing updates). This is a complete crash of a core user\u2011facing feature. No explicit user count is provided, so the default assumption is 1 user, but the severity policy does not require a user count when a \"complete application crash\" condition is met. \n\nPhase 2 \u2013 Policy Matching: The severity policy is evaluated top\u2011down. The P1_Critical level includes the condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage.\" The bug matches this condition, so the highest applicable severity is P1 (Critical). Even though the user count is ambiguous, the presence of a full crash overrides lower\u2011severity conditions.\n\nPhase 3 \u2013 Team Assignment: Technical keywords extracted are \"Android\", \"app crash\", and \"push notification\". These match the Mobile-Team keyword list (iOS, Android, mobile, app crash, push notification, etc.). No payment or backend\u2011specific keywords are present, so Mobile-Team is the appropriate owner.\n\nResult: Severity = P1 (Critical) and Owner = Mobile-Team.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "Mobile-Team"
+  },
+  "10": {
+    "issue_summary": "Error: NullPointerException \u2013 the Android app crashes when a push notification is received or tapped because a TextView is null in NotificationActivity.displayMessage.",
+    "steps_to_reproduce": [
+      "Receive a push notification on the Android device.",
+      "Tap the notification (or simply let it arrive in the background)."
+    ],
+    "user_impact_assessment": "Severe impact; prevents users from seeing important updates and breaks the main engagement feature for Android users.",
+    "technical_details": {
+      "detected_error": "java.lang.NullPointerException",
+      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
+      "environment": "Android",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
+        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis: The bug causes a NullPointerException that crashes the Android application whenever a push notification is received or tapped. This prevents users from seeing important updates and breaks the primary engagement feature of the mobile app. The report does not specify an explicit user count, so per policy we assume 1 user, but the nature of the defect (complete app crash affecting a core feature) matches the P1 condition for a \"Complete application crash\". Severity Matching: The severity policy is evaluated top\u2011down. The condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\" is listed under P1_Critical, which overrides other lower\u2011severity conditions. Therefore the highest applicable severity is P1 (Critical). Team Assignment: Technical keywords extracted from the report include \"Android\", \"push notification\", \"app crash\", and \"native\". These map directly to the Mobile-Team keywords (iOS, Android, app crash, native, push notification). No other team keywords (Payments, Backend, Frontend, DevOps) are present, so the correct owner is Mobile-Team.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "Mobile-Team"
+  },
+  "7": {
+    "issue_summary": "Error: NullPointerException \u2013 The app crashes on Android devices when a push notification is received or tapped because NotificationActivity attempts to call setText on a null TextView.",
+    "steps_to_reproduce": [
+      "Open the mobile app on an Android device.",
+      "Wait for a push notification to be received (or tap an existing notification).",
+      "Observe that the app closes/crashes immediately."
+    ],
+    "user_impact_assessment": "High impact on Android users; blocks the main engagement feature of the mobile platform.",
+    "technical_details": {
+      "detected_error": "java.lang.NullPointerException",
+      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
+      "environment": "Android device (native implementation)",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
+        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
+      ]
+    },
+    "triage_reasoning": "Impact Analysis: The bug causes the Android native app to crash every time a push notification is received or tapped, resulting in an immediate app termination. This blocks the primary engagement feature (push notifications) for mobile users and there is no documented workaround. The report does not specify an exact number of affected users, so per the handling rules we assume 1 user, but the impact description indicates a core feature failure.\n\nPolicy Matching: According to the severity policy, the first condition under P1_Critical is \"Complete application crash, dead-lock, or wide\u2011spread system outage.\" The bug clearly results in a complete crash of the application, satisfying this condition. Therefore, the highest matching severity is P1 (Critical). No other P1 conditions (e.g., login block, payment block, data loss, 100+ users) are required once a P1 condition is met.\n\nTeam Assignment: Technical keywords extracted from the report include \"Android\", \"mobile\", \"app crash\", \"push notification\", and \"native implementation\". These match the keyword list for the Mobile-Team. No payment or infrastructure keywords are present that would override this assignment.\n\nConclusion: The bug is classified as P1 (Critical) and should be routed to the Mobile-Team for immediate attention.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "Mobile-Team"
   }
 }

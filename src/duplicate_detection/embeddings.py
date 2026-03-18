@@ -16,7 +16,7 @@ def get_embedding_model() -> OllamaEmbeddings:
     """Returns a singleton instance of the OllamaEmbeddings model."""
     global _embedding_model
     if _embedding_model is None:
-        model_name = os.getenv("OLLAMA_EMBEDDING_MODEL", "qwen3-embedding:0.6b")
+        model_name = os.getenv("EMBEDDING_MODEL", "qwen3-embedding:0.6b")
         logger.info(f"Initializing embedding model: {model_name}")
         _embedding_model = OllamaEmbeddings(model=model_name)
     return _embedding_model

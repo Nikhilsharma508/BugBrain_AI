@@ -52,7 +52,7 @@ class ExtractionResult(BaseModel):
     """Structured output of the bug extraction pipeline."""
 
     issue_summary: str = Field(
-    description="Format as 'Error: TypeError ...' followed by a one-line technical summary describing the failure, its cause, and when it occurs."
+        description="Start with 'Error: <ExceptionType>' followed by a concise, natural summary of what failed, why it failed, and when it occurs."
     )
 
     steps_to_reproduce: List[str] = Field(

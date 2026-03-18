@@ -17,7 +17,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.append(str(project_root))
 
-from src.ui.pages import main_pipeline_page
+from src.ui.views import main_pipeline_page, settings, Dashboard
 
 def main():
     st.set_page_config(
@@ -185,11 +185,15 @@ def main():
     # Navigation
     page = st.sidebar.radio(
         "Navigation", 
-        ["Run Triage Pipeline", "Settings (Coming Soon)", "History (Coming Soon)"]
+        ["Run Triage Pipeline", "Dashboard", "Settings"]
     )
 
     if page == "Run Triage Pipeline":
         main_pipeline_page.render()
+    elif page == "Dashboard":
+        Dashboard.render()
+    elif page == "Settings":
+        settings.render()
     else:
         st.info("Feature under construction.")
 

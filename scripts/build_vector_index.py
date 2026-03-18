@@ -92,16 +92,13 @@ def main():
         try:
             triage_data = processed_data[bug_id]
                 
-            # Combine all fields except the raw bug trace (too noisy/long for embeddings)
+            # Combine all core technical fields (exclude raw trace and triage results)
             combined_text = f"""
             User Review: {user_review}
             Issue Summary: {triage_data.get('issue_summary', '')}
             Steps to Reproduce: {', '.join(triage_data.get('steps_to_reproduce', []))}
             User Impact: {triage_data.get('user_impact_assessment', '')}
             Technical Details: {json.dumps(triage_data.get('technical_details', {}))}
-            Triage Reasoning: {triage_data.get('triage_reasoning', '')}
-            Severity: {triage_data.get('severity', '')}
-            Suggested Owner: {triage_data.get('suggested_owner', '')}
             """
             
             # Use metadata for retrieval context

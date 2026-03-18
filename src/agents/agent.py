@@ -70,7 +70,7 @@ class LLMManager:
     }
 
     ENV_VARS = {
-        "gemini": "GOOGLE_API_KEY",
+        "gemini": "GEMINI_API_KEY",
         "openrouter": "OPENROUTER_API_KEY",
         "ollama": None,
         "azure": "AZURE_OPENAI_API_KEY",

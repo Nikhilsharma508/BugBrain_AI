@@ -12,16 +12,16 @@ from src.schemas.triage_output import TriageResult
 def get_severity_style(severity: str):
     """Return HTML/CSS styling based on severity level."""
     if "P1" in severity:
-        return "#ff6b6b", "#ffaaaa", "🔴 Critical"
+        return "#ff6b6b"  # "🔴 Critical"
     elif "P2" in severity:
-        return "#ff9800", "#ffb84d", "🟠 High"
+        return "#ff9800"  # "🟠 High"
     elif "P3" in severity:
-        return "#ffc107", "#ffe082", "🟡 Medium"
+        return "#ffc107"  # "🟡 Medium"
     else:
-        return "#4caf50", "#81c784", "🟢 Low"
+        return "#4caf50"  # "🟢 Low"
 
 
-def render_triage_result(result: TriageResult, duration_sec: float = None):
+def render_triage_result(result: TriageResult, duration_sec: float = 0.0):
     """
     Renders a TriageResult object beautifully in Streamlit with enhanced styling.
     """
@@ -39,7 +39,7 @@ def render_triage_result(result: TriageResult, duration_sec: float = None):
         )
 
     # Get severity styling
-    severity_bg, severity_border, severity_label = get_severity_style(result.severity)
+    severity_bg = get_severity_style(result.severity)
 
     # Header Section: Severity & Owner
     col1, col2 = st.columns(2)
@@ -48,7 +48,7 @@ def render_triage_result(result: TriageResult, duration_sec: float = None):
             f"""
             <div style='background: rgba({int(severity_bg[1:3], 16)}, {int(severity_bg[3:5], 16)}, {int(severity_bg[5:7], 16)}, 0.15); 
                         border: 2px solid {severity_bg}; 
-                        border-radius: 12px; 
+                        border-radius: 20px; 
                         padding: 1rem; 
                         text-align: center;'>
                 <p style='color: {severity_bg}; font-weight: 900; font-size: 1.5rem; margin: 0.5rem 0;'>{result.severity}</p>
@@ -62,7 +62,7 @@ def render_triage_result(result: TriageResult, duration_sec: float = None):
             f"""
             <div style='background: rgba(100, 182, 255, 0.15); 
                         border: 2px solid #64b6ff; 
-                        border-radius: 12px; 
+                        border-radius: 20px; 
                         padding: 1rem; 
                         text-align: center;'>
                 <p style='color: #64b6ff; font-weight: 900; font-size: 1.5rem; margin: 0.5rem 0;'>{result.suggested_owner}</p>
@@ -123,4 +123,3 @@ def render_triage_result(result: TriageResult, duration_sec: float = None):
                 st.markdown(f"<p style='color: #64d9ff; font-weight: 700;'>Frame {i}</p>", unsafe_allow_html=True)
                 st.code(frame, language="java")
 
-    st.markdown("<hr style='border: 1px solid rgba(100, 150, 220, 0.3);'>", unsafe_allow_html=True)

@@ -27,9 +27,9 @@ logger = get_logger(__name__)
 # Load environment variables
 load_dotenv()
 
-SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", "0.85"))
+EMBEDDING_SIMILARITY_THRESHOLD = float(os.getenv("EMBEDDING_SIMILARITY_THRESHOLD", "0.85"))  # Default to 0.85, convert to float
 
-def search_similar_reports(query_text: str, top_k: int = 4, threshold: float = SIMILARITY_THRESHOLD) -> List[Dict[str, Any]]:
+def search_similar_reports(query_text: str, top_k: int = 4, threshold: float = EMBEDDING_SIMILARITY_THRESHOLD) -> List[Dict[str, Any]]:
     """
     Searches for similar reports in the vector store using the query text.
     Returns matched reports that are above the certainty threshold.

@@ -1509,3 +1509,46 @@ Heap
 From the stack details, the freeze seems to come from a lock inside the SVNRemoteStorage component, where the main thread was waiting for access to a shared resource that another process never released. This created a deadlock situation where the UI thread could not proceed, but the rest of the JVM continued running, consuming memory until it approached the upper limits of the old generation heap. The presence of high old-gen usage and fully active GC threads suggests the memory pressure made the blocked state even more noticeable.
 
 Each time I opened the workspace with Mylyn and SVN integration enabled, the behavior repeated consistently. It occurred before I could interact with the IDE, which suggests the conflict happens during automatic initialization of change sets and synchronization routines."
+7,"FATAL EXCEPTION: main
+
+
+Process: com.mobile.app, PID: 12345
+
+
+java.lang.NullPointerException: Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference
+
+
+at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)
+
+
+at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)","I am experiencing a recurring app crash on my Android device whenever a push notification arrives. The mobile app closes instantly as soon as I tap the notification or even when it's just received in the background. This issue is quite severe as it prevents me from seeing important updates. Based on the crash logs, it looks like a null pointer exception is occurring within the notification display logic, specifically when trying to set the text for a UI element that hasn't been initialized yet. This bug seems specific to the native Android implementation, as my colleagues on iOS aren't reporting the same crash. This high-priority issue effectively breaks the main engagement feature of our mobile platform."
+8,"2023-10-27T10:15:30Z [ERROR] Deployment failed in namespace 'production'.
+
+
+Reason: Back-off restarting failed container
+
+
+Last State: Terminated
+
+
+Reason: OOMKilled
+
+
+Exit Code: 137
+
+
+
+Stack Trace:
+
+
+java.lang.OutOfMemoryError: Java heap space
+
+
+at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)
+
+
+at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar","I encountered a critical issue during our automated deployment pipeline using Jenkins. The CI/CD process finished the build phase successfully, but once the Docker image was pushed to the Kubernetes cluster, the service failed to start.
+
+
+
+Checking the logs via kubectl, I noticed the pods were stuck in a CrashLoopBackOff state because they were being OOMKilled immediately upon initialization. It seems the memory limit of 512MB we set in the infrastructure config is no longer sufficient for the new data cache size. This caused the entire server to go down for several minutes until we manually rolled back the deployment. We need to investigate if there is a memory leak or if we simply need to scale up our infrastructure resources."

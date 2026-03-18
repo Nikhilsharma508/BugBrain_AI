@@ -2,6 +2,8 @@
 
 > Automate the ingestion of unstructured bug reports and produce standardised, clean technical briefs — ready for Jira / GitHub Issues.
 
+> In this project, Triage refers to the automated process of analyzing raw bug logs to determine their severity level (e.g., P1 vs P2) and assigning them to the correct engineering team. It uses AI to evaluate technical impact and reproduction steps so that incoming issues can be prioritized and routed without manual human review.
+
 ## 🏗️ Architecture Overview
 
 ```
