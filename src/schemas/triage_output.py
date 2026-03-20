@@ -79,11 +79,11 @@ class ClassificationResult(BaseModel):
     )
     severity: str = Field(
         default="P3 (Medium)",
-        description="The assigned severity level based strictly on the provided policy: P1 (Critical), P2 (High), P3 (Medium), or P4 (Low).",
+        description="The assigned severity level based strictly on the provided policy: P1 (Critical), P2 (High), P3 (Medium), P4 (Low), or N/A (Not Related).",
     )
     suggested_owner: str = Field(
         default="Platform-Team",
-        description="The engineering team responsible for addressing this bug, based strictly on the provided routing keywords.",
+        description="The engineering team responsible for addressing this bug, based strictly on the provided routing keywords or Out-of-Scope.",
     )
 
 

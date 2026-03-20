@@ -1,237 +1,217 @@
 {
   "1": {
-    "issue_summary": "Error: ClassCastException \u2013 parser attempts an invalid cast of a FieldDeclaration during incremental build after saving a Java file in Eclipse.",
+    "issue_summary": "Error: java.lang.ClassCastException occurs during incremental rebuild in Eclipse when saving a Java source file, caused by the parser attempting an invalid type cast during error recovery in method body parsing.",
     "steps_to_reproduce": [
       "Open a Java source file in Eclipse.",
-      "Modify the file.",
-      "Save the file, which triggers an automatic incremental rebuild.",
-      "Observe the ClassCastException error and build failure."
+      "Make changes to the source file.",
+      "Save the file to trigger an automatic incremental rebuild.",
+      "Observe the error thrown immediately during the save operation and the build process halting."
     ],
-    "user_impact_assessment": "Severe impact for developers using Eclipse incremental builds; prevents saving and compiling edited files, blocking the workflow.",
+    "user_impact_assessment": "The error is fully reproducible for the user on saving the same file and blocks the incremental build process, preventing successful compilation after source changes.",
     "technical_details": {
       "detected_error": "java.lang.ClassCastException",
-      "error_message": "java.lang.ClassCastException: org.eclipse.jdt.internal.compiler.ast.FieldDeclaration",
-      "environment": "Eclipse IDE with JDT Java compiler",
+      "error_message": "org.eclipse.jdt.internal.compiler.ast.FieldDeclaration",
+      "environment": "Eclipse IDE (version not provided), Java development environment",
       "timestamp": "Fri May 10 11:46:52 GMT+03:00 2002",
       "key_stack_frames": [
-        "org.eclipse.jdt.internal.compiler.ast.Initializer.parseStatements (Initializer.java:52)",
-        "org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod (TypeDeclaration.java:695)",
-        "org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies (Compiler.java:256)",
-        "org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDelta (IncrementalImageBuilder.java:264)",
-        "org.eclipse.jdt.internal.core.builder.impl.JavaBuilder.incrementalBuild (JavaBuilder.java:210)"
+        "org.eclipse.jdt.internal.compiler.parser.Parser.buildInitialRecoveryState(Parser.java:539)",
+        "org.eclipse.jdt.internal.compiler.ast.Initializer.parseStatements(Initializer.java:52)",
+        "org.eclipse.jdt.internal.compiler.ast.TypeDeclaration.parseMethod(TypeDeclaration.java:695)",
+        "org.eclipse.jdt.internal.compiler.Compiler.getMethodBodies(Compiler.java:256)",
+        "org.eclipse.jdt.internal.core.builder.impl.IncrementalImageBuilder.applySourceDelta(IncrementalImageBuilder.java:264)"
       ]
     },
-    "triage_reasoning": "Impact Analysis: The bug occurs during an incremental build in the Eclipse IDE, causing a ClassCastException that stops the build and prevents developers from saving and compiling edited Java files. This is a core feature of the IDE (compilation), but the report does not state a specific number of affected users. According to the handling rules, missing user count defaults to 1 user. Severity Matching: \u2013 No P1 condition is met (no login block, no checkout, no data loss, no explicit 100+ users, and the error does not constitute a full application crash). \u2013 No clear P2 condition is met: while a core feature is broken, the report does not mention a known workaround or a user count of 10\u201199, nor does it describe severe performance degradation or intermittent crashes. \u2013 The P3 condition \"Issue explicitly affects fewer than 10 users\" applies by default (assumed 1 user). Since severity is ambiguous, policy directs us to select the lower severity, so P3_Medium is chosen. Team Assignment: Technical keywords extracted are \"Eclipse\", \"compiler\", and \"build\", which match the Platform-Team keywords. No other team keywords are present, so the default routing selects Platform-Team. Therefore, the bug is categorized as P3 (Medium) severity and assigned to Platform-Team.",
+    "triage_reasoning": "The bug report describes a java.lang.ClassCastException error occurring during the incremental rebuild process in Eclipse when saving a Java source file. This error blocks the incremental build process and prevents successful compilation after source changes, which is a core functionality for Java developers using Eclipse. The issue is reproducible and prevents a critical development workflow (compilation), but it does not mention affecting multiple users explicitly, so we assume 1 user affected conservatively. There is no indication of user authentication, payment, or checkout involvement. The error causes a build failure, which is a core feature but does not cause a complete application crash or system outage. According to the severity policy, blocking a core feature but with no mention of a workaround and affecting fewer than 10 users fits best under P3 (Medium) since the default severity is P3 and the issue affects a core feature but with limited user impact. For team assignment, the keywords and context relate to Eclipse IDE, Java compilation, and incremental build processes, which align with the Platform-Team keywords (Eclipse, compiler, build, plugin, IDE). There are no payment, UI, mobile, backend, or infrastructure keywords present. Therefore, the suggested owner is Platform-Team. The severity is P3 (Medium) and the team is Platform-Team based strictly on the provided policies and keywords.",
     "severity": "P3 (Medium)",
     "suggested_owner": "Platform-Team"
   },
   "2": {
-    "issue_summary": "Error: FileNotFoundException \u2013 Rename of a Java compilation unit fails because Eclipse cannot write to the source file when it is locked by another process (user\u2011mapped section open), occurring during the refactoring wizard's rename confirmation.",
+    "issue_summary": "Error: FileNotFoundException during Java compilation unit rename in Eclipse due to file being locked by a user-mapped section, causing the refactoring operation to fail when attempting to write to the source file.",
     "steps_to_reproduce": [
-      "Open the Java source file (e.g., in another editor or let a background process index it) so that the file is locked by the OS.",
-      "In Eclipse, select the compilation unit and invoke Refactor \u2192 Rename.",
-      "Confirm the rename operation in the Refactoring Wizard."
+      "Open a Java compilation unit in Eclipse.",
+      "Open the same file in another tool or have a background process lock the file (e.g., indexing or scanning).",
+      "Initiate the rename refactoring wizard in Eclipse for the compilation unit.",
+      "Confirm the rename operation while the file is locked by the external process."
     ],
-    "user_impact_assessment": "Affects any user attempting to rename a Java file while it is locked; blocks the refactoring workflow until the lock is released.",
+    "user_impact_assessment": "The issue affects users attempting to rename Java compilation units in Eclipse when the source file is locked by another process, blocking the rename workflow until the lock is released.",
     "technical_details": {
-      "detected_error": "FileNotFoundException",
+      "detected_error": "java.io.FileNotFoundException",
       "error_message": "c:\\local\\eclipse\\workspace\\current\\org.eclipse.ui.workbench.texteditor\\src\\org\\eclipse\\ui\\texteditor\\spelling\\DefaultSpellingProblem.java (The requested operation cannot be performed on a file with a user-mapped section open)",
-      "environment": "Windows OS, Eclipse IDE (Java Development Tools)",
+      "environment": "Eclipse IDE on Windows (implied by file path format)",
       "timestamp": "2004-12-08 17:01:27.55",
       "key_stack_frames": [
-        "at java.io.FileOutputStream.open(Native Method)",
-        "at java.io.FileOutputStream.<init>(FileOutputStream.java:179)",
-        "at org.eclipse.core.internal.localstore.FileSystemStore.createStream(FileSystemStore.java:103)",
-        "at org.eclipse.core.internal.resources.File.setContents(File.java:339)",
-        "at org.eclipse.jdt.internal.core.CopyResourceElementsOperation.processCompilationUnitResource(CopyResourceElementsOperation.java:296)"
+        "java.io.FileOutputStream.open(Native Method)",
+        "java.io.FileOutputStream.<init>(FileOutputStream.java:179)",
+        "org.eclipse.core.internal.localstore.FileSystemStore.createStream(FileSystemStore.java:103)",
+        "org.eclipse.core.internal.localstore.FileSystemStore.write(FileSystemStore.java:384)",
+        "org.eclipse.core.internal.resources.File.internalSetContents(File.java:295)"
       ]
     },
-    "triage_reasoning": "Impact Analysis:\n- The bug occurs when a user attempts to rename a Java source file in Eclipse while the file is locked by another process. This blocks the refactoring workflow until the lock is released. \n- The blocked operation is a core feature of the IDE (refactoring/rename), but a known workaround exists: close the other process or release the file lock.\n- No user count is provided; per policy we assume 1 user (conservative).\n\nPolicy Matching:\n- P1 conditions are not met (no authentication, payment, data loss, crash, or >100 users).\n- The P2 condition \"Core feature is broken but users have a known workaround\" directly applies because the rename refactoring cannot complete and the workaround is to release the lock.\n- Although the assumed user count (<10) would satisfy a P3 condition, the policy states that the highest matching severity is used. Therefore, P2 (High) is selected.\n\nTeam Assignment:\n- Technical keywords include \"Eclipse\", \"IDE\", \"compiler\", \"refactoring wizard\", and \"Java compilation unit\".\n- The TEAM_ROUTING table maps these keywords to the Platform-Team (handles IDE, plugin, compiler issues).\n- No payment, backend, frontend, mobile, or DevOps keywords are present, so the default to Platform-Team is appropriate.\n\nDecision:\n- Severity: P2 (High)\n- Suggested Owner: Platform-Team",
-    "severity": "P2 (High)",
+    "triage_reasoning": "Phase 1 - Impact Analysis: The issue prevents users from successfully completing a rename refactoring operation in Eclipse when the source file is locked by another process. This blocks a core functionality (refactoring) but does not prevent user login or authentication, nor does it involve payment or checkout. The problem affects users attempting this specific operation, but the user count is not specified; per policy, we assume 1 user (conservative). The error is a FileNotFoundException due to file locking, causing the rename operation to fail, but it is not a complete application crash or system outage. Phase 2 - Policy Matching: The issue blocks a core feature (refactoring) but users can presumably work around it by releasing the file lock or retrying later. It affects fewer than 10 users (assumed 1). Therefore, it matches P3_Medium conditions (non-core or secondary feature broken, fewer than 10 users affected). It does not meet P1 or P2 conditions. Phase 3 - Team Assignment: The issue is related to Eclipse IDE functionality, specifically Java compilation unit rename and refactoring. Keywords include \"Eclipse\", \"refactoring\", and \"Java compilation unit\". No payment, UI, mobile, or infrastructure keywords are present. According to team routing, issues related to Eclipse IDE and refactoring default to Platform-Team. Conclusion: Severity is P3 (Medium) due to limited user impact and workaround availability. Suggested owner is Platform-Team based on Eclipse and refactoring context and absence of other team keywords.",
+    "severity": "P3 (Medium)",
+    "suggested_owner": "Platform-Team"
+  },
+  "3": {
+    "issue_summary": "Error: Eclipse IDE crashes during startup due to system resource exhaustion and address space limits when launched with a large set of plugins and a large heap size on a 32-bit JVM running on a 64-bit SuSE Linux OS.",
+    "steps_to_reproduce": [
+      "Launch Eclipse IDE on SuSE Linux 9.1 (x86-64) with a large set of plugins enabled including PDE, Tomcat, XML editor, and Ant plugins.",
+      "Use a 32-bit JVM with a maximum heap size of 512 MB.",
+      "Attempt to open and build a project in the workspace with the heavy plugin set and memory parameters."
+    ],
+    "user_impact_assessment": "The crash consistently blocks workflow for users running Eclipse with a heavy plugin set and large heap size on a 32-bit JVM on 64-bit Linux, causing abrupt termination during startup and project initialization.",
+    "technical_details": {
+      "detected_error": "Not identified",
+      "error_message": "Not identified",
+      "environment": "SuSE Linux 9.1 (x86-64), Eclipse IDE with plugins PDE, Tomcat 4.1.30.1, XML editor 2.0.59, Ant plugins, JVM HotSpot Server VM 1.5.0_03 32-bit, maximum heap size -Xmx512m",
+      "timestamp": "Not identified",
+      "key_stack_frames": [
+        "Not provided by user"
+      ]
+    },
+    "triage_reasoning": "The bug report describes a crash of the Eclipse IDE during startup when launched with a large set of plugins and a large heap size on a 32-bit JVM running on a 64-bit SuSE Linux OS. This crash blocks the workflow for users running this specific configuration, causing abrupt termination during startup and project initialization. The issue prevents core functionality (IDE startup and project build), which is critical for affected users. However, the user count is not explicitly stated; per policy, we assume 1 user (conservative). The crash is complete and consistent, not intermittent. \n\nSeverity policy analysis: The crash blocks core functionality but affects fewer than 10 users (assumed 1). According to the policy, P1 requires 100+ users or system-wide outage; P2 includes core feature broken with workaround or 10-99 users; P3 includes fewer than 10 users affected and non-core feature broken. Since the crash blocks core functionality but affects only 1 user (assumed), the severity is P3 (Medium) as per the policy to select the lowest applicable severity when ambiguous.\n\nTeam assignment: The issue involves Eclipse IDE and plugins, which matches the Platform-Team keywords (Eclipse, plugin, IDE). There are no payment, mobile, frontend UI, backend API, or infrastructure keywords. Therefore, the suggested owner is Platform-Team.\n\nFinal decision: Severity is P3 (Medium) due to blocking core functionality for a single user (assumed), and the suggested owner is Platform-Team based on Eclipse IDE and plugin context.",
+    "severity": "P3 (Medium)",
     "suggested_owner": "Platform-Team"
   },
   "4": {
-    "issue_summary": "Error: Missing XDS registry MLLP configuration \u2013 XDS routing is skipped because no registry MLLP destination is configured for the current RHIO settings.",
+    "issue_summary": "Error: Missing XDS registry MLLP configuration causes XDS routing to fail silently during outpatient registration, while PIX message transmission succeeds.",
     "steps_to_reproduce": [
-      "Log in to openEMR as admin.",
-      "Create a new outpatient registration (ADT A04) using the standard workflow.",
-      "Allow the system to build HL7 fields and send the ADT message to the PIX server via MLLP.",
-      "Observe the successful PIX acknowledgment (AA) returned from the PIX destination.",
-      "Continue the workflow and notice that the XDS export step reports that no registry MLLP is configured and the XDS routing is skipped."
+      "Register a new outpatient using the openEMR system.",
+      "Send the associated ADT A04 message through the system.",
+      "Observe the message transmission to the PIX source and receipt of AA acknowledgment.",
+      "Review logs to verify PIX transmission success and check for XDS routing behavior."
     ],
-    "user_impact_assessment": "All users attempting to register an outpatient and export the record to XDS will have the XDS portion silently skipped, preventing document sharing while the PIX step still succeeds.",
+    "user_impact_assessment": "The issue affects users attempting to perform outpatient registration with XDS export enabled, causing the XDS portion of the workflow to be skipped silently. The PIX portion completes successfully, so the impact is partial workflow failure without explicit error notification.",
     "technical_details": {
-      "detected_error": "No Registry MLLP configured",
+      "detected_error": "Not identified",
       "error_message": "No Registry MLLP configured for RhioConfig",
-      "environment": "openEMR application (admin user) on server communicating with PIX via mllp://192.168.75.34:2200 and XDS repository via http://192.168.75.34:9080; RHIO name NHIN-HUB TC",
+      "environment": "openEMR system with RhioConfig named 'NHIN-HUB TC', using mllp://192.168.75.34:2200 for PIX, HTTP endpoints for XDS repository and registry, but with null MLLP for XDS registry",
       "timestamp": "2006-12-04T18:43:27.306-05:00",
       "key_stack_frames": [
-        "2006-12-04T18:43:27.306-05:00 No Registry MLLP configured for RhioConfig ( mPublicHealthcareAffinityDomain=[false] ... )",
-        "2006-12-04T18:43:27.306-05:00 don't have an XdsDestination",
-        "2006-12-04T18:43:27.275-05:00 Response was: MSH|^~\\&|TCADPIDS|TCADF|openEMR|TCADF|...|ACK^A04|...|MSA|AA|...",
         "2006-12-04T18:43:27.244-05:00 PixSource: send Register Outpatient A04 message - Entry controlId: 6159207779793081201",
-        "2006-12-04T18:43:27.306-05:00 returning response: ResponseType ( success=[true] failMessage=[] successMessage=[AA] )"
+        "2006-12-04T18:43:27.259-05:00 *** Sending message to 192.168.75.34 on port 2200",
+        "2006-12-04T18:43:27.275-05:00 Response was: MSH|^~\\&|TCADPIDS|TCADF|openEMR|TCADF|20061204184327.EST||ACK^A04|6159207779793081201|P|2.3.1MSA|AA|6159207779793081201",
+        "2006-12-04T18:43:27.306-05:00 Starting PixSource getPixSourceXdsDestination() in SessionContext ( mUser=[admin] mSessionID=[9312470557c3a572f3a572f3f2caddc3ec4d26] mRhioName=[NHIN-HUB TC] mUserApplicationName=[openEMR] ) using RhioConfig ...",
+        "2006-12-04T18:43:27.306-05:00 No Registry MLLP configured for RhioConfig ...",
+        "2006-12-04T18:43:27.306-05:00 don't have an XdsDestination"
       ]
     },
-    "triage_reasoning": "Impact Analysis: The bug prevents the XDS document export step from executing, which is a core health information exchange feature. The report states that *all* users attempting an outpatient registration will have the XDS portion silently skipped, but no numeric user count is provided. No authentication, checkout, data loss, or complete application crash is described. No explicit workaround for end\u2011users is mentioned.\\n\\nSeverity Policy Matching: \\n- P1 conditions (authentication block, checkout block, data loss, 100+ users, full crash) do not apply.\\n- P2 conditions require either a known user workaround, a user count of 10\u201199, severe performance degradation, or intermittent crashes; none are present.\\n- P3 is the default severity for ambiguous cases and is applied when no higher\u2011level conditions match. The policy states that P3 is the default when impact is unclear or user count is missing.\\nTherefore, the highest matching severity is **P3 (Medium)**.\\n\\nTeam Routing: The technical details mention server\u2011side configuration (\"server communicating with PIX via mllp://...\" and \"No Registry MLLP configured for RhioConfig\"). Keywords such as \"server\", \"backend\", and \"API\" align with the Backend-Team routing keywords. No payment\u2011related keywords are present, and the issue is not purely UI, mobile, or infrastructure. Consequently, the appropriate team is **Backend-Team**.",
+    "triage_reasoning": "The bug report describes a silent failure in the XDS routing during outpatient registration, while the PIX message transmission succeeds. This means the core outpatient registration workflow is partially impacted but not completely blocked. There is no explicit error message or crash, and the PIX portion works correctly, indicating a partial, non-critical failure. The user impact is limited to users with XDS export enabled, but the number of users affected is not specified; per policy, we assume 1 user (conservative). The issue does not prevent login, checkout, or cause data loss, nor does it cause a complete crash or system outage. Therefore, it does not meet P1 or P2 conditions. It is a non-core feature failure with limited user impact, matching P3 (Medium) severity. Regarding team assignment, the issue involves XDS routing and MLLP configuration, which are backend server-side integration components. Keywords like \"MLLP\", \"registry\", and \"HTTP endpoints\" suggest server/API/backend context. There is no mention of payment, UI, mobile, or infrastructure keywords. Hence, the appropriate team is Backend-Team. The Payments-Backend-Team is not applicable as no payment-related keywords are present. The Frontend-Team and Mobile-Team are not relevant due to lack of UI or mobile context. The DevOps-Team is not relevant as this is not an infrastructure or deployment issue. The Platform-Team is the default but since backend keywords are present, Backend-Team is preferred. Thus, severity is P3 (Medium) and suggested owner is Backend-Team.",
     "severity": "P3 (Medium)",
     "suggested_owner": "Backend-Team"
   },
   "5": {
-    "issue_summary": "Error: SchemaValidationException \u2013 Missing required attributes (id, registryObject) on rim:Classification, rim:ExternalIdentifier, and rim:Identifiable cause schema validation to fail for ProvideAndRegisterDocumentSet requests.",
+    "issue_summary": "Error: SchemaValidationException due to missing required 'id' and 'registryObject' attributes on rim:Classification, rim:ExternalIdentifier, and rim:Identifiable elements in the Provide and Register Document Set request XML, causing schema validation failure before business logic execution.",
     "steps_to_reproduce": [
-      "Generate a Provide and Register Document Set request with XML payload.",
-      "Send the request to the repository endpoint (e.g., http://localhost:9080/xdsref).",
-      "Observe that the service immediately returns schema validation errors indicating missing 'id' or 'registryObject' attributes on rim elements."
+      "Submit a Provide and Register Document Set request to the repository endpoint with the same document set XML that lacks required attributes."
     ],
-    "user_impact_assessment": "All submissions of the affected document set fail, preventing any business logic from executing and blocking the workflow entirely.",
+    "user_impact_assessment": "The issue consistently blocks the submission of document sets, affecting all users submitting the same XML structure and preventing any further processing.",
     "technical_details": {
-      "detected_error": "SchemaValidationException",
-      "error_message": "cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'",
-      "environment": "Java application running on Apache Tomcat with Axis2, endpoint http://localhost:9080/xdsref",
+      "detected_error": "gov.nist.registry.common2.exception.SchemaValidationException",
+      "error_message": "Input did not validate against schema: Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Classification'. Error: cvc-complex-type.4: Attribute 'registryObject' must appear on element 'rim:ExternalIdentifier'. Error: cvc-complex-type.4: Attribute 'id' must appear on element 'rim:Identifiable'.",
+      "environment": "Service running on localhost at port 9080 with schema locations referencing urn:ihe:iti:xds-b:2007 and urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0",
       "timestamp": "Not identified",
       "key_stack_frames": [
-        "gov.nist.registry.common2.registry.XdsCommon.schema_validate(XdsCommon.java:56)",
-        "gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provide_and_register(ProvideAndRegisterDocumentSet.java:115)",
-        "gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSet.java:63)",
-        "gov.nist.registry.ws.serviceclasses.AbstractRepositoryB.ProvideAndRegisterDocumentSetRequest(AbstractRepositoryB.java:33)",
-        "org.apache.axis2.receivers.AbstractInOutMessageReceiver.invokeBusinessLogic(AbstractInOutMessageReceiver.java:40)"
+        "at gov.nist.registry.common2.registry.XdsCommon.schema_validate(XdsCommon.java:56)",
+        "at gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provide_and_register(ProvideAndRegisterDocumentSet.java:115)",
+        "at gov.nist.registry.ws.ProvideAndRegisterDocumentSet.provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSet.java:63)",
+        "at gov.nist.registry.ws.serviceclasses.AbstractRepositoryB.ProvideAndRegisterDocumentSetRequest(AbstractRepositoryB.java:33)",
+        "at gov.nist.registry.ws.receivers.XDSRawXMLINOutMessageReceiver.invokeBusinessLogic(XDSRawXMLINOutMessageReceiver.java:111)"
       ]
     },
-    "triage_reasoning": "Impact Analysis: The bug causes every ProvideAndRegisterDocumentSet request to be rejected with a SchemaValidationException, which stops the entire document registration workflow. This is a core business function, but the report does not specify a user count; per the handling rules we assume 1 affected user. Severity Policy Matching: None of the P1 conditions (large\u2011user crash, authentication block, payment block, or data loss) are explicitly met. P2 conditions (core feature broken with a known workaround, 10\u201199 users, intermittent crashes) are also not satisfied. The only condition that matches is the P3 clause \"Issue explicitly affects fewer than 10 users\" (we assumed 1 user). Because the policy states to choose the lower severity when ambiguous, we select P3_Medium. Team Assignment: The error originates from server\u2011side XML schema validation in a Java/Tomcat/Axis2 service endpoint. Keywords such as \"API\", \"server\", \"endpoint\", and the stack frames indicate backend processing. No payment\u2011related keywords are present, so the appropriate team is Backend-Team.",
-    "severity": "P3 (Medium)",
+    "triage_reasoning": "The issue causes a SchemaValidationException that blocks the submission of document sets, which is a core feature of the system. The user impact assessment states it affects all users submitting the same XML structure, but the exact number of users is not specified. Conservatively, we assume at least 1 user is affected. The problem prevents further processing of document sets, which is a core functionality but does not explicitly prevent user login or payment processing. There is no indication of data loss, security breach, or complete application crash. Since the issue blocks a core feature with no workaround mentioned, it matches the P1 condition of blocking core functionality for users. However, the user count is ambiguous and likely fewer than 100 users, so the highest severity condition met is P2 (High) because the core feature is broken and users have no workaround mentioned, and the user count is not explicitly 100 or more. For team assignment, the issue involves server-side schema validation and XML processing, which aligns with Backend-Team keywords such as API, server, and backend. There is no mention of payment or UI issues, so Payments-Backend-Team and Frontend-Team are not appropriate. Therefore, the severity is P2 (High) and the suggested owner is Backend-Team.",
+    "severity": "P2 (High)",
     "suggested_owner": "Backend-Team"
   },
   "6": {
-    "issue_summary": "Error: Deadlock in SVNRemoteStorage \u2013 UI thread blocked while initializing SVN and Mylyn change set synchronization, causing Eclipse to freeze during workspace load.",
+    "issue_summary": "Error: Deadlock in Eclipse UI thread caused by SVNRemoteStorage lock during initialization of SVN and Mylyn change set integrations, resulting in UI freeze and unresponsiveness during workspace load.",
     "steps_to_reproduce": [
-      "Start Eclipse.",
-      "Ensure SVN and Mylyn change set integrations are enabled.",
-      "Open a workspace that triggers automatic SVN/Mylyn initialization.",
-      "Allow Eclipse to load the workspace and perform initial synchronization."
+      "Start Eclipse IDE",
+      "Allow Eclipse to initialize SVN and Mylyn change set integrations",
+      "Observe the UI freeze during the initial synchronization phase"
     ],
-    "user_impact_assessment": "Severe impact; the UI becomes completely unresponsive for any user with SVN/Mylyn integration enabled, blocking all workflow until Eclipse is terminated.",
+    "user_impact_assessment": "Consistently affects users opening the workspace with Mylyn and SVN integration enabled, blocking interaction with the IDE during startup.",
     "technical_details": {
       "detected_error": "Not identified",
-      "error_message": "UI thread blocked waiting to lock SVNRemoteStorage during initialization.",
-      "environment": "Not identified",
+      "error_message": "UI thread blocked waiting to lock SVNRemoteStorage object causing deadlock and unresponsiveness",
+      "environment": "Eclipse IDE with SVN and Mylyn integrations; JVM with high old generation heap usage and active GC threads",
       "timestamp": "Not identified",
       "key_stack_frames": [
-        "org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:418)",
-        "org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.takeLocal(IStateFilter.java:99)",
-        "org.eclipse.team.svn.core.synchronize.AbstractSVNSyncInfo.isTreeConflicted(AbstractSVNSyncInfo.java:71)",
-        "org.eclipse.team.internal.core.subscribers.ActiveChangeSet.init(ActiveChangeSet.java:156)",
-        "org.eclipse.mylyn.internal.team.ui.ContextActiveChangeSetManager.initContextChangeSets(ContextActiveChangeSetManager.java:157)"
+        "at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:418) - waiting to lock <0x8f2ad670> (a org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage)",
+        "at org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.takeLocal(IStateFilter.java:99)",
+        "at org.eclipse.team.svn.core.IStateFilter$25.acceptImpl(IStateFilter.java:498)",
+        "at org.eclipse.team.svn.core.IStateFilter$AbstractStateFilter.accept(IStateFilter.java:86)",
+        "at org.eclipse.team.svn.core.synchronize.AbstractSVNSyncInfo.isTreeConflicted(AbstractSVNSyncInfo.java:71)"
       ]
     },
-    "triage_reasoning": "The bug causes the UI thread in Eclipse to deadlock during workspace load, making the entire IDE unresponsive until terminated. This is a complete application freeze (dead\u2011lock), which directly matches the P1_Critical condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\". User count is not specified, but the deadlock condition alone triggers the highest severity, per the policy's top\u2011down evaluation. For team routing, the report mentions Eclipse, SVNRemoteStorage, and Mylyn \u2013 all components of the IDE/plugin ecosystem. The keyword \"Eclipse\" maps to the Platform-Team, which handles IDE, plugin, and build\u2011system issues. No payment, mobile, or pure backend keywords are present, so Platform-Team is the appropriate owner.\n",
-    "severity": "P1 (Critical)",
+    "triage_reasoning": "The bug report describes a deadlock in the Eclipse IDE UI thread caused by SVNRemoteStorage lock during initialization of SVN and Mylyn integrations, resulting in UI freeze and unresponsiveness during workspace load. This blocks user interaction with the IDE during startup, which is a core functionality for users relying on the IDE. However, the report does not specify the number of users affected; per policy, we assume 1 user (conservative). There is no mention of payment or checkout involvement, nor data loss or security breach. The issue is a complete UI freeze (deadlock) but only affects startup with specific integrations enabled, not a widespread system outage. According to severity policy, a complete application deadlock is P1, but the user count is low (assumed 1), so the highest severity condition triggered is a deadlock causing core feature block but affecting fewer than 10 users, which fits P3 (Medium) since P1 requires 100+ users or system-wide outage. For team assignment, keywords include Eclipse IDE, UI thread, SVN, and Mylyn integrations. The issue is UI freeze related to the Eclipse IDE environment, with no payment or infrastructure keywords. The Frontend-Team handles UI/UX issues but excludes payment or infrastructure; however, this is a UI thread deadlock in the IDE, which is more related to the Platform-Team's scope (IDE, plugin, build system). Therefore, the suggested owner is Platform-Team as per default team for IDE-related issues. In summary, severity is P3 (Medium) due to core feature blocked for a small user base with no workaround mentioned, and team is Platform-Team due to Eclipse IDE context and lack of other matching keywords.",
+    "severity": "P3 (Medium)",
     "suggested_owner": "Platform-Team"
   },
-  "3": {
-    "issue_summary": "Error: Resource exhaustion \u2013 Eclipse JVM aborts during startup due to insufficient physical memory and address\u2011space limits when launched with a large plugin set and -Xmx512m on SuSE Linux.",
+  "7": {
+    "issue_summary": "Error: NullPointerException causing app crash on Android when a push notification is received or tapped, due to uninitialized UI element in notification display logic.",
     "steps_to_reproduce": [
-      "Launch Eclipse on SuSE Linux 9.1 with the provided VM arguments (e.g., -Xmx512m) and the full set of plugins enabled.",
-      "Attempt to open and build a project in the workspace.",
-      "Observe that Eclipse terminates abruptly without a user\u2011visible exception."
+      "Receive a push notification on the Android device",
+      "Tap the push notification or let it arrive in the background"
     ],
-    "user_impact_assessment": "The crash prevents the user from working in Eclipse with the heavy plugin configuration until memory parameters are reduced, effectively blocking development on this setup.",
+    "user_impact_assessment": "Severe impact affecting all users on Android by crashing the app and blocking access to important updates; iOS users not affected.",
     "technical_details": {
-      "detected_error": "Not identified",
-      "error_message": "Not identified",
-      "environment": "SuSE Linux 9.1 (x86-64), Java HotSpot Server VM 1.5.0_03-b07 (32\u2011bit JVM on 64\u2011bit OS)",
+      "detected_error": "java.lang.NullPointerException",
+      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
+      "environment": "Android native app (com.mobile.app)",
       "timestamp": "Not identified",
-      "key_stack_frames": []
+      "key_stack_frames": [
+        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
+        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
+      ]
     },
-    "triage_reasoning": "Impact Analysis: The report describes a complete crash of the Eclipse IDE during startup caused by resource exhaustion. This prevents the user from performing any development work, which is a core functionality of the IDE. The issue results in an abrupt termination without a visible exception, matching the \"Complete application crash\" condition in the severity policy. Although the user count is not specified, the policy states that a complete crash is sufficient for P1 severity regardless of the number of users.\n\nPolicy Matching: The severity policy's P1_Critical level lists \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\" as a condition. The bug meets this condition, so the highest matching severity is P1 (Critical). No other higher\u2011severity conditions (e.g., data loss, authentication) apply, but P1 is already the top level.\n\nTeam Assignment: The report contains keywords such as \"Eclipse\", \"plugin\", \"build\", and \"IDE\". These match the Platform-Team's keyword list. No payment, backend, DevOps, mobile, or frontend keywords are present, so the default team that aligns with the identified keywords is Platform-Team.\n\nConclusion: Based on the explicit crash impact and matching keywords, the bug is classified as P1 (Critical) and assigned to Platform-Team.",
+    "triage_reasoning": "Phase 1 - Impact Analysis: The bug causes a NullPointerException that crashes the Android app whenever a push notification is received or tapped. This crash blocks access to important updates for all Android users, indicating a complete app crash for a significant user segment. iOS users are not affected. The issue is specific to the mobile native app environment and involves push notifications. The user impact is severe and affects all Android users, which likely means 100+ users. There is no mention of login or payment impact, so those P1 conditions do not apply. Phase 2 - Policy Matching: The bug causes a complete application crash for a large user base (all Android users), which matches the P1_Critical condition \"Complete application crash, dead-lock, or wide-spread system outage\" and \"Issue explicitly affects 100 or more users.\" Therefore, the severity is P1 (Critical). Phase 3 - Team Assignment: The technical keywords are \"Android,\" \"mobile,\" \"app crash,\" and \"push notification,\" which clearly match the Mobile-Team keywords. Since payment or infrastructure keywords are not present, and the issue is mobile app native crash related, the Mobile-Team is the appropriate owner. Conclusion: Severity is P1 (Critical) due to complete app crash affecting all Android users. Suggested owner is Mobile-Team based on mobile and app crash keywords.",
     "severity": "P1 (Critical)",
-    "suggested_owner": "Platform-Team"
+    "suggested_owner": "Mobile-Team"
   },
   "8": {
-    "issue_summary": "Error: java.lang.OutOfMemoryError \u2013 The service fails to start after deployment because the container is OOMKilled due to a 512\u202fMB memory limit that is insufficient for the new data cache size.",
+    "issue_summary": "Error: Deployment fails due to OutOfMemoryError causing pods to enter CrashLoopBackOff state immediately after starting, occurring during Kubernetes deployment after Docker image push.",
     "steps_to_reproduce": [
-      "Trigger the automated deployment pipeline in Jenkins.",
-      "Build the Docker image and push it to the Kubernetes cluster.",
-      "Allow the deployment to create the pod and start the container.",
-      "Observe that the pod enters CrashLoopBackOff and is OOMKilled immediately."
+      "Complete build phase successfully in Jenkins CI/CD pipeline",
+      "Push Docker image to Kubernetes cluster",
+      "Observe pods failing to start and entering CrashLoopBackOff state due to OOMKilled"
     ],
-    "user_impact_assessment": "Production deployment experiences several minutes of downtime, affecting all users of the service and blocking the CI/CD workflow until a rollback is performed.",
+    "user_impact_assessment": "This issue causes the entire server to go down for several minutes, blocking service availability and requiring manual rollback, indicating a severe impact affecting all users relying on the deployment.",
     "technical_details": {
       "detected_error": "java.lang.OutOfMemoryError",
       "error_message": "Java heap space",
-      "environment": "Kubernetes cluster (Docker container) during Jenkins CI/CD deployment",
+      "environment": "Kubernetes cluster with pods configured with 512MB memory limit, Jenkins CI/CD pipeline",
       "timestamp": "2023-10-27T10:15:30Z",
       "key_stack_frames": [
+        "java.lang.OutOfMemoryError: Java heap space",
         "at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)",
         "at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar"
       ]
     },
-    "triage_reasoning": "Impact Analysis:\n- The bug causes the service container to be OOMKilled, resulting in a CrashLoopBackOff and preventing the service from starting after a production deployment. This is a complete outage of the service, which blocks all core functionality for the service.\n- The user impact statement says the outage affects \"all users of the service\" and blocks the CI/CD workflow, meaning the issue impacts 100+ users (the entire production user base) and causes several minutes of downtime.\n\nPolicy Matching (severity):\n- P1_Critical conditions include a complete application crash/outage and impact on 100 or more users. Both conditions are explicitly met, so the highest matching severity is P1 (Critical).\n- No lower\u2011severity conditions override this, and there is no ambiguity requiring a downgrade.\n\nTeam Assignment:\n- Technical keywords in the report: \"Docker\", \"Kubernetes\", \"deployment\", \"CI/CD\", \"container\", \"memory limit\", \"OOMKilled\".\n- These terms match the DevOps-Team routing keywords (deployment, infrastructure, CI/CD, Docker, Kubernetes, memory leak/server down).\n- No payment or pure backend API keywords dominate, and the issue is not a UI, mobile, or platform\u2011specific bug, so DevOps-Team is the appropriate owner.\n\nConclusion:\n- Severity = P1 (Critical) based on complete outage and full user impact.\n- Suggested Owner = DevOps-Team due to clear infrastructure and deployment context.",
+    "triage_reasoning": "Phase 1 - Impact Analysis: The bug report describes a deployment failure due to OutOfMemoryError causing pods to enter CrashLoopBackOff state immediately after starting. This results in the entire server going down for several minutes, blocking service availability and requiring manual rollback. The impact affects all users relying on the deployment, indicating a widespread system outage. There is no mention of user login or payment issues, but the outage blocks core functionality for a large user base. Phase 2 - Policy Matching: According to the severity policy, a complete application crash or wide-spread system outage affecting 100 or more users qualifies as P1 (Critical). The report explicitly states the server goes down and service is blocked for all users, meeting the P1 criteria. Phase 3 - Team Assignment: The technical details mention Kubernetes deployment, Docker image push, Jenkins CI/CD pipeline, and OutOfMemoryError. Keywords include \"deployment\", \"infrastructure\", \"CI/CD\", and \"server down\". These match the DevOps-Team keywords. No payment or UI keywords are present. Therefore, the appropriate team is DevOps-Team. Final Decision: Severity is P1 (Critical) due to wide-spread system outage affecting all users. Suggested owner is DevOps-Team based on deployment and infrastructure keywords.",
     "severity": "P1 (Critical)",
     "suggested_owner": "DevOps-Team"
   },
   "9": {
-    "issue_summary": "Error: NullPointerException \u2013 Android app crashes when a push notification is received or tapped because NotificationActivity attempts to call setText on a null TextView.",
+    "issue_summary": "Error: Connection refused error occurs when running the main pipeline to run the streamit, indicating failure to establish a TCP connection.",
     "steps_to_reproduce": [
-      "Receive a push notification on an Android device while the app is in the background.",
-      "Tap on the notification (or simply allow it to be received)."
+      "Run the main pipeline to execute the streamit"
     ],
-    "user_impact_assessment": "Severe; prevents Android users from seeing important updates and blocks the main engagement feature.",
+    "user_impact_assessment": "Unknown",
     "technical_details": {
-      "detected_error": "java.lang.NullPointerException",
-      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
-      "environment": "Android",
+      "detected_error": "httpx.ConnectError",
+      "error_message": "[Errno 61] Connection refused",
+      "environment": "Python 3.13 on macOS (aarch64 architecture) with virtual environment located at /Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv",
       "timestamp": "Not identified",
       "key_stack_frames": [
-        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
-        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
+        "File \"/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py\", line 236, in handle_request",
+        "File \"/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py\", line 101, in handle_request",
+        "File \"/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py\", line 78, in handle_request",
+        "File \"/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py\", line 124, in _connect",
+        "File \"/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_backends/sync.py\", line 207, in connect_tcp"
       ]
     },
-    "triage_reasoning": "Phase 1 \u2013 Impact Analysis: The report describes an Android app crash (NullPointerException) triggered by a push notification. The crash terminates the app, preventing users from accessing the main engagement feature (viewing updates). This is a complete crash of a core user\u2011facing feature. No explicit user count is provided, so the default assumption is 1 user, but the severity policy does not require a user count when a \"complete application crash\" condition is met. \n\nPhase 2 \u2013 Policy Matching: The severity policy is evaluated top\u2011down. The P1_Critical level includes the condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage.\" The bug matches this condition, so the highest applicable severity is P1 (Critical). Even though the user count is ambiguous, the presence of a full crash overrides lower\u2011severity conditions.\n\nPhase 3 \u2013 Team Assignment: Technical keywords extracted are \"Android\", \"app crash\", and \"push notification\". These match the Mobile-Team keyword list (iOS, Android, mobile, app crash, push notification, etc.). No payment or backend\u2011specific keywords are present, so Mobile-Team is the appropriate owner.\n\nResult: Severity = P1 (Critical) and Owner = Mobile-Team.",
-    "severity": "P1 (Critical)",
-    "suggested_owner": "Mobile-Team"
-  },
-  "10": {
-    "issue_summary": "Error: NullPointerException \u2013 the Android app crashes when a push notification is received or tapped because a TextView is null in NotificationActivity.displayMessage.",
-    "steps_to_reproduce": [
-      "Receive a push notification on the Android device.",
-      "Tap the notification (or simply let it arrive in the background)."
-    ],
-    "user_impact_assessment": "Severe impact; prevents users from seeing important updates and breaks the main engagement feature for Android users.",
-    "technical_details": {
-      "detected_error": "java.lang.NullPointerException",
-      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
-      "environment": "Android",
-      "timestamp": "Not identified",
-      "key_stack_frames": [
-        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
-        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
-      ]
-    },
-    "triage_reasoning": "Impact Analysis: The bug causes a NullPointerException that crashes the Android application whenever a push notification is received or tapped. This prevents users from seeing important updates and breaks the primary engagement feature of the mobile app. The report does not specify an explicit user count, so per policy we assume 1 user, but the nature of the defect (complete app crash affecting a core feature) matches the P1 condition for a \"Complete application crash\". Severity Matching: The severity policy is evaluated top\u2011down. The condition \"Complete application crash, dead\u2011lock, or wide\u2011spread system outage\" is listed under P1_Critical, which overrides other lower\u2011severity conditions. Therefore the highest applicable severity is P1 (Critical). Team Assignment: Technical keywords extracted from the report include \"Android\", \"push notification\", \"app crash\", and \"native\". These map directly to the Mobile-Team keywords (iOS, Android, app crash, native, push notification). No other team keywords (Payments, Backend, Frontend, DevOps) are present, so the correct owner is Mobile-Team.",
-    "severity": "P1 (Critical)",
-    "suggested_owner": "Mobile-Team"
-  },
-  "7": {
-    "issue_summary": "Error: NullPointerException \u2013 The app crashes on Android devices when a push notification is received or tapped because NotificationActivity attempts to call setText on a null TextView.",
-    "steps_to_reproduce": [
-      "Open the mobile app on an Android device.",
-      "Wait for a push notification to be received (or tap an existing notification).",
-      "Observe that the app closes/crashes immediately."
-    ],
-    "user_impact_assessment": "High impact on Android users; blocks the main engagement feature of the mobile platform.",
-    "technical_details": {
-      "detected_error": "java.lang.NullPointerException",
-      "error_message": "Attempt to invoke virtual method 'void android.widget.TextView.setText(java.lang.CharSequence)' on a null object reference",
-      "environment": "Android device (native implementation)",
-      "timestamp": "Not identified",
-      "key_stack_frames": [
-        "at com.mobile.app.ui.notifications.NotificationActivity.displayMessage(NotificationActivity.java:88)",
-        "at com.mobile.app.services.PushNotificationService.onMessageReceived(PushNotificationService.java:45)"
-      ]
-    },
-    "triage_reasoning": "Impact Analysis: The bug causes the Android native app to crash every time a push notification is received or tapped, resulting in an immediate app termination. This blocks the primary engagement feature (push notifications) for mobile users and there is no documented workaround. The report does not specify an exact number of affected users, so per the handling rules we assume 1 user, but the impact description indicates a core feature failure.\n\nPolicy Matching: According to the severity policy, the first condition under P1_Critical is \"Complete application crash, dead-lock, or wide\u2011spread system outage.\" The bug clearly results in a complete crash of the application, satisfying this condition. Therefore, the highest matching severity is P1 (Critical). No other P1 conditions (e.g., login block, payment block, data loss, 100+ users) are required once a P1 condition is met.\n\nTeam Assignment: Technical keywords extracted from the report include \"Android\", \"mobile\", \"app crash\", \"push notification\", and \"native implementation\". These match the keyword list for the Mobile-Team. No payment or infrastructure keywords are present that would override this assignment.\n\nConclusion: The bug is classified as P1 (Critical) and should be routed to the Mobile-Team for immediate attention.",
-    "severity": "P1 (Critical)",
-    "suggested_owner": "Mobile-Team"
+    "triage_reasoning": "Phase 1 - Impact Analysis: The bug report describes a 'Connection refused' error when running the main pipeline to execute streamit, indicating a failure to establish a TCP connection. There is no explicit mention of user login issues, payment or checkout involvement, or data loss. The user impact is unknown, and no user count is provided, so we conservatively assume 1 user affected. The issue is a backend connectivity problem causing failure in a core pipeline execution but no indication of complete application crash or widespread outage. Phase 2 - Policy Matching: The issue does not prevent user authentication or payment, nor does it affect 100+ users or cause data loss, so P1 conditions are not met. It is a core feature failure (pipeline execution) but no workaround is mentioned; however, user count is assumed 1, which is below the P2 threshold of 10 users. Therefore, the severity defaults to P3 (Medium) as per policy for core or secondary feature issues affecting fewer than 10 users. Phase 3 - Team Assignment: The error is a connection refused TCP error related to server-side connectivity and API calls (httpx and httpcore libraries). Keywords include 'connection', 'TCP', 'httpx.ConnectError', and 'connection_pool', which align with Backend-Team keywords such as API, server, backend, and endpoint. There is no payment or infrastructure keyword, so Backend-Team is the best match. Default team is not needed. Final decision: Severity is P3 (Medium) due to limited user impact and core feature failure without explicit workaround or large user base. Suggested owner is Backend-Team based on server-side connection error keywords.",
+    "severity": "P3 (Medium)",
+    "suggested_owner": "Backend-Team"
   }
 }

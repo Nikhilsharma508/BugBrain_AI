@@ -68,10 +68,19 @@ def main():
         try:
             # Run the extraction and triage pipeline
             logger.info(f"Running pipeline for Bug ID: {bug_id}")
-            result = run_pipeline(bug_trace=bug_trace, user_review=user_review)
+
+            # run_pipeline returns a generator, get the final result
+            result_obj = None
+            for res in run_pipeline(bug_trace, user_review):
+                if res.get("node_name") == "completed":
+                    result_obj = res.get("final_triage_result")
+                    break
+
+            if result_obj is None:
+                raise ValueError("Pipeline returned no results")
 
             # Save the JSON representation
-            processed_data[bug_id] = json.loads(result.model_dump_json())
+            processed_data[bug_id] = json.loads(result_obj.model_dump_json())
 
             with open(json_path, "w", encoding="utf-8") as f:
                 json.dump(processed_data, f, indent=2)

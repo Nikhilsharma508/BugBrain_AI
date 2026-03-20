@@ -41,16 +41,20 @@ SAMPLE_USER_REVIEW = (
 )
 
 
-def test_full_pipeline_execution():
+def test_full_pipeline_execution(bug_trace=SAMPLE_BUG_TRACE, user_review=SAMPLE_USER_REVIEW):
     """Run the orchestrator with one instance and print the JSON result."""
     print("\n" + "=" * 50)
     print("🚀 STARTING BACKEND PIPELINE TEST")
+    if bug_trace == SAMPLE_BUG_TRACE:
+        print("📝 Using: SAMPLE_BUG_TRACE")
+    else:
+        print("📝 Using: Validation Input Data")
     print("=" * 50 + "\n")
 
     final_result = None
 
     # Run the pipeline generator
-    for update in run_pipeline(SAMPLE_BUG_TRACE, SAMPLE_USER_REVIEW):
+    for update in run_pipeline(bug_trace, user_review):
         node_name = update.get("node_name")
 
         if node_name == "completed":
@@ -76,5 +80,27 @@ def test_full_pipeline_execution():
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run backend pipeline test")
+    parser.add_argument(
+        "--validation",
+        action="store_true",
+        help="Use data from 'Validation Data/Validation Input.md'",
+    )
+    args = parser.parse_args()
+
+    trace = SAMPLE_BUG_TRACE
+    review = SAMPLE_USER_REVIEW
+
+    if args.validation:
+        val_path = PROJECT_ROOT / "Validation Data" / "Validation Input.md"
+        if val_path.exists():
+            print(f"📖 Loading validation data from {val_path}...")
+            trace = val_path.read_text()
+            review = "User is reporting a system crash/lookup error detailed in the attached log."
+        else:
+            print(f"⚠️ Warning: {val_path} not found. Falling back to sample data.")
+
     # If run directly as a script, execute the test function
-    test_full_pipeline_execution()
+    test_full_pipeline_execution(bug_trace=trace, user_review=review)

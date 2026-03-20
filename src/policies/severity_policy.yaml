@@ -44,6 +44,15 @@ severity_levels:
       - "User is explicitly requesting a new feature or enhancement."
       - "Documentation mistake or broken external link."
 
+  Not_Applicable:
+    label: "N/A (Not Related)"
+    description: "Issue is not related to our project, is spam, or does not match any known bug/feature request patterns."
+    conditions:
+      - "Issue description is clearly for a different product or company."
+      - "Content is promotional, spam, or gibberish."
+      - "Request is completely out of scope for the current software project."
+      - "Report is not related to the defined cases (authentication, payment, UI, etc.)."
+
 # ============================================================
 # Default: If no conditions match, assign P3 as a safe default.
 # ============================================================

@@ -32,7 +32,6 @@ def get_next_id() -> str:
         df = pd.read_csv(csv_path)
         if df.empty:
             return "1"
-        # Try to find max integer ID
         max_id = 0
         for val in df["Id"].dropna():
             try:
@@ -44,7 +43,6 @@ def get_next_id() -> str:
         return str(max_id + 1)
     except Exception:
         import uuid
-
         return str(uuid.uuid4())[:8]
 
 
@@ -58,11 +56,11 @@ def render():
         unsafe_allow_html=True,
     )
 
-    # We use a 3-column layout
+    # 3-column layout
     col_left, col_mid, col_right = st.columns([1.2, 1.2, 1.2], gap="large")
 
     with col_left:
-        # Form inputs
+        # st.form gets glass from global CSS targeting [data-testid="stForm"]
         with st.form("triage_form"):
             st.markdown(
                 "<h3 style='color: #64b6ff; font-weight: 900; margin-top: 0;'>📋 Submit New Report</h3>",
@@ -74,29 +72,27 @@ def render():
                 placeholder="Paste your raw crash logs or application errors here...",
                 help="This is the raw technical output that needs parsing.",
             )
-
             user_review = st.text_area(
                 "User Review (Optional)",
                 height=100,
                 placeholder="User comments, steps they tried, or extra context...",
                 help="Optional natural language context.",
             )
-
             st.markdown("<br>", unsafe_allow_html=True)
             submitted = st.form_submit_button(
                 "🔍 Run Analysis", type="primary", use_container_width=True
             )
 
-    # Create placeholders for our 3 columns
-    # so we can target them during the pipeline stream
+    # ── Pipeline Live Status — st.container(border=True) gets glass from global CSS ──
     status_container = col_left.container(border=True)
+    # ── Final Triage Report ──
     report_container = col_mid.container(border=True)
+    # ── RAG Similarity Search ──
     rag_container = col_right.container(border=True)
 
     # Initialize UI state
     has_result = "last_result" in st.session_state
 
-    # Render placeholders first
     with status_container:
         st.markdown(
             "<h4 style='color: #64d9ff; font-weight: 900; margin-top: 0;'>⚙️ Pipeline Live Status</h4>",
@@ -106,8 +102,6 @@ def render():
             "<p style='color: #b0c4de; font-size: 0.9rem; margin-bottom: 1rem;'>4 key architecture stages:</p>",
             unsafe_allow_html=True,
         )
-
-        # We will use st.empty() slots so we can update them independently during streaming
         status_slots = {
             "preprocess": st.empty(),
             "extract": st.empty(),
@@ -142,7 +136,7 @@ def render():
             unsafe_allow_html=True,
         )
 
-    # Initial render of status slots (only if not submitted)
+    # Initial render of status slots
     if not submitted:
         if has_result:
             similar_reports = st.session_state["last_similar"]
@@ -172,10 +166,7 @@ def render():
             )
         else:
             render_status_item(
-                status_slots["preprocess"],
-                "Preprocessing",
-                "Waiting for input...",
-                False,
+                status_slots["preprocess"], "Preprocessing", "Waiting for input...", False
             )
             render_status_item(
                 status_slots["extract"], "Extraction", "Waiting for input...", False
@@ -195,24 +186,15 @@ def render():
             st.error("Please provide a Bug Trace to run the analysis.")
             return
 
-        # Start of new pipeline run - completely reset the UI state to Waiting/Processing
         has_result = False
         render_status_item(
-            status_slots["preprocess"],
-            "Preprocessing",
-            "Processing incoming text...",
-            False,
-            True,
+            status_slots["preprocess"], "Preprocessing", "Processing incoming text...", False, True
         )
         render_status_item(
             status_slots["extract"], "Extraction", "Waiting for input...", False, False
         )
         render_status_item(
-            status_slots["duplicate_detection"],
-            "Duplicate Detection",
-            "Waiting for input...",
-            False,
-            False,
+            status_slots["duplicate_detection"], "Duplicate Detection", "Waiting for input...", False, False
         )
         render_status_item(
             status_slots["triage"], "Triage", "Waiting for input...", False, False
@@ -220,12 +202,9 @@ def render():
 
         try:
             start_time = time.time()
-
-            # Stream events from LangGraph
             for event in run_pipeline(bug_trace=bug_trace, user_review=user_review):
                 node = event.get("node_name")
 
-                # Update UI based on which node just finished
                 if node == "preprocess":
                     render_status_item(
                         status_slots["preprocess"],
@@ -234,11 +213,7 @@ def render():
                         True,
                     )
                     render_status_item(
-                        status_slots["extract"],
-                        "Extraction",
-                        "Calling LLM for extraction...",
-                        False,
-                        True,
+                        status_slots["extract"], "Extraction", "Calling LLM for extraction...", False, True
                     )
 
                 elif node == "extract":
@@ -266,11 +241,7 @@ def render():
                         True,
                     )
                     render_status_item(
-                        status_slots["triage"],
-                        "Triage",
-                        "Applying severity policies...",
-                        False,
-                        True,
+                        status_slots["triage"], "Triage", "Applying severity policies...", False, True
                     )
 
                 elif node == "triage":
@@ -290,7 +261,6 @@ def render():
                     result = event.get("final_triage_result")
                     similar_reports = event.get("similar_reports", [])
 
-                    # Re-create the exact text used by extraction for duplicate detection commit
                     tech_details_dict = (
                         result.technical_details.model_dump()
                         if hasattr(result.technical_details, "model_dump")
@@ -319,14 +289,13 @@ def render():
             st.exception(e)
             return
 
-    # Render Middle Column: Final Triage Report
+    # ── Middle Column: Final Triage Report ──
     with report_container:
         if has_result:
             result = st.session_state["last_result"]
             duration = st.session_state["last_duration"]
             result_display.render_triage_result(result, duration)
 
-            # Ready to Commit Button
             if st.button(
                 "✅ Ready to Commit",
                 type="primary",
@@ -339,20 +308,15 @@ def render():
                         bug_trace = st.session_state["last_bug_trace"]
                         user_review = st.session_state["last_user_review"]
 
-                        # 1. Update CSV
                         if csv_path.exists():
                             df = pd.read_csv(csv_path)
-                            # Ensure all required columns exist
                             for col in ["Id", "Bug Details", "User Review"]:
                                 if col not in df.columns:
                                     df[col] = ""
                         else:
                             os.makedirs(raw_dir, exist_ok=True)
-                            df = pd.DataFrame(
-                                columns=["Id", "Bug Details", "User Review"]
-                            )
+                            df = pd.DataFrame(columns=["Id", "Bug Details", "User Review"])
 
-                        # Clean up old floats in Id
                         df["Id"] = (
                             pd.to_numeric(df["Id"], errors="coerce")
                             .fillna(0)
@@ -360,39 +324,28 @@ def render():
                         )
 
                         new_row = pd.DataFrame(
-                            [
-                                {
-                                    "Id": int(new_id),
-                                    "Bug Details": str(bug_trace) if bug_trace else "",
-                                    "User Review": (
-                                        str(user_review)
-                                        if user_review
-                                        else "No user review provided"
-                                    ),
-                                }
-                            ]
+                            [{
+                                "Id": int(new_id),
+                                "Bug Details": str(bug_trace) if bug_trace else "",
+                                "User Review": (
+                                    str(user_review) if user_review else "No user review provided"
+                                ),
+                            }]
                         )
                         df = pd.concat([df, new_row], ignore_index=True)
-
-                        # Reorder columns to ensure proper order
                         df = df[["Id", "Bug Details", "User Review"]]
                         df.to_csv(csv_path, index=False)
 
-                        # 2. Save JSON
                         os.makedirs(processed_dir, exist_ok=True)
                         json_path = processed_dir / "processed_bug_reports.json"
-
                         processed_data = {}
                         if json_path.exists():
                             with open(json_path, "r", encoding="utf-8") as f:
                                 processed_data = json.load(f)
-
                         processed_data[new_id] = json.loads(result.model_dump_json())
-
                         with open(json_path, "w", encoding="utf-8") as f:
                             json.dump(processed_data, f, indent=2)
 
-                        # 3. Add to FAISS Vector Store
                         combined_text = st.session_state["last_combined_text"]
                         metadata = {
                             "id": new_id,
@@ -401,11 +354,9 @@ def render():
                             "severity": result.severity,
                             "team": result.suggested_owner,
                         }
-
                         add_reports_to_index([combined_text], [metadata])
 
                         st.success(f"Successfully committed Bug Report #{new_id}!")
-                        # Clear session state so it doesn't try to commit again
                         del st.session_state["last_result"]
 
                     except Exception as e:
@@ -419,29 +370,26 @@ def render():
                 "<p style='text-align: center; color: #b0c4de;'>Submit a report to see the analysis</p>",
                 unsafe_allow_html=True,
             )
-
-            # Placeholder for severity & team
             st.markdown(
                 """
-                    <div style='display: flex; justify-content: space-between; gap: 1rem; margin: 1.5rem 0;'>
-                        <div style='flex: 1; text-align: center; padding: 1.5rem; background: rgba(10, 20, 35, 0.4); border: 2px solid rgba(100, 150, 220, 0.3); border-radius: 12px;'>
-                            <p style='color: #b0c4de; margin: 0; font-size: 0.9rem; font-weight: 700;'>Assigned Severity</p>
-                            <h2 style='color: rgba(100, 150, 220, 0.5); margin: 0.5rem 0 0 0;'>--</h2>
-                        </div>
-                        <div style='flex: 1; text-align: center; padding: 1.5rem; background: rgba(10, 20, 35, 0.4); border: 2px solid rgba(100, 150, 220, 0.3); border-radius: 12px;'>
-                            <p style='color: #b0c4de; margin: 0; font-size: 0.9rem; font-weight: 700;'>Suggested Owner</p>
-                            <h2 style='color: rgba(100, 150, 220, 0.5); margin: 0.5rem 0 0 0;'>--</h2>
-                        </div>
+                <div style='display: flex; justify-content: space-between; gap: 1rem; margin: 1.5rem 0;'>
+                    <div style='flex: 1; text-align: center; padding: 1.5rem; background: rgba(10, 20, 35, 0.4); border: 2px solid rgba(100, 150, 220, 0.3); border-radius: 12px;'>
+                        <p style='color: #b0c4de; margin: 0; font-size: 0.9rem; font-weight: 700;'>Assigned Severity</p>
+                        <h2 style='color: rgba(100, 150, 220, 0.5); margin: 0.5rem 0 0 0;'>--</h2>
                     </div>
-                    """,
+                    <div style='flex: 1; text-align: center; padding: 1.5rem; background: rgba(10, 20, 35, 0.4); border: 2px solid rgba(100, 150, 220, 0.3); border-radius: 12px;'>
+                        <p style='color: #b0c4de; margin: 0; font-size: 0.9rem; font-weight: 700;'>Suggested Owner</p>
+                        <h2 style='color: rgba(100, 150, 220, 0.5); margin: 0.5rem 0 0 0;'>--</h2>
+                    </div>
+                </div>
+                """,
                 unsafe_allow_html=True,
             )
-
             st.markdown("---")
             st.markdown("#### 📝 Issue Summary\n*Awaiting input...*")
             st.markdown("#### 🔧 Steps to Reproduce\n*Awaiting input...*")
 
-    # Right Column: RAG Similarity Search
+    # ── Right Column: RAG Similarity Search ──
     with rag_container:
         st.markdown(
             "<h4 style='color: #64d9ff; font-weight: 900; margin-top: 0;'>🔍 RAG Similarity Search</h4>",
@@ -459,14 +407,12 @@ def render():
             else:
                 for i, rep in enumerate(similar_reports):
                     score_pct = rep.get("similarity_score", 0) * 100
-
-                    # Similarity score with color gradient
                     if score_pct >= 90:
-                        score_color = "#ff6b6b"  # High similarity - red
+                        score_color = "#ff6b6b"
                     elif score_pct >= 75:
-                        score_color = "#ff9800"  # Medium - orange
+                        score_color = "#ff9800"
                     else:
-                        score_color = "#ffc107"  # Lower - yellow
+                        score_color = "#ffc107"
 
                     with st.expander(
                         f"🔗 POTENTIAL DUPLICATE {i+1} — Match: {score_pct:.1f}%",
@@ -478,7 +424,6 @@ def render():
                             f"</div>",
                             unsafe_allow_html=True,
                         )
-
                         st.markdown(
                             f"<p style='color: #b0c4de; font-size: 0.9rem; margin-top: 0.5rem;'><strong>ID:</strong> <span style='color: #64b6ff;'>{rep.get('id')}</span></p>"
                             f"<p style='color: #e0e6ff; margin: 0.3rem 0;'><strong>Summary:</strong> {rep.get('summary')}</p>"

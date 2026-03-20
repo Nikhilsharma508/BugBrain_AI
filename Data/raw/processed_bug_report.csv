@@ -1549,6 +1549,165 @@ at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)
 
 at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar","I encountered a critical issue during our automated deployment pipeline using Jenkins. The CI/CD process finished the build phase successfully, but once the Docker image was pushed to the Kubernetes cluster, the service failed to start.
 
-
-
 Checking the logs via kubectl, I noticed the pods were stuck in a CrashLoopBackOff state because they were being OOMKilled immediately upon initialization. It seems the memory limit of 512MB we set in the infrastructure config is no longer sufficient for the new data cache size. This caused the entire server to go down for several minutes until we manually rolled back the deployment. We need to investigate if there is a memory leak or if we simply need to scale up our infrastructure resources."
+9,"Traceback (most recent call last):
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_transports/default.py"", line 101, in map_httpcore_exceptions
+    yield
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_transports/default.py"", line 250, in handle_request
+    resp = self._pool.handle_request(req)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py"", line 256, in handle_request
+    raise exc from None
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection_pool.py"", line 236, in handle_request
+    response = connection.handle_request(
+        pool_request.request
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py"", line 101, in handle_request
+    raise exc
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py"", line 78, in handle_request
+    stream = self._connect(request)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_sync/connection.py"", line 124, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_backends/sync.py"", line 207, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File ""/Users/nike/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/contextlib.py"", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpcore/_exceptions.py"", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 61] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/tests/test_pipeline_backend.py"", line 80, in <module>
+    test_full_pipeline_execution()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/tests/test_pipeline_backend.py"", line 53, in test_full_pipeline_execution
+    for update in run_pipeline(SAMPLE_BUG_TRACE, SAMPLE_USER_REVIEW):
+                  ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/src/agents/orchestrator.py"", line 150, in run_pipeline
+    for step_output in pipeline.stream(initial_state):
+                       ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langgraph/pregel/main.py"", line 2724, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        [t for t in loop.tasks.values() if not t.writes],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        schedule_task=loop.accept_push,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langgraph/pregel/_runner.py"", line 167, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<10 lines>...
+        },
+        ^^
+    )
+    ^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langgraph/pregel/_retry.py"", line 71, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langgraph/_internal/_runnable.py"", line 656, in invoke
+    input = context.run(step.invoke, input, config, **kwargs)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langgraph/_internal/_runnable.py"", line 400, in invoke
+    ret = self.func(*args, **kwargs)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/src/agents/extraction_agent.py"", line 77, in run_extraction
+    result = chain.invoke(
+        {
+    ...<3 lines>...
+        }
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/runnables/base.py"", line 3157, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/runnables/base.py"", line 5695, in invoke
+    return self.bound.invoke(
+           ~~~~~~~~~~~~~~~~~^
+        input,
+        ^^^^^^
+        self._merge_configs(config),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **{**self.kwargs, **kwargs},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/language_models/chat_models.py"", line 402, in invoke
+    self.generate_prompt(
+    ~~~~~~~~~~~~~~~~~~~~^
+        [self._convert_input(input)],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ).generations[0][0],
+    ^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/language_models/chat_models.py"", line 1123, in generate_prompt
+    return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/language_models/chat_models.py"", line 933, in generate
+    self._generate_with_cache(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_core/language_models/chat_models.py"", line 1235, in _generate_with_cache
+    result = self._generate(
+        messages, stop=stop, run_manager=run_manager, **kwargs
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_ollama/chat_models.py"", line 1030, in _generate
+    final_chunk = self._chat_stream_with_aggregation(
+        messages, stop, run_manager, verbose=self.verbose, **kwargs
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_ollama/chat_models.py"", line 965, in _chat_stream_with_aggregation
+    for chunk in self._iterate_over_stream(messages, stop, **kwargs):
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_ollama/chat_models.py"", line 1054, in _iterate_over_stream
+    for stream_resp in self._create_chat_stream(messages, stop, **kwargs):
+                       ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/langchain_ollama/chat_models.py"", line 952, in _create_chat_stream
+    yield from self._client.chat(**chat_params)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/ollama/_client.py"", line 174, in inner
+    with self._client.stream(*args, **kwargs) as r:
+         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File ""/Users/nike/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/contextlib.py"", line 141, in __enter__
+    return next(self.gen)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_client.py"", line 868, in stream
+    response = self.send(
+        request=request,
+    ...<2 lines>...
+        stream=True,
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_client.py"", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_client.py"", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_client.py"", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_client.py"", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_transports/default.py"", line 249, in handle_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/Users/nike/.local/share/uv/python/cpython-3.13.5-macos-aarch64-none/lib/python3.13/contextlib.py"", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File ""/Users/nike/Documents/Data Science Work/Project/uc20_bug_report_summarizer/.venv/lib/python3.13/site-packages/httpx/_transports/default.py"", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 61] Connection refused
+During task with name 'extract' and id 'aa48d4bd-ebbc-4cb3-dc9d-38ea1fe49c04'","hey, i feel frustated, when i ran the main pipeline to run the streamit but got this as a error."

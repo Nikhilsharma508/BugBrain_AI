@@ -83,6 +83,18 @@ teams:
       - "classpath"
       - "refactoring"
 
+  Out-of-Scope:
+    description: "Handles reports that are not related to the project or are identified as spam/irrelevant."
+    priority: "Lowest"
+    keywords:
+      - "spam"
+      - "irrelevant"
+      - "wrong project"
+      - "advertisement"
+      - "promotional"
+      - "outside"
+      - "not related"
+
 # ============================================================
 # Default: If no team matches, assign to the Platform-Team.
 # ============================================================

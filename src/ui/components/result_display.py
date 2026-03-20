@@ -41,16 +41,19 @@ def render_triage_result(result: TriageResult, duration_sec: float = 0.0):
     # Get severity styling
     severity_bg = get_severity_style(result.severity)
 
-    # Header Section: Severity & Owner
+    # Header Section: Severity & Owner (glass sub-cards)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(
             f"""
-            <div style='background: rgba({int(severity_bg[1:3], 16)}, {int(severity_bg[3:5], 16)}, {int(severity_bg[5:7], 16)}, 0.15); 
-                        border: 2px solid {severity_bg}; 
-                        border-radius: 20px; 
-                        padding: 1rem; 
-                        text-align: center;'>
+            <div style='background: rgba({int(severity_bg[1:3], 16)}, {int(severity_bg[3:5], 16)}, {int(severity_bg[5:7], 16)}, 0.15);
+                        border: 2px solid {severity_bg};
+                        border-radius: 20px;
+                        padding: 1rem;
+                        text-align: center;
+                        backdrop-filter: blur(8px);
+                        -webkit-backdrop-filter: blur(8px);
+                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);'>
                 <p style='color: {severity_bg}; font-weight: 900; font-size: 1.5rem; margin: 0.5rem 0;'>{result.severity}</p>
                 <p style='color: #b0c4de; font-size: 0.85rem; margin: 0;'>Assigned Severity</p>
             </div>
@@ -60,11 +63,14 @@ def render_triage_result(result: TriageResult, duration_sec: float = 0.0):
     with col2:
         st.markdown(
             f"""
-            <div style='background: rgba(100, 182, 255, 0.15); 
-                        border: 2px solid #64b6ff; 
-                        border-radius: 20px; 
-                        padding: 1rem; 
-                        text-align: center;'>
+            <div style='background: rgba(100, 182, 255, 0.15);
+                        border: 2px solid #64b6ff;
+                        border-radius: 20px;
+                        padding: 1rem;
+                        text-align: center;
+                        backdrop-filter: blur(8px);
+                        -webkit-backdrop-filter: blur(8px);
+                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);'>
                 <p style='color: #64b6ff; font-weight: 900; font-size: 1.5rem; margin: 0.5rem 0;'>{result.suggested_owner}</p>
                 <p style='color: #b0c4de; font-size: 0.85rem; margin: 0;'>Suggested Owner</p>
             </div>
@@ -114,14 +120,16 @@ def render_triage_result(result: TriageResult, duration_sec: float = 0.0):
         unsafe_allow_html=True,
     )
 
-    # Technical Details
+    # Technical Details (glass sub-card)
     st.markdown(
         "<h4 style='color: #64d9ff; font-weight: 800; margin-bottom: 0.5rem;'>⚙️ Technical Details</h4>",
         unsafe_allow_html=True,
     )
 
     tech_html = f"""
-    <div style='background: rgba(20, 35, 60, 0.6); border-left: 4px solid #64b6ff; border-radius: 8px; padding: 1rem;'>
+    <div style='background: rgba(20, 35, 60, 0.6); border-left: 4px solid #64b6ff; border-radius: 8px; padding: 1rem;
+                backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);'>
         <p style='color: #b0c4de; margin: 0.5rem 0;'><strong>Detected Error:</strong> <span style='color: #64d9ff;'>{result.technical_details.detected_error}</span></p>
         <p style='color: #b0c4de; margin: 0.5rem 0;'><strong>Environment:</strong> <span style='color: #64d9ff;'>{result.technical_details.environment}</span></p>
         <p style='color: #b0c4de; margin: 0.5rem 0;'><strong>Error Message:</strong><br/><span style='color: #e0e6ff; font-family: monospace;'>{result.technical_details.error_message}</span></p>
