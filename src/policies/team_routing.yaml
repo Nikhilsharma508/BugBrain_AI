@@ -98,4 +98,4 @@ teams:
 # ============================================================
 # Default: If no team matches, assign to the Platform-Team.
 # ============================================================
-default_team: "Platform-Team"
+default_team: "Out-of-Scope"

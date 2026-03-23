@@ -56,4 +56,4 @@ severity_levels:
 # ============================================================
 # Default: If no conditions match, assign P3 as a safe default.
 # ============================================================
-default_severity: "P3_Medium"
+default_severity: "Not_Applicable"
