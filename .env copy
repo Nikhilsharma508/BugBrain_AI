@@ -1,0 +1,61 @@
+# ============================================================
+# AI Bug Triage System — Environment Variables
+# Copy this file to .env and fill in your actual values:
+#   cp .env.example .env
+# ============================================================
+
+# --- AZURE OPEAI Configuration ---
+AZURE_OPENAI_ENDPOINT=xxx
+AZURE_OPENAI_API_VERSION=xxx
+AZURE_OPENAI_API_KEY=xxx
+AZURE_OPENAI_DEPLOYMENT=xxx
+# AZURE_OPENAI_DEPLOYMENT=gpt-5.1-mini
+
+# --- GEMINI Configuration ---
+GEMINI_API_KEY = xxx
+GEMINI_MODEL=xxx
+
+# --- BASE LLM Configuration ---
+# change the base llm here, and it will reflect to whole project
+LLM_BASE_MODEL=ollama
+LLM_TEMPERATURE=0
+LLM_MAX_TOKENS=None
+
+# OPENROUTER Configuration
+OPENROUTER_MODEL=xxx
+OPENROUTER_API_KEY=xxx
+
+# --- OLLAMA LOCAL (NO API NEEDED)---
+OLLAMA_MODEL=gpt-oss:120b-cloud
+# OLLAMA_MODEL=lfm2.5-thinking
+
+# --- Embedding Model (CURRENTLY USE ONLY FROM OLLAMA) ---
+# currently using this one, you need to download it first, using command: ollama run qwen3-embedding:0.6b
+EMBEDDING_MODEL=qwen3-embedding:0.6b
+
+# --- Duplicate Detection ---
+EMBEDDING_SIMILARITY_THRESHOLD=0.2
+
+# --- Vector Store ---
+# Options: "faiss" or "chromadb"
+VECTOR_STORE_TYPE=faiss
+VECTOR_STORE_PATH=data/vector_store
+
+# --- Logging ---
+LOG_LEVEL=INFO
+LOG_FILE_PATH=data/temp/app.log
+
+# --- Streamlit ---
+STREAMLIT_PORT=8501
+
+# --- LLM Observability (choose one) ---
+# Option A: LangSmith (by LangChain)
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT='https://api.smith.langchain.com'
+LANGCHAIN_API_KEY=xxx
+LANGCHAIN_PROJECT=ai-bug-triage
+
+# Option B: LangFuse (open-source alternative)
+# LANGFUSE_PUBLIC_KEY=pk-your-key
+# LANGFUSE_SECRET_KEY=sk-your-key
+# LANGFUSE_HOST=https://cloud.langfuse.com

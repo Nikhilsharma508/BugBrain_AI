@@ -1711,3 +1711,4 @@ Traceback (most recent call last):
     raise mapped_exc(message) from exc
 httpx.ConnectError: [Errno 61] Connection refused
 During task with name 'extract' and id 'aa48d4bd-ebbc-4cb3-dc9d-38ea1fe49c04'","hey, i feel frustated, when i ran the main pipeline to run the streamit but got this as a error."
+10,i went to resturent and eating the pizza,it's taste is bad

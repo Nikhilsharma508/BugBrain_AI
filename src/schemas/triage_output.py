@@ -75,7 +75,7 @@ class ClassificationResult(BaseModel):
     model_config = {"extra": "ignore"}
 
     triage_reasoning: str = Field(
-        description="Step-by-step logical justification for the chosen severity and owner, referencing specific policies.",
+        description="Return a step-by-step logical justification for the selected severity and owner. The response must be formatted in Markdown, clearly structured, and should reference specific policies where applicable.",
     )
     severity: str = Field(
         default="N/A (Not Related)",

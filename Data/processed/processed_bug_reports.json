@@ -213,5 +213,24 @@
     "triage_reasoning": "Phase 1 - Impact Analysis: The bug report describes a 'Connection refused' error when running the main pipeline to execute streamit, indicating a failure to establish a TCP connection. There is no explicit mention of user login issues, payment or checkout involvement, or data loss. The user impact is unknown, and no user count is provided, so we conservatively assume 1 user affected. The issue is a backend connectivity problem causing failure in a core pipeline execution but no indication of complete application crash or widespread outage. Phase 2 - Policy Matching: The issue does not prevent user authentication or payment, nor does it affect 100+ users or cause data loss, so P1 conditions are not met. It is a core feature failure (pipeline execution) but no workaround is mentioned; however, user count is assumed 1, which is below the P2 threshold of 10 users. Therefore, the severity defaults to P3 (Medium) as per policy for core or secondary feature issues affecting fewer than 10 users. Phase 3 - Team Assignment: The error is a connection refused TCP error related to server-side connectivity and API calls (httpx and httpcore libraries). Keywords include 'connection', 'TCP', 'httpx.ConnectError', and 'connection_pool', which align with Backend-Team keywords such as API, server, backend, and endpoint. There is no payment or infrastructure keyword, so Backend-Team is the best match. Default team is not needed. Final decision: Severity is P3 (Medium) due to limited user impact and core feature failure without explicit workaround or large user base. Suggested owner is Backend-Team based on server-side connection error keywords.",
     "severity": "P3 (Medium)",
     "suggested_owner": "Backend-Team"
+  },
+  "10": {
+    "issue_summary": "Error: Unpleasant pizza taste reported by user",
+    "steps_to_reproduce": [
+      "Go to the restaurant",
+      "Order a pizza",
+      "Eat the pizza"
+    ],
+    "user_impact_assessment": "Unknown",
+    "technical_details": {
+      "detected_error": "Not identified",
+      "error_message": "Not identified",
+      "environment": "Not identified",
+      "timestamp": "Not identified",
+      "key_stack_frames": []
+    },
+    "triage_reasoning": "The reported issue concerns the taste of a pizza at a restaurant, which is unrelated to any software product, feature, or component covered by the defined policies. According to the severity policy, this falls under the Not_Applicable conditions (\"Issue description is clearly for a different product or company\"). Consequently, the bug is marked as out\u2011of\u2011scope. Per the Out\u2011of\u2011Scope handling rule, the severity must be set to \"N/A (Not Related)\" and the suggested owner to \"Out-of-Scope\".",
+    "severity": "N/A (Not Related)",
+    "suggested_owner": "Out-of-Scope"
   }
 }

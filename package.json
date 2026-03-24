@@ -1,0 +1,10 @@
+{
+  "name": "uc20_bug_report_summarizer",
+  "version": "1.0.0",
+  "description": "Bug Triage System (React + FastAPI)",
+  "scripts": {
+    "dev:backend": "cd src/ui_react/api && uvicorn app:app --host 0.0.0.0 --port 8000 --reload",
+    "dev:frontend": "cd src/ui_react/frontend && npm run dev",
+    "dev": "npx concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+  }
+}

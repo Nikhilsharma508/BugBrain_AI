@@ -24,9 +24,6 @@ CONNECTS TO:
 import re
 
 
-import re
-
-
 def clean(text: str) -> str:
     """Normalise raw text: fix line endings, collapse whitespace, strip edges."""
     if not text:
