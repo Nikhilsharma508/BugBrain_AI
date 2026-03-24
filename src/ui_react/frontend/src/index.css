@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-gradient: linear-gradient(135deg, #1a2847 0%, #0f1923 50%, #162a4a 100%);
+  --sidebar-bg: rgba(15, 25, 40, 0.95);
+  --glass-bg: rgba(20, 35, 60, 0.75);
+  --glass-border: rgba(100, 150, 220, 0.35);
+  --glass-border-hover: rgba(100, 180, 255, 0.55);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-shadow-hover: 0 12px 48px rgba(100, 150, 220, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+  --text-primary: #f0f4ff;
+  --text-secondary: #b0c4de;
+  --text-accent: #64b6ff;
+  --text-success: #90ee90;
+  --text-error: #ff9999;
+
+  --primary-btn: linear-gradient(135deg, #64b6ff 0%, #4a90e2 100%);
+  --primary-btn-hover: linear-gradient(135deg, #82c3ff 0%, #6db3ff 100%);
+}
+
+/* Core Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--text-primary);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-bg);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(100, 182, 255, 0.4), transparent);
+  pointer-events: none;
+}
+
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+
+  background: radial-gradient(120px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.12),
+      transparent 60%);
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+.glass-card:hover::after {
+  opacity: 0.6;
+}
+
+/* Base input and button styles */
+input,
+textarea {
+  background: rgba(10, 20, 35, 0.6);
+  color: var(--text-primary);
+  border: 1.5px solid rgba(100, 150, 220, 0.3);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--text-accent);
+  box-shadow: 0 0 15px rgba(100, 182, 255, 0.6);
+  background: rgba(10, 20, 35, 0.8);
+}
+
+button.primary {
+  background: var(--primary-btn);
+  color: #ffffff;
+  border-radius: 12px;
+  border: 2px solid var(--text-accent);
+  font-weight: 700;
+  transition: all 0.3s ease;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button.primary:hover {
+  background: var(--primary-btn-hover);
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(100, 182, 255, 0.7);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* App Layout */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(15px);
+  border-right: 2px solid rgba(100, 150, 220, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid rgba(100, 150, 220, 0.1);
+}
+
+.sidebar-nav {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(100, 182, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.nav-item.active {
+  background: rgba(100, 182, 255, 0.15);
+  color: var(--text-accent);
+  border-left: 3px solid var(--text-accent);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+/* Grid Utilities */
+.grid-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.grid-2-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.grid-4-col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-anim {
+  animation: spin 2s linear infinite;
+}
+
+/* Scoped markdown rendering inside Triage Reasoning section */
+.markdown-body p {
+  margin: 0.4rem 0;
+  color: #e0e6ff;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  color: #64d9ff;
+  font-family: 'Rajdhani', sans-serif;
+  margin: 0.75rem 0 0.4rem 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.4rem;
+  margin: 0.3rem 0;
+  color: #e0e6ff;
+}
+
+.markdown-body li {
+  margin: 0.2rem 0;
+  line-height: 1.6;
+}
+
+.markdown-body code {
+  background: rgba(10, 20, 35, 0.7);
+  color: #64d9ff;
+  border: 1px solid rgba(100, 150, 220, 0.25);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+.markdown-body pre {
+  background: rgba(10, 20, 35, 0.8);
+  border: 1px solid rgba(100, 150, 220, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  overflow-x: auto;
+}
+
+.markdown-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #64d9ff;
+}
+
+.markdown-body strong {
+  color: #f0f4ff;
+  font-weight: 700;
+}
+
+.markdown-body em {
+  color: #b0c4de;
+  font-style: italic;
+}
+
+.markdown-body blockquote {
+  border-left: 4px solid #64b6ff;
+  margin: 0.5rem 0;
+  padding: 0.4rem 1rem;
+  background: rgba(20, 35, 60, 0.5);
+  border-radius: 0 8px 8px 0;
+  color: #b0c4de;
+}
