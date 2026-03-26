@@ -113,19 +113,19 @@ For real-time observability and debugging, the system integrates **LangGraph** a
 ## **7. Screenshots / Output Samples**
 
 ### **A. Environment Configuration**
-![Environment Nodes](images/settings_page_1774006865806.png)
+![Environment Nodes](images/envirmnent.png)
 *Configuring LLM providers and embedding models interactively.*
 
 ### **B. Pipeline Execution**
-![Main Interface](images/pipeline_main_page_1774006943150.png)
+![Main Interface](images/pipeline_main_page.png)
 *Raw bug ingestion with real-time status tracking.*
 
 ### **C. Completed Triage Result**
-![Triage Analysis](images/triage_results_1774007274345.png)
+![Triage Analysis](images/triage_front_page.png)
 *Standardized JSON output with severity classification and team routing.*
 
 ### **D. LangSmith Trace Overview**
-![LangSmith Traces](images/Screenshot%202026-03-20%20at%205.26.48%E2%80%AFPM.png)
+![LangSmith Traces](images/langsmith_obserability.png)
 *Interactive observability dashboard showing latency, token usage, and cost per run.*
 
 ---

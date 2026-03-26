@@ -1712,3 +1712,15 @@ Traceback (most recent call last):
 httpx.ConnectError: [Errno 61] Connection refused
 During task with name 'extract' and id 'aa48d4bd-ebbc-4cb3-dc9d-38ea1fe49c04'","hey, i feel frustated, when i ran the main pipeline to run the streamit but got this as a error."
 10,i went to resturent and eating the pizza,it's taste is bad
+11,"Console Warnings:
+CSS Warning: Header button margin misaligned on 1366x768 resolution
+JS Warning: Menu toggle animation slightly delayed but no errors
+
+Browser: Firefox 115.0.1
+OS: macOS 13.5
+UI State:
+- Navigation bar button is shifted 2px down on small screens
+- No functional impact; click still works
+Date: 2025-03-25","While browsing the site on my laptop, I noticed that the menu button in the header looked slightly off—it’s just a tiny alignment issue on smaller screens. The button still works when clicked, so it doesn’t prevent me from using anything.
+
+It seems purely cosmetic, probably a small CSS tweak is needed to fix it. Definitely not a blocker or functional problem."

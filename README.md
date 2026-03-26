@@ -152,7 +152,26 @@ UC20 - Bug Report Summarizer & Triage Assistant/
 - `requirements.txt` — pinned dependencies
 - `.env.example` — env var template
 - `.gitignore` — Python/data ignores
-- `Makefile` — dev commands
+
+## **Screenshots / Output Samples**
+
+### **A. Environment Configuration**
+![Environment Nodes](images/environment.png)
+*Configuring LLM providers and embedding models interactively.*
+
+### **B. Pipeline Execution**
+![Main Interface](images/pipeline_main_page.png)
+*Raw bug ingestion with real-time status tracking.*
+
+### **C. Completed Triage Result**
+![Triage Analysis](images/triage_front_page.png)
+*Standardized JSON output with severity classification and team routing.*
+
+### **D. LangSmith Trace Overview**
+![LangSmith Traces](images/langsmith_observability.png)
+*Interactive observability dashboard showing latency, token usage, and cost per run.*
+
+---
 
 ## 🚀 Quick Start
 
@@ -174,6 +193,21 @@ mv ".env copy" .env
 
 # 5. Run the Streamlit app
 make run-ui
+```
+## React App
+
+```bash
+# 1. Navigate to the React frontend directory
+cd src/ui_react/frontend
+
+# 2. Install dependencies
+npm install package.json
+
+# 3. Back to parent directory
+cd ../../..
+
+# 4. Start the development server, as there is package.json in parent directory
+npm run dev
 ```
 
 > 📘 **For a complete setup guide, see [guide.md](./guide.md)**

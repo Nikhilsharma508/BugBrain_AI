@@ -13,7 +13,7 @@ sys.path.append(str(project_root))
 # matching the behavior when running Streamlit from project root.
 os.chdir(project_root)
 
-from src.ui_react.api.routers import triage, dashboard
+from src.ui_react.api.routers import triage, dashboard, docs
 
 app = FastAPI(
     title="AI Bug Triage API",
@@ -32,6 +32,7 @@ app.add_middleware(
 
 app.include_router(triage.router, prefix="/api/triage", tags=["triage"])
 app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
+app.include_router(docs.router, prefix="/api/docs", tags=["docs"])
 
 @app.get("/api/health")
 def health_check():

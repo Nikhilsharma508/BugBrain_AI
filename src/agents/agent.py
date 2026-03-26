@@ -188,3 +188,4 @@ if __name__ == "__main__":
     manager = LLMManager()
     print(f"Model: {manager.specific_model}")
     print(f"Supports tools: {manager.supports_tools()}")
+    print(f"get client just to say hi: {manager.get_client().invoke('say hi to nikhil only')}")

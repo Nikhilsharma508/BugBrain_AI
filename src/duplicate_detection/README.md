@@ -21,7 +21,7 @@ SimilarityChecker.check()      →  DuplicateMatch (is_duplicate, score, matched
 | File | Description |
 |------|-------------|
 | `__init__.py` | Exports: `EmbeddingManager`, `VectorStoreManager`, `SimilarityChecker` |
-| `embeddings.py` | Wrapper for OpenAI / HuggingFace embedding models |
+| `embeddings.py` | Wrapper for OLLAMA embedding models |
 | `vector_store.py` | FAISS or ChromaDB index operations (add, search, save) |
 | `similarity.py` | High-level duplicate check API |
 

@@ -56,10 +56,24 @@ def test_full_pipeline_execution(bug_trace=SAMPLE_BUG_TRACE, user_review=SAMPLE_
     # Run the pipeline generator
     for update in run_pipeline(bug_trace, user_review):
         node_name = update.get("node_name")
+        current_state = update.get("current_state", {})
 
         if node_name == "completed":
             final_result = update.get("final_triage_result")
-            print("\n✅ PIPELINE CAN RUN SUCCESSFULLY")
+            similar_reports = update.get("similar_reports", [])
+            print("\n✅ PIPELINE COMPLETED SUCCESSFULLY")
+            
+            if similar_reports:
+                print(f"\n🔍 FOUND {len(similar_reports)} SIMILAR REPORTS:")
+                for i, report in enumerate(similar_reports, 1):
+                    print(f"  {i}. [ID: {report['id']}] Score: {report['similarity_score']:.4f}")
+                    print(f"     Summary: {report['summary'][:100]}...")
+            else:
+                print("\n🔍 NO SIMILAR REPORTS FOUND.")
+
+        elif node_name == "duplicate_detection":
+            reports = current_state.get("similar_reports", [])
+            print(f"🔄 Executing: [{node_name}]... Found {len(reports)} candidates.")
         else:
             print(f"🔄 Executing: [{node_name}]...")
 

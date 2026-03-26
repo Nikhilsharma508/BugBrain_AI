@@ -232,5 +232,23 @@
     "triage_reasoning": "The reported issue concerns the taste of a pizza at a restaurant, which is unrelated to any software product, feature, or component covered by the defined policies. According to the severity policy, this falls under the Not_Applicable conditions (\"Issue description is clearly for a different product or company\"). Consequently, the bug is marked as out\u2011of\u2011scope. Per the Out\u2011of\u2011Scope handling rule, the severity must be set to \"N/A (Not Related)\" and the suggested owner to \"Out-of-Scope\".",
     "severity": "N/A (Not Related)",
     "suggested_owner": "Out-of-Scope"
+  },
+  "11": {
+    "issue_summary": "Warning: CSS alignment issue causing the header menu button to be shifted 2px down on smaller screens, observed on 1366x768 resolution, with no functional impact.",
+    "steps_to_reproduce": [
+      "Open the website on a laptop with screen resolution 1366x768",
+      "Observe the header menu button alignment in the navigation bar"
+    ],
+    "user_impact_assessment": "Affects users on smaller screens with a minor cosmetic misalignment; does not block functionality or user workflows.",
+    "technical_details": {
+      "detected_error": "Not identified",
+      "error_message": "CSS Warning: Header button margin misaligned on 1366x768 resolution; JS Warning: Menu toggle animation slightly delayed but no errors",
+      "environment": "Firefox 115.0.1 on macOS 13.5",
+      "timestamp": "Not identified",
+      "key_stack_frames": []
+    },
+    "triage_reasoning": "### Phase 0 - Relevance Check:\n- The bug report is clearly related to the project (UI issue) and not marked as out-of-scope.\n\n### Phase 1 - Impact Analysis:\n- The issue is a CSS alignment problem causing a 2px shift in the header menu button on smaller screens.\n- It is explicitly stated that there is no functional impact or blocking of user workflows.\n- The user impact is minor and cosmetic, affecting users on smaller screens.\n- No user count is provided; by policy, assume 1 user (conservative).\n- No payment or checkout involvement.\n- No crashes or data loss.\n\n### Phase 2 - Policy Matching:\n- The issue is a visual/CSS alignment glitch.\n- According to the severity policy, such issues fall under **P4 (Low)** severity.\n- No higher severity conditions (P1, P2, P3) apply.\n\n### Phase 3 - Team Assignment:\n- Keywords identified: CSS, UI, frontend.\n- Matches the **Frontend-Team** keywords (UI, CSS).\n- No payment or infrastructure keywords present.\n\n### Final Decision:\n- **Severity:** P4 (Low) because it is a cosmetic UI issue with trivial impact.\n- **Suggested Owner:** Frontend-Team based on CSS/UI keywords.\n\nThis decision strictly follows the severity policy and team routing rules provided, ensuring objective and policy-driven triage.",
+    "severity": "P4 (Low)",
+    "suggested_owner": "Frontend-Team"
   }
 }
