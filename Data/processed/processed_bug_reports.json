@@ -250,5 +250,28 @@
     "triage_reasoning": "### Phase 0 - Relevance Check:\n- The bug report is clearly related to the project (UI issue) and not marked as out-of-scope.\n\n### Phase 1 - Impact Analysis:\n- The issue is a CSS alignment problem causing a 2px shift in the header menu button on smaller screens.\n- It is explicitly stated that there is no functional impact or blocking of user workflows.\n- The user impact is minor and cosmetic, affecting users on smaller screens.\n- No user count is provided; by policy, assume 1 user (conservative).\n- No payment or checkout involvement.\n- No crashes or data loss.\n\n### Phase 2 - Policy Matching:\n- The issue is a visual/CSS alignment glitch.\n- According to the severity policy, such issues fall under **P4 (Low)** severity.\n- No higher severity conditions (P1, P2, P3) apply.\n\n### Phase 3 - Team Assignment:\n- Keywords identified: CSS, UI, frontend.\n- Matches the **Frontend-Team** keywords (UI, CSS).\n- No payment or infrastructure keywords present.\n\n### Final Decision:\n- **Severity:** P4 (Low) because it is a cosmetic UI issue with trivial impact.\n- **Suggested Owner:** Frontend-Team based on CSS/UI keywords.\n\nThis decision strictly follows the severity policy and team routing rules provided, ensuring objective and policy-driven triage.",
     "severity": "P4 (Low)",
     "suggested_owner": "Frontend-Team"
+  },
+  "12": {
+    "issue_summary": "Error: OutOfMemoryError causing Kubernetes pods to enter CrashLoopBackOff state due to insufficient memory limit during service startup after Docker image deployment.",
+    "steps_to_reproduce": [
+      "Complete build phase successfully in Jenkins CI/CD pipeline",
+      "Push Docker image to Kubernetes cluster",
+      "Observe pods failing to start and entering CrashLoopBackOff state"
+    ],
+    "user_impact_assessment": "This issue causes the service to fail to start and results in server downtime lasting several minutes, significantly impacting availability until manual rollback is performed.",
+    "technical_details": {
+      "detected_error": "java.lang.OutOfMemoryError",
+      "error_message": "Java heap space",
+      "environment": "Kubernetes cluster with memory limit set to 512MB, Jenkins CI/CD pipeline",
+      "timestamp": "2023-10-27T10:15:30Z",
+      "key_stack_frames": [
+        "java.lang.OutOfMemoryError: Java heap space",
+        "at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)",
+        "at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar"
+      ]
+    },
+    "triage_reasoning": "### Phase 0 - Relevance Check:\n- The bug report is clearly related to the current software project involving Kubernetes deployment and service startup.\n- `is_out_of_scope` is not indicated as true, so we proceed with impact analysis.\n\n### Phase 1 - Impact Analysis:\n- The issue causes Kubernetes pods to enter CrashLoopBackOff due to OutOfMemoryError, preventing the service from starting.\n- This results in server downtime lasting several minutes, significantly impacting availability.\n- The problem occurs after Docker image deployment in a CI/CD pipeline.\n- No explicit user count is provided; per policy, assume 1 user (conservative).\n- The issue is a complete crash of the service pods, blocking core functionality (service startup).\n- No payment or checkout involvement.\n\n### Phase 2 - Policy Matching:\n- The issue causes a complete application crash (pods fail to start and enter CrashLoopBackOff).\n- Although user count is assumed 1, the impact is a complete service outage until manual rollback.\n- According to severity policy, \"Complete application crash, dead-lock, or wide-spread system outage\" is a P1 (Critical) condition.\n- Therefore, severity is assigned as **P1 (Critical)**.\n\n### Phase 3 - Team Assignment:\n- Keywords: \"Kubernetes\", \"memory limit\", \"Docker\", \"CI/CD pipeline\", \"OutOfMemoryError\".\n- \"Kubernetes\", \"deployment\", \"CI/CD\", and \"memory leak\" keywords match the **DevOps-Team**.\n- No payment or UI keywords present.\n- Hence, assign to **DevOps-Team** as per routing rules.\n\n### Summary:\n- Severity: P1 (Critical) due to complete service crash blocking core functionality.\n- Suggested Owner: DevOps-Team due to infrastructure, deployment, and CI/CD related keywords.\n\nThis decision strictly follows the provided severity policy and team routing rules, using explicit signals from the bug report.",
+    "severity": "P1 (Critical)",
+    "suggested_owner": "DevOps-Team"
   }
 }

@@ -1724,3 +1724,15 @@ UI State:
 Date: 2025-03-25","While browsing the site on my laptop, I noticed that the menu button in the header looked slightly off—it’s just a tiny alignment issue on smaller screens. The button still works when clicked, so it doesn’t prevent me from using anything.
 
 It seems purely cosmetic, probably a small CSS tweak is needed to fix it. Definitely not a blocker or functional problem."
+12,"2023-10-27T10:15:30Z [ERROR] Deployment failed in namespace 'production'.
+Reason: Back-off restarting failed container
+Last State: Terminated
+Reason: OOMKilled
+Exit Code: 137
+
+Stack Trace:
+java.lang.OutOfMemoryError: Java heap space
+at com.example.service.DataProcessor.loadCache(DataProcessor.java:142)
+at container.entrypoint.sh: line 5: exec java -Xmx512m -jar app.jar","I encountered a critical issue during our automated deployment pipeline using Jenkins. The CI/CD process finished the build phase successfully, but once the Docker image was pushed to the Kubernetes cluster, the service failed to start.
+
+Checking the logs via kubectl, I noticed the pods were stuck in a CrashLoopBackOff state because they were being OOMKilled immediately upon initialization. It seems the memory limit of 512MB we set in the infrastructure config is no longer sufficient for the new data cache size. This caused the entire server to go down for several minutes until we manually rolled back the deployment. We need to investigate if there is a memory leak or if we simply need to scale up our infrastructure resources."

@@ -179,36 +179,85 @@ UC20 - Bug Report Summarizer & Triage Assistant/
 # 1. Clone and enter the project
 cd "UC20 - Bug Report Summarizer & Triage Assistant"
 
-# 2. Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
+# 2. Install uv (Python package manager, not pip)
+pip install uv
 
-# 3. Install dependencies
-pip install -e ".[dev]"
+# 3. Create virtual environment and install dependencies
+uv sync
 
-# 4. Set up environment variables
-# Rename ".env copy" to ".env" manually) by command
+# 4. Install numpy (required for embeddings)
+uv add numpy
+
+# 5. Install Ollama (for local embedding model)
+# Mac / Linux:
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Windows:
+# Download installer from https://ollama.com/download
+
+# 6. Pull the embedding model
+ollama pull qwen3-embedding:0.6b
+
+# 7. Set up environment variables
 mv ".env copy" .env
-# Edit .env and add your OPENAI_API_KEY
 
-# 5. Run the Streamlit app
-make run-ui
+# Add the following inside .env:
+# OPENAI_API_KEY=your_key_here
+# EMBEDDING_MODEL=qwen3-embedding:0.6b
+
+# 8. Run the Streamlit app
+streamlit run main.py
 ```
 ## React App
 
+## ⚛️ React App (Frontend)
+
+### 1. Install Node.js (includes npm)
+
+Download and install Node.js (npm is included):
+[https://nodejs.org/](https://nodejs.org/)
+
 ```bash
-# 1. Navigate to the React frontend directory
+# Verify installation
+node -v
+npm -v
+```
+
+---
+
+### 2. (Optional) Install React Tooling
+
+```bash
+# Install Vite (modern React tooling)
+npm install -g create-vite
+```
+
+---
+
+### 3. Install & Run the Project
+
+```bash
+# Navigate to frontend
 cd src/ui_react/frontend
 
-# 2. Install dependencies
-npm install package.json
+# Install dependencies
+npm install
 
-# 3. Back to parent directory
+# Go back to root
 cd ../../..
 
-# 4. Start the development server, as there is package.json in parent directory
+# Run development server
 npm run dev
 ```
+
+---
+
+### 4. (Optional) Verify Ollama is Running
+
+```bash
+ollama list
+```
+
 
 > 📘 **For a complete setup guide, see [guide.md](./guide.md)**
 

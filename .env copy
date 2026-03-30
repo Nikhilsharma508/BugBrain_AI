@@ -25,6 +25,10 @@ LLM_MAX_TOKENS=None
 OLLAMA_MODEL=gpt-oss:120b-cloud
 # OLLAMA_MODEL=lfm2.5-thinking
 
+# OPENROUTER Configuration
+OPENROUTER_MODEL=meta-llama/llama-3-70b-instruct
+OPENROUTER_API_KEY=sk-or-v1-your-key-here
+
 # --- Embedding Model (CURRENTLY USE ONLY FROM OLLAMA) ---
 # currently using this one, you need to download it first, using command: ollama run qwen3-embedding:0.6b
 EMBEDDING_MODEL=qwen3-embedding:0.6b
