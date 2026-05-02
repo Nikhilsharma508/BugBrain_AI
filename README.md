@@ -1,5 +1,7 @@
 # 🐛 AI Bug Triage System
 
+📖 **Read the Story Behind This Project:** [From Ragebait-Clicks to Jira-Ready: How I Built "BugBrain AI"](https://medium.com/@nike.yoyo234/from-ragebait-clicks-to-jira-ready-how-i-built-bugbrain-ai-to-automate-the-chaos-of-bug-triage-9639bee0cd6a)
+
 > Automate the ingestion of unstructured bug reports and produce standardised, clean technical briefs — ready for Jira / GitHub Issues.
 
 > In this project, Triage refers to the automated process of analyzing raw bug logs to determine their severity level (e.g., P1 vs P2) and assigning them to the correct engineering team. It uses AI to evaluate technical impact and reproduction steps so that incoming issues can be prioritized and routed without manual human review.
