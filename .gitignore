@@ -219,3 +219,6 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 node_modules/
+
+GenAI_Report_AS1568_UC20.md
+GenAI_Report_AS1568_UC20.docx
